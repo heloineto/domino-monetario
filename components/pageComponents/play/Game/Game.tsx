@@ -1,8 +1,5 @@
-import Domino from '@components/pageComponents/play/Domino';
 import { GameContext } from '@lib/context';
 import { useGame } from '@lib/hooks';
-import { motion } from 'framer-motion';
-import { useRef } from 'react';
 import Enemy from '../Enemy';
 
 import Player from '../Player';

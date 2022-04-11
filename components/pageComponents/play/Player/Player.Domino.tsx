@@ -1,6 +1,5 @@
-import { GameContext } from '@lib/context';
 import { motion } from 'framer-motion';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
