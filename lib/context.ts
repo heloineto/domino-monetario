@@ -1,3 +1,5 @@
 import { createContext } from 'react';
 
-export const BlogContext = createContext<Partial<{ posts: Post[] }>>({});
+export const TableContext = createContext<
+  Partial<{ tableRef: RefObject<HTMLDivElement> }>
+>({});

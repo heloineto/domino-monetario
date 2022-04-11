@@ -1,4 +1,6 @@
+import { TableContext } from '@lib/context';
 import { motion } from 'framer-motion';
+import { useContext } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -6,10 +8,17 @@ interface Props extends ComponentProps<typeof motion.div> {
 }
 
 const PlayerDomino = ({ domino, ...motionDivProps }: Props) => {
+  const { tableRef } = useContext(TableContext);
+
   return (
     <motion.div
+      drag
       className="cursor-pointer"
       whileHover={{ scale: 1.3, translateY: -40, zIndex: 50 }}
+      whileTap={{ scale: 1.2, cursor: 'grabbing' }}
+      dragConstraints={tableRef}
+      dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+      dragElastic={0.5}
       {...motionDivProps}
     >
       <Domino

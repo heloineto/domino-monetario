@@ -1,6 +1,5 @@
 import PlayerBank from './Player.Bank';
 import PlayerDomino from './Player.Domino';
-import { Reorder } from 'framer-motion';
 import { useState } from 'react';
 
 interface Props {}
@@ -44,25 +43,17 @@ const Player = (props: Props) => {
     <div className="flex h-2/6 w-full bg-lime-100">
       <div className="h-full w-60"></div>
       <div className="flex h-full w-full items-center justify-center space-x-2">
-        <Reorder.Group
-          className="flex h-full w-full items-center justify-center space-x-2"
-          axis="x"
-          onReorder={() => {}}
-          // onReorder={setDominos}
-          values={dominos}
-        >
-          {dominos.map((domino, index) => (
-            <Reorder.Item key={`${domino[0]}-${domino[1]}`} value={domino}>
-              <PlayerDomino
-                domino={domino}
-                style={{
-                  rotate: index - middle,
-                  translateY: Math.pow(Math.abs(index - middle), 2),
-                }}
-              />
-            </Reorder.Item>
-          ))}
-        </Reorder.Group>
+        {dominos.map((domino, index) => (
+          <div key={`${domino[0]}-${domino[1]}`}>
+            <PlayerDomino
+              domino={domino}
+              style={{
+                rotate: index - middle,
+                translateY: Math.pow(Math.abs(index - middle), 2),
+              }}
+            />
+          </div>
+        ))}
       </div>
       <div className="flex h-full w-60 justify-end">
         <PlayerBank />
