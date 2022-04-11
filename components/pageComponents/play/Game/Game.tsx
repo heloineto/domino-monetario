@@ -7,7 +7,7 @@ import Player from '../Player';
 
 interface Props {}
 
-const Table = (props: Props) => {
+const Game = (props: Props) => {
   const dominos: [MoneyValue, MoneyValue][] = [
     ['0.5', '100'],
     ['0', '100'],
@@ -56,4 +56,4 @@ const Table = (props: Props) => {
   );
 };
 
-export default Table;
+export default Game;

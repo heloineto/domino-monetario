@@ -14,8 +14,10 @@ const moneyValues: MoneyValue[] = [
   '0',
 ];
 
-const pieces = moneyValues
-  .map((firstValue) => moneyValues.map((secondValue) => [firstValue, secondValue]))
+const pieces: Domino[] = moneyValues
+  .map((firstValue) =>
+    moneyValues.map((secondValue) => [firstValue, secondValue] as Domino)
+  )
   .flat();
 
 export default pieces;

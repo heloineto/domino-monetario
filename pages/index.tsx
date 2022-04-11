@@ -1,4 +1,3 @@
-import Table from '@components/pageComponents/play/Table';
 import { Button } from '@mui/material';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -14,7 +13,7 @@ const HomePage: NextPage = () => {
         <title>Dominó Monetário</title>
       </Head>
       <div>
-        <Link href={'/play'} passHref>
+        <Link href="/play" passHref>
           <Button>Jogar</Button>
         </Link>
       </div>

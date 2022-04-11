@@ -1,4 +1,4 @@
-import Table from '@components/pageComponents/play/Table';
+import Table from '@components/pageComponents/play/Game';
 import Head from 'next/head';
 
 interface Props {}

@@ -46,15 +46,14 @@ const Player = (props: Props) => {
         <div className="h-full w-60"></div>
         <div className="flex h-full w-full items-center justify-center space-x-2">
           {dominos.map((domino, index) => (
-            <div key={`${domino[0]}-${domino[1]}`}>
-              <PlayerDomino
-                domino={domino}
-                style={{
-                  rotate: index - middle,
-                  translateY: Math.pow(Math.abs(index - middle), 2),
-                }}
-              />
-            </div>
+            <PlayerDomino
+              key={`${domino[0]}-${domino[1]}`}
+              domino={domino}
+              style={{
+                rotate: index - middle,
+                translateY: Math.pow(Math.abs(index - middle), 2),
+              }}
+            />
           ))}
         </div>
         <div className="flex h-full w-60 justify-end">

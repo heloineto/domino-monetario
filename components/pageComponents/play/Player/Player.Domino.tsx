@@ -16,9 +16,9 @@ const PlayerDomino = ({ domino, ...motionDivProps }: Props) => {
     <motion.div
       ref={dominoRef}
       drag
-      className="cursor-grab"
-      whileHover={{ scale: 1.3, translateY: -40, zIndex: 50 }}
-      whileTap={{ scale: 1.2, cursor: 'grabbing' }}
+      whileHover={{ scale: 1.3, translateY: -40, cursor: 'grab', zIndex: 50 }}
+      whileTap={{ scale: 1.2, cursor: 'grabbing', zIndex: 50 }}
+      whileDrag={{ zIndex: 50 }}
       dragConstraints={dominoRef}
       dragTransition={{
         bounceStiffness: 600,
