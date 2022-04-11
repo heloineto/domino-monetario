@@ -11,6 +11,7 @@ type SetValue<A> = Dispatch<SetStateAction<A>>;
 /* NEXTJS */
 type NextPage = import('next').NextPage;
 
+type GQLNode<A> = { node: A };
 
 /* PHOSPHOR ICONS */
 type IconProps = import('phosphor-react').IconProps;
@@ -19,3 +20,5 @@ type PhosphorIcon = React.ForwardRefExoticComponent<
 >;
 
 type Icon = PhosphorIcon | (({ ...svgProps }: Props) => EmotionJSX.Element);
+
+type RichTextContent = import('@graphcms/rich-text-types').RichTextContent;

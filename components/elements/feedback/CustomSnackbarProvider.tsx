@@ -37,13 +37,13 @@ const CustomSnackbarProvider = ({ children }: Props) => {
       }}
       classes={{
         variantSuccess:
-          '!bg-emerald-200 dark:!bg-emerald-600 !text-emerald-700 dark:!text-emerald-100 !shadow-lg border border-emerald-400 dark:border-emerald-400 !font-bold !text-sm !h-10 !rounded-full !p-0 !px-2 flex justify-center items-center',
+          '!bg-emerald-200 dark:!bg-emerald-600 !text-emerald-900 dark:!text-emerald-100 !shadow-lg border border-emerald-400 dark:border-emerald-400 !rounded-md !font-medium',
         variantError:
-          '!bg-red-200 dark:!bg-red-600 !text-red-700 dark:!text-red-100 !shadow-lg border border-red-400 dark:border-red-400 !rounded-md !font-bold',
+          '!bg-red-200 dark:!bg-red-600 !text-red-900 dark:!text-red-100 !shadow-lg border border-red-400 dark:border-red-400 !rounded-md !font-medium',
         variantWarning:
-          '!bg-orange-200 dark:!bg-orange-600 !text-orange-700 dark:!text-orange-100 !shadow-lg border border-orange-400 dark:border-orange-400 !rounded-md !font-bold',
+          '!bg-orange-200 dark:!bg-orange-600 !text-orange-900 dark:!text-orange-100 !shadow-lg border border-orange-400 dark:border-orange-400 !rounded-md !font-medium',
         variantInfo:
-          '!bg-sky-200 dark:!bg-sky-600 !text-sky-700 dark:!text-sky-100 !shadow-lg border border-sky-400 dark:border-sky-400 !rounded-md !font-bold',
+          '!bg-sky-200 dark:!bg-sky-600 !text-sky-900 dark:!text-sky-100 !shadow-lg border border-sky-400 dark:border-sky-400 !rounded-md !font-medium',
       }}
     >
       {children}

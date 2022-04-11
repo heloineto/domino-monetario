@@ -1,5 +1,13 @@
+import Head from 'next/head';
+
 const HomePage: NextPage = () => {
-  return <main></main>;
+  return (
+    <>
+      <Head>
+        <title>Dominó Monetário</title>
+      </Head>
+    </>
+  );
 };
 
 export default HomePage;
