@@ -13,7 +13,7 @@ const Player = (props: Props) => {
   return (
     <div className="flex h-2/6 w-full bg-lime-100">
       <div className="h-full w-60"></div>
-      <div className="flex h-full w-full items-center justify-center space-x-2">
+      <div className="flex h-full w-full items-center justify-center space-x-1">
         {playerDominos.map((domino, index) => (
           <PlayerDomino
             key={`${domino[0]}-${domino[1]}`}
