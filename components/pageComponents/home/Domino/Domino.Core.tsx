@@ -1,8 +1,9 @@
 interface Props {
   hidden?: boolean;
+  domino?: number[];
 }
 
-const DominoCore = ({ hidden }: Props) => {
+const DominoCore = ({ hidden, domino }: Props) => {
   if (hidden) return null;
 
   return (

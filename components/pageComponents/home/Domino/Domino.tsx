@@ -3,9 +3,10 @@ import DominoCore from './Domino.Core';
 
 interface Props extends ComponentProps<typeof motion.svg> {
   hidden?: boolean;
+  domino?: number[];
 }
 
-const Domino = ({ hidden, ...motionSvgProps }: Props) => {
+const Domino = ({ hidden, domino, ...motionSvgProps }: Props) => {
   return (
     <motion.svg
       width={656}
