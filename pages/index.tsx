@@ -1,5 +1,7 @@
-import Table from '@components/pageComponents/home/Table';
+import Table from '@components/pageComponents/play/Table';
+import { Button } from '@mui/material';
 import Head from 'next/head';
+import Link from 'next/link';
 
 const HomePage: NextPage = () => {
   // const;
@@ -11,7 +13,11 @@ const HomePage: NextPage = () => {
       <Head>
         <title>Dominó Monetário</title>
       </Head>
-      <Table />
+      <div>
+        <Link href={'/play'} passHref>
+          <Button>Jogar</Button>
+        </Link>
+      </div>
     </>
   );
 };

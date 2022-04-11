@@ -1,4 +1,4 @@
-import Domino from '@components/pageComponents/home/Domino';
+import Domino from '@components/pageComponents/play/Domino';
 import { TableContext } from '@lib/context';
 import { motion } from 'framer-motion';
 import { useRef } from 'react';

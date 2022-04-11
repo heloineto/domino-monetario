@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import DominoDivider from './Domino.Divider';
-import Money from '@components/pageComponents/home/Money';
+import Money from '@components/pageComponents/play/Money';
 
 interface Props extends ComponentProps<typeof motion.svg> {
   hidden?: boolean;
