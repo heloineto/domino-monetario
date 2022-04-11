@@ -9,6 +9,16 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="anonymous"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Boogaloo&display=swap"
+            rel="stylesheet"
+          />
           <meta name="theme-color" content={theme.palette.primary.main} />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
