@@ -15,7 +15,13 @@ const PlayerBank = (props: Props) => {
         <div>0000,00</div>
         <div>R$</div>
       </div>
-      <Image src="/piggy-bank.svg" layout="fill" priority draggable="false" />
+      <Image
+        src="/piggy-bank.svg"
+        layout="fill"
+        alt="cofrinho"
+        priority
+        draggable="false"
+      />
     </motion.div>
   );
 };

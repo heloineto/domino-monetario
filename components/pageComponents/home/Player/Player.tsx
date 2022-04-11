@@ -1,6 +1,7 @@
 import PlayerBank from './Player.Bank';
 import PlayerDomino from './Player.Domino';
 import { useState } from 'react';
+import { PlayerContext } from '@lib/context';
 
 interface Props {}
 
@@ -40,25 +41,27 @@ const Player = (props: Props) => {
   const middle = (dominos.length - 1) / 2;
 
   return (
-    <div className="flex h-2/6 w-full bg-lime-100">
-      <div className="h-full w-60"></div>
-      <div className="flex h-full w-full items-center justify-center space-x-2">
-        {dominos.map((domino, index) => (
-          <div key={`${domino[0]}-${domino[1]}`}>
-            <PlayerDomino
-              domino={domino}
-              style={{
-                rotate: index - middle,
-                translateY: Math.pow(Math.abs(index - middle), 2),
-              }}
-            />
-          </div>
-        ))}
+    <PlayerContext.Provider value={{ dominos, setDominos }}>
+      <div className="flex h-2/6 w-full bg-lime-100">
+        <div className="h-full w-60"></div>
+        <div className="flex h-full w-full items-center justify-center space-x-2">
+          {dominos.map((domino, index) => (
+            <div key={`${domino[0]}-${domino[1]}`}>
+              <PlayerDomino
+                domino={domino}
+                style={{
+                  rotate: index - middle,
+                  translateY: Math.pow(Math.abs(index - middle), 2),
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex h-full w-60 justify-end">
+          <PlayerBank />
+        </div>
       </div>
-      <div className="flex h-full w-60 justify-end">
-        <PlayerBank />
-      </div>
-    </div>
+    </PlayerContext.Provider>
   );
 };
 

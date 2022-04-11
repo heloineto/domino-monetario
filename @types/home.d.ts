@@ -12,3 +12,5 @@ type MoneyValue =
   | '50'
   | '100'
   | '200';
+
+type Domino = [MoneyValue, MoneyValue];
