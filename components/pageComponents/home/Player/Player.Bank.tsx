@@ -1,4 +1,3 @@
-import Domino from '@components/pageComponents/home/Domino';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -16,7 +15,7 @@ const PlayerBank = (props: Props) => {
         <div>0000,00</div>
         <div>R$</div>
       </div>
-      <Image src="/piggy-bank.svg" layout="fill" />
+      <Image src="/piggy-bank.svg" layout="fill" priority />
     </motion.div>
   );
 };
