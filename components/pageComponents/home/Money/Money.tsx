@@ -11,7 +11,12 @@ const Money = ({ value, ...motionDivProps }: Props) => {
       className="relative aspect-square overflow-hidden rounded-[6.5%]"
       {...motionDivProps}
     >
-      <Image src={`/money/${value}.jpg`} layout="fill" alt={`${value} reais`} />
+      <Image
+        src={`/money/${value}.jpg`}
+        layout="fill"
+        alt={`${value} reais`}
+        draggable="false"
+      />
     </motion.div>
   );
 };

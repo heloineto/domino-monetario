@@ -9,7 +9,7 @@ const PlayerDomino = ({ domino, ...motionDivProps }: Props) => {
   return (
     <motion.div
       className="cursor-pointer"
-      whileHover={{ scale: 1.3, translateY: -40, zIndex: 10 }}
+      whileHover={{ scale: 1.3, translateY: -40, zIndex: 50 }}
       {...motionDivProps}
     >
       <Domino
