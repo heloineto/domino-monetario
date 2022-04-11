@@ -2,7 +2,9 @@ import pieces from '@lib/algorithms/pieces';
 import { useCallback, useState } from 'react';
 
 const useGame = () => {
-  const [deck, setDeck] = useState(pieces);
+  const [deck, setDeck] = useState<Domino[]>(pieces);
+  const [playerDominos, setPlayerDominos] = useState<Domino[]>([]);
+  const [enemyDominos, setEnemyDominos] = useState<Domino[]>([]);
 
   const getPieces = useCallback(
     (deckMutable: Domino[], qty = 0) => {
@@ -22,10 +24,14 @@ const useGame = () => {
     [setDeck]
   );
 
-  const [playerPieces, setPlayerPieces] = useState(0);
-  const [enemyPieces, setEnemyPieces] = useState(0);
-
-  return { deck, setDeck, playerPieces, setPlayerPieces, enemyPieces, setEnemyPieces };
+  return {
+    deck,
+    setDeck,
+    playerDominos,
+    setPlayerDominos,
+    enemyDominos,
+    setEnemyDominos,
+  };
 };
 
 export default useGame;
