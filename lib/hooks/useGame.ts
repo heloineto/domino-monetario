@@ -22,8 +22,8 @@ const useGame = () => {
     [setDeck]
   );
 
-  const [playerPieces, setPlayerPieces] = useState(getPieces([...deck], 12));
-  const [enemyPieces, setEnemyPieces] = useState(getPieces([...deck], 12));
+  const [playerPieces, setPlayerPieces] = useState(0);
+  const [enemyPieces, setEnemyPieces] = useState(0);
 
   return { deck, setDeck, playerPieces, setPlayerPieces, enemyPieces, setEnemyPieces };
 };

@@ -1,8 +1,7 @@
 import { createContext } from 'react';
+import { useGame } from './hooks';
 
-export const TableContext = createContext<
-  Partial<{ tableRef: RefObject<HTMLDivElement> }>
->({});
+export const GameContext = createContext<Partial<ReturnType<typeof useGame>>>({});
 
 export const PlayerContext = createContext<
   Partial<{ dominos: Domino[]; setDominos: SetValue<Domino[]> }>

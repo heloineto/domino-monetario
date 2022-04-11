@@ -1,4 +1,4 @@
-import { TableContext } from '@lib/context';
+import { GameContext } from '@lib/context';
 import { motion } from 'framer-motion';
 import { useContext, useRef } from 'react';
 import Domino from '../Domino';
@@ -8,8 +8,7 @@ interface Props extends ComponentProps<typeof motion.div> {
 }
 
 const PlayerDomino = ({ domino, ...motionDivProps }: Props) => {
-  const { tableRef } = useContext(TableContext);
-
+  // const {} = useContext(GameContext);
   const dominoRef = useRef<HTMLDivElement>(null);
 
   return (
