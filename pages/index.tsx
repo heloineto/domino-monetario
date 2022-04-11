@@ -54,13 +54,16 @@ const HomePage: NextPage = () => {
             {dominos.map((domino, index) => (
               <motion.div
                 key={`${domino[0]}-${domino[1]}`}
-                whileHover={{ scale: 1.3, zIndex: 10 }}
+                whileHover={{ scale: 1.4, zIndex: 10 }}
                 style={{
                   rotate: index - middle,
                   translateY: Math.pow(Math.abs(index - middle), 2),
                 }}
               >
-                <Domino className="h-52 w-auto rounded-lg border-2 border-slate-400 shadow-md hover:shadow-2xl" />
+                <Domino
+                  className="h-52 w-auto rounded-lg border-2 border-slate-400 shadow-md hover:shadow-2xl"
+                  domino={domino}
+                />
               </motion.div>
             ))}
           </div>
