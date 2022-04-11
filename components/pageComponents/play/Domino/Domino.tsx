@@ -1,21 +1,28 @@
 import { motion } from 'framer-motion';
 import DominoDivider from './Domino.Divider';
 import Money from '@components/pageComponents/play/Money';
+import classNames from 'clsx';
 
 interface Props extends ComponentProps<typeof motion.svg> {
   hidden?: boolean;
   domino: [MoneyValue, MoneyValue];
 }
 
-const Domino = ({ hidden, domino, ...motionSvgProps }: Props) => {
+const Domino = ({ hidden, domino, className, ...motionSvgProps }: Props) => {
   return (
-    <div className="relative">
+    <div
+      className={classNames(className, 'relative aspect-[656/1232] bg-white')}
+      style={{
+        aspectRatio: '656 / 1232',
+      }}
+    >
       <motion.svg
         width={656}
         height={1232}
         viewBox="0 0 656 1232"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="h-full w-full rounded-lg border-2 border-slate-400 shadow-md hover:shadow-2xl"
         {...motionSvgProps}
       >
         <rect width={656} height={1232} rx={25} fill="white" />

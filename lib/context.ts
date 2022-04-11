@@ -3,14 +3,10 @@ import { useGame } from './hooks';
 
 export const GameContext = createContext<
   Partial<ReturnType<typeof useGame>> & {
-    playerDominos: Domino[];
-    enemyDominos: Domino[];
+    playerDominos: Set<Domino>;
+    enemyDominos: Set<Domino>;
   }
 >({
-  playerDominos: [],
-  enemyDominos: [],
+  playerDominos: new Set<Domino>(),
+  enemyDominos: new Set<Domino>(),
 });
-
-export const PlayerContext = createContext<
-  Partial<{ dominos: Domino[]; setDominos: SetValue<Domino[]> }>
->({});

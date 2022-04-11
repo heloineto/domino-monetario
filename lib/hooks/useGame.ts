@@ -2,13 +2,13 @@ import pieces from '@lib/algorithms/pieces';
 import { useCallback, useEffect, useState } from 'react';
 
 const useGame = () => {
-  const [deck, setDeck] = useState<Domino[]>(pieces);
-  const [playerDominos, setPlayerDominos] = useState<Domino[]>([]);
-  const [enemyDominos, setEnemyDominos] = useState<Domino[]>([]);
+  const [deck, setDeck] = useState<Set<Domino>>(pieces);
+  const [playerDominos, setPlayerDominos] = useState<Set<Domino>>(new Set<Domino>());
+  const [enemyDominos, setEnemyDominos] = useState<Set<Domino>>(new Set<Domino>());
 
   // const getPieces = useCallback(
-  //   (deckMutable: Domino[], qty = 0) => {
-  //     const randomPieces: Domino[] = [];
+  //   (deckMutable: Set<Domino>, qty = 0) => {
+  //     const randomPieces: Set<Domino> = [];
 
   //     for (let i = 0; i < qty; i++) {
   //       const randomIndex = Math.floor(Math.random() * deckMutable.length);
@@ -24,37 +24,35 @@ const useGame = () => {
   //   [setDeck]
   // );
 
-  const draw = (player: 'player' | 'enemy', qty = 0) => {
-    const deckMutable = [...deck];
-    const drawnPieces: Domino[] = [];
+  // const draw = (player: 'player' | 'enemy', qty = 0) => {
+  //   const deckMutable = [...deck];
+  //   const drawnPieces: Set<Domino> = [];
 
-    for (let i = 0; i < qty; i++) {
-      const randomIndex = Math.floor(Math.random() * deckMutable.length);
+  //   for (let i = 0; i < qty; i++) {
+  //     const randomIndex = Math.floor(Math.random() * deckMutable.length);
 
-      const [piece] = deckMutable.splice(randomIndex, 1);
+  //     const [piece] = deckMutable.splice(randomIndex, 1);
 
-      console.log(piece);
+  //     console.log(piece);
 
-      drawnPieces.push(piece);
-    }
+  //     drawnPieces.push(piece);
+  //   }
 
-    switch (player) {
-      case 'player':
-        setPlayerDominos((value) => [...value, ...drawnPieces]);
-        break;
-      case 'enemy':
-        setEnemyDominos((value) => [...value, ...drawnPieces]);
-        break;
-    }
+  //   switch (player) {
+  //     case 'player':
+  //       setPlayerDominos((value) => [...value, ...drawnPieces]);
+  //       break;
+  //     case 'enemy':
+  //       setEnemyDominos((value) => [...value, ...drawnPieces]);
+  //       break;
+  //   }
 
-    setDeck(deckMutable);
-  };
-
-  console.log(deck.length);
+  //   setDeck(deckMutable);
+  // };
 
   useEffect(() => {
-    draw('player', 7);
-    draw('enemy', 7);
+    // draw('player', 7);
+    // draw('enemy', 7);
   }, []);
 
   return {

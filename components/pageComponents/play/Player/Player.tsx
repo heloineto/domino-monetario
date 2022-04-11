@@ -8,13 +8,15 @@ interface Props {}
 
 const Player = (props: Props) => {
   const { playerDominos } = useContext(GameContext);
-  const middle = useMemo(() => (playerDominos.length - 1) / 2, [playerDominos]);
+
+  const playerDominosArr = useMemo(() => Array.from(playerDominos), [playerDominos]);
+  const middle = useMemo(() => (playerDominosArr.length - 1) / 2, [playerDominosArr]);
 
   return (
     <div className="flex h-2/6 w-full bg-lime-100">
       <div className="h-full w-60"></div>
       <div className="flex h-full w-full items-center justify-center space-x-1">
-        {playerDominos.map((domino, index) => (
+        {playerDominosArr.map((domino, index) => (
           <PlayerDomino
             key={`${domino[0]}-${domino[1]}`}
             domino={domino}
