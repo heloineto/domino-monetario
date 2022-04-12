@@ -28,7 +28,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
         top: -rectHeight / 2 + radius + rectRadius * Math.sin(radAngle),
         rotate: angle + 90,
       }}
-      whileHover={{ scale: 1.5, rotate: 0, cursor: 'grab', top: 0, zIndex: 50 }}
+      whileHover={{ scale: 1.3, rotate: 0, cursor: 'grab', top: -2.5, zIndex: 50 }}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
       drag
       dragConstraints={{
