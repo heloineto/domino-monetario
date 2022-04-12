@@ -14,3 +14,12 @@ type MoneyValue =
   | '200';
 
 type Domino = [MoneyValue, MoneyValue];
+
+type WheelConfig = {
+  length: number;
+  height: number;
+  width: number;
+  radius: number;
+  angleStep: number;
+  rectRadius: number;
+};

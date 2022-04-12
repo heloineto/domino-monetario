@@ -10,7 +10,7 @@ interface Props extends ComponentProps<typeof motion.svg> {
 
 const Domino = ({ hidden, domino, className, ...motionSvgProps }: Props) => {
   return (
-    <div className={classNames(className, 'relative aspect-[656/1210] ')}>
+    <div className={classNames(className, 'relative aspect-[328/605]')}>
       <motion.svg
         width={656}
         height={1232}

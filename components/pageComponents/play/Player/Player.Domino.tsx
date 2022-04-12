@@ -6,19 +6,19 @@ import Domino from '../Domino';
 interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
   index: number;
+  middle: number;
+  marginLeft: number;
 }
 
-const PlayerDomino = ({ domino, index, ...motionDivProps }: Props) => {
-  const { playerHand } = useContext(GameContext);
-
-  const dominoRef = useRef<HTMLDivElement>(null);
-
+const PlayerDomino = ({
+  domino,
+  index,
+  middle,
+  marginLeft,
+  ...motionDivProps
+}: Props) => {
   // TODO: Find the correct math for this
-  const middle = useMemo(() => (playerHand.length - 1) / 2, [playerHand]);
-  const marginLeft = useMemo(
-    () => Math.max(-90, -playerHand.length * 3),
-    [playerHand.length]
-  );
+
   const translateY = useMemo(() => {
     const n = Math.abs(index - middle);
     return n * Math.log(n);
@@ -30,7 +30,6 @@ const PlayerDomino = ({ domino, index, ...motionDivProps }: Props) => {
 
   return (
     <motion.div
-      ref={dominoRef}
       style={{
         marginLeft,
         rotate,
