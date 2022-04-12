@@ -3,11 +3,12 @@ import classNames from 'clsx';
 import { useContext } from 'react';
 import Deck from '../Deck';
 import BoardDomino from './Board.Domino';
+import BoardPlaceholder from './Board.Placeholder';
 
 interface Props extends ComponentProps<'div'> {}
 
 const Board = ({ className, ...divProps }: Props) => {
-  const { boardDominos, selectedDomino } = useContext(GameContext);
+  const { board, selectedDomino } = useContext(GameContext);
 
   return (
     <div className={classNames(className, 'flex')} {...divProps}>
@@ -15,13 +16,15 @@ const Board = ({ className, ...divProps }: Props) => {
         <Deck className="h-60 w-auto" />
       </div>
       <div className="flex flex-grow bg-red-200 p-2.5">
-        {boardDominos?.map(({ rotate, domino }) => (
+        {selectedDomino && <BoardPlaceholder domino={selectedDomino} position="start" />}
+        {board?.dominos?.map(({ rotate, domino }) => (
           <BoardDomino
             key={`${domino[0]}-${domino[1]}`}
             domino={domino}
             rotate={rotate}
           />
         ))}
+        {selectedDomino && <BoardPlaceholder domino={selectedDomino} position="end" />}
       </div>
     </div>
   );

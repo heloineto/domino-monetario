@@ -33,8 +33,9 @@ type MaxDominoInfo = {
 };
 
 type Board = {
-  start: MoneyValue;
-  end: MoneyValue;
+  start?: MoneyValue;
+  end?: MoneyValue;
+  dominos?: BoardDomino[];
 };
 
 type BoardDomino = {
