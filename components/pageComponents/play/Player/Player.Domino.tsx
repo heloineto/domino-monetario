@@ -1,3 +1,4 @@
+import { range } from '@lib/utils/math';
 import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
 import Domino from '../Domino';
@@ -9,10 +10,19 @@ interface Props extends ComponentProps<typeof motion.div> {
 }
 
 const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
-  const { radius, divider, angleStep, rectHeight, rectWidth, rectRadius } = wheelConfig;
+  const {
+    radius,
+    divider,
+    angleStep,
+    rectHeight,
+    rectWidth,
+    rectRadius,
+    middleIndex,
+    length,
+  } = wheelConfig;
 
   const { angle, radAngle } = useMemo(() => {
-    const angle = angleStep * index - (90 + 180 / divider) + 1;
+    const angle = angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length);
     const radAngle = (angle * Math.PI) / 180;
 
     return { angle, radAngle };

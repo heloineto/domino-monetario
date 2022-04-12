@@ -21,6 +21,7 @@ type WheelConfig = {
   rectWidth: number;
   radius: number;
   divider: number;
+  middleIndex: number;
   angleStep: number;
   rectRadius: number;
 };

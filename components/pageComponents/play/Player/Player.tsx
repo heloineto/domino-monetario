@@ -16,7 +16,8 @@ const Player = ({ className, ...divProps }: Props) => {
     const rectHeight = 224;
     const rectWidth = 121.441322;
     const radius = 2000;
-    const divider = range(1, 12, 32, 8, length);
+    const divider = range(2, 10, 32, 8, length);
+    const middleIndex = (length - 1) / 2;
     const angleStep = 360 / divider / length;
     const rectRadius = radius - rectHeight / 2;
 
@@ -28,6 +29,7 @@ const Player = ({ className, ...divProps }: Props) => {
       angleStep,
       divider,
       rectRadius,
+      middleIndex,
     };
   }, [playerHand.length]);
 
