@@ -4,6 +4,7 @@ import { useContext, useRef } from 'react';
 import { GameContext } from '@lib/context';
 import { useMemo } from 'react';
 import classNames from 'clsx';
+import { range } from '@lib/utils/math';
 
 interface Props extends ComponentProps<'div'> {}
 
@@ -15,8 +16,7 @@ const Player = ({ className, ...divProps }: Props) => {
     const rectHeight = 224;
     const rectWidth = 121.441322;
     const radius = 2000;
-    // Display dominos on 1/8 of the circle (360 / 8 = 45)
-    const divider = 64;
+    const divider = range(1, 12, 32, 8, length);
     const angleStep = 360 / divider / length;
     const rectRadius = radius - rectHeight / 2;
 
@@ -31,24 +31,22 @@ const Player = ({ className, ...divProps }: Props) => {
     };
   }, [playerHand.length]);
 
-  const handRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div className={classNames(className, 'flex')} {...divProps}>
-      <div
-        className="relative flex h-full w-full items-start justify-start space-x-0"
-        ref={handRef}
-      >
-        {playerHand.map((domino, index) => (
-          <PlayerDomino
-            key={`${domino[0]}-${domino[1]}`}
-            domino={domino}
-            index={index}
-            wheelConfig={wheelConfig}
-            handRef={handRef}
-          />
-        ))}
-      </div>
+    <div
+      className={classNames(
+        className,
+        'relative flex h-[256px] w-full flex-shrink-0 items-start justify-start space-x-0'
+      )}
+      {...divProps}
+    >
+      {playerHand.map((domino, index) => (
+        <PlayerDomino
+          key={`${domino[0]}-${domino[1]}`}
+          domino={domino}
+          index={index}
+          wheelConfig={wheelConfig}
+        />
+      ))}
     </div>
   );
 };

@@ -6,21 +6,13 @@ interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
   index: number;
   wheelConfig: WheelConfig;
-  handRef: RefObject<HTMLDivElement>;
 }
 
-const PlayerDomino = ({
-  domino,
-  index,
-  wheelConfig,
-  handRef,
-  ...motionDivProps
-}: Props) => {
+const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
   const { radius, divider, angleStep, rectHeight, rectWidth, rectRadius } = wheelConfig;
 
   const { angle, radAngle } = useMemo(() => {
-    // -112.5
-    const angle = angleStep * index - (90 + 180 / divider);
+    const angle = angleStep * index - (90 + 180 / divider) + 1;
     const radAngle = (angle * Math.PI) / 180;
 
     return { angle, radAngle };
