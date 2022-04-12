@@ -11,9 +11,7 @@ const Deck = ({ className, ...motionDivProps }: Props) => {
   return (
     <motion.div
       className={classNames(className, 'relative')}
-      onClick={() => {
-        draw?.(1);
-      }}
+      onClick={() => {}}
       {...motionDivProps}
     >
       <svg

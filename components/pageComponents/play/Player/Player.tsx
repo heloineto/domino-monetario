@@ -1,14 +1,15 @@
 import PlayerBank from './Player.Bank';
 import PlayerDomino from './Player.Domino';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { GameContext } from '@lib/context';
 import { useMemo } from 'react';
-import { useMotionValue, useTransform } from 'framer-motion';
 
 interface Props {}
 
 const Player = (props: Props) => {
   const { playerHand } = useContext(GameContext);
+
+  // console.log(playerHand);
 
   const wheelConfig = useMemo(() => {
     const length = playerHand.length;

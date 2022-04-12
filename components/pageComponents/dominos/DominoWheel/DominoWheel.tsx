@@ -26,7 +26,7 @@ const DominoWheel = (props: Props) => {
   return (
     <div className="relative flex">
       <div
-        className="absolute left-1/2 -translate-x-1/2 rounded-full border-2 border-slate-800"
+        className="absolute rounded-full border-2 border-slate-800"
         style={{ height: wheelConfig.radius * 2, width: wheelConfig.radius * 2 }}
       >
         {dominos.map((domino, index) => (

@@ -1,6 +1,5 @@
-import { GameContext } from '@lib/context';
 import { motion } from 'framer-motion';
-import { useContext, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -27,7 +26,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
         position: 'absolute',
         left: -rectWidth / 2 + radius + rectRadius * Math.cos(radAngle),
         top: -rectHeight / 2 + radius + rectRadius * Math.sin(radAngle),
-        rotate: angle - 180 - 90,
+        rotate: angle + 90,
       }}
       whileHover={{ scale: 1.5, rotate: 0, cursor: 'grab', top: 0, zIndex: 50 }}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
