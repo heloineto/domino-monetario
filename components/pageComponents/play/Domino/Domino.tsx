@@ -10,22 +10,16 @@ interface Props extends ComponentProps<typeof motion.svg> {
 
 const Domino = ({ hidden, domino, className, ...motionSvgProps }: Props) => {
   return (
-    <div
-      className={classNames(className, 'relative aspect-[656/1232] bg-white')}
-      style={{
-        aspectRatio: '656 / 1232',
-      }}
-    >
+    <div className={classNames(className, 'relative aspect-[656/1210] ')}>
       <motion.svg
         width={656}
         height={1232}
         viewBox="0 0 656 1232"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-full rounded-lg border-2 border-slate-400 shadow-md hover:shadow-2xl"
+        className="h-full w-full rounded-lg border-2 border-slate-400 bg-white shadow-md hover:shadow-2xl"
         {...motionSvgProps}
       >
-        <rect width={656} height={1232} rx={25} fill="white" />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
