@@ -14,11 +14,11 @@ export const moneyValues: MoneyValue[] = [
   '0',
 ];
 
-const dominos = new Set<Domino>();
+const dominos: Domino[] = [];
 
 for (let i = 0; i < moneyValues.length; i++) {
   for (let j = i; j < moneyValues.length; j++) {
-    dominos.add([moneyValues[i], moneyValues[j]]);
+    dominos.push([moneyValues[i], moneyValues[j]]);
   }
 }
 

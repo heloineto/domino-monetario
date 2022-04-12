@@ -6,15 +6,14 @@ import { useContext, useMemo } from 'react';
 interface Props {}
 
 const Enemy = (props: Props) => {
-  const { enemyDominos } = useContext(GameContext);
+  const { enemyHand } = useContext(GameContext);
 
-  const enemyDominosArr = useMemo(() => Array.from(enemyDominos), [enemyDominos]);
-  const middle = useMemo(() => (enemyDominosArr.length - 1) / 2, [enemyDominosArr]);
+  const middle = useMemo(() => (enemyHand.length - 1) / 2, [enemyHand]);
 
   return (
     <div className="h-1/6 w-full bg-lime-100">
       <div className="flex items-center justify-center space-x-2">
-        {enemyDominosArr.map((domino, index) => (
+        {enemyHand.map((domino, index) => (
           <motion.div
             key={`${domino[0]}-${domino[1]}`}
             whileHover={{ scale: 1.3, zIndex: 10 }}

@@ -1,4 +1,4 @@
-import Table from '@components/pageComponents/play/Game';
+import Game from '@components/pageComponents/play/Game';
 import Head from 'next/head';
 
 interface Props {}
@@ -9,7 +9,7 @@ const PlayPage = (props: Props) => {
       <Head>
         <title>Dominó Monetário</title>
       </Head>
-      <Table />
+      <Game />
     </>
   );
 };

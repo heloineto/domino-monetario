@@ -12,12 +12,18 @@ const PlayerDomino = ({ domino, ...motionDivProps }: Props) => {
 
   return (
     <motion.div
+      className="h-52 w-auto"
       ref={dominoRef}
       drag
       whileHover={{ scale: 1.3, translateY: -40, cursor: 'grab', zIndex: 50 }}
-      whileTap={{ scale: 1.1, cursor: 'grabbing', zIndex: 50, rotate: 0 }}
+      whileTap={{ scale: 1.1, cursor: 'grabbing', rotate: 0 }}
       whileDrag={{ zIndex: 50 }}
-      dragConstraints={dominoRef}
+      dragConstraints={{
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      }}
       dragTransition={{
         bounceStiffness: 600,
         bounceDamping: 50,
@@ -25,10 +31,7 @@ const PlayerDomino = ({ domino, ...motionDivProps }: Props) => {
       dragElastic={1}
       {...motionDivProps}
     >
-      <Domino
-        className="h-60 w-auto rounded-lg border-2 border-slate-400 shadow-md hover:shadow-2xl"
-        domino={domino}
-      />
+      <Domino className="h-full w-full" domino={domino} />
     </motion.div>
   );
 };
