@@ -23,13 +23,11 @@ const DominoWheelDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Pr
         height: rectHeight,
         width: rectWidth,
         position: 'absolute',
-        translateX: radius + rectRadius * Math.cos(radAngle),
-        translateY: radius + rectRadius * Math.sin(radAngle),
-        rotate: angle + 90,
-        originX: 0,
-        originY: 0,
+        left: -rectWidth / 2 + radius + rectRadius * Math.cos(radAngle),
+        top: -rectHeight / 2 + radius + rectRadius * Math.sin(radAngle),
+        rotate: angle - 180 - 90,
       }}
-      whileHover={{ scale: 1.5, translateY: -100, rotate: 0, cursor: 'grab', zIndex: 50 }}
+      whileHover={{ scale: 1.5, cursor: 'grab', zIndex: 50 }}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
       drag
       dragConstraints={{

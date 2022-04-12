@@ -10,11 +10,23 @@ interface Props {}
 const Player = (props: Props) => {
   const { playerHand } = useContext(GameContext);
 
-  const middle = useMemo(() => (playerHand.length - 1) / 2, [playerHand.length]);
-  const marginLeft = useMemo(
-    () => Math.max(-90, -playerHand.length * 3),
-    [playerHand.length]
-  );
+  const wheelConfig = useMemo(() => {
+    const length = playerHand.length;
+    const rectHeight = 224;
+    const rectWidth = 121.441322;
+    const radius = 1000;
+    const angleStep = 360 / (length * 4);
+    const rectRadius = radius - rectHeight / 2;
+
+    return {
+      length,
+      rectHeight,
+      rectWidth,
+      radius,
+      angleStep,
+      rectRadius,
+    };
+  }, [playerHand.length]);
 
   return (
     <div className="flex h-1/6 w-full bg-lime-100">
@@ -23,11 +35,9 @@ const Player = (props: Props) => {
         {playerHand.map((domino, index) => (
           <PlayerDomino
             key={`${domino[0]}-${domino[1]}`}
-            className="h-56 w-auto"
             domino={domino}
-            middle={middle}
-            marginLeft={marginLeft}
             index={index}
+            wheelConfig={wheelConfig}
           />
         ))}
       </div>

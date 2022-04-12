@@ -17,8 +17,8 @@ type Domino = [MoneyValue, MoneyValue];
 
 type WheelConfig = {
   length: number;
-  height: number;
-  width: number;
+  rectHeight: number;
+  rectWidth: number;
   radius: number;
   angleStep: number;
   rectRadius: number;

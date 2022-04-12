@@ -6,39 +6,32 @@ import Domino from '../Domino';
 interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
   index: number;
-  middle: number;
-  marginLeft: number;
+  wheelConfig: WheelConfig;
 }
 
-const PlayerDomino = ({
-  domino,
-  index,
-  middle,
-  marginLeft,
-  ...motionDivProps
-}: Props) => {
-  // TODO: Find the correct math for this
+const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
+  const { radius, angleStep, rectHeight, rectWidth, rectRadius } = wheelConfig;
 
-  const translateY = useMemo(() => {
-    const n = Math.abs(index - middle);
-    return n * Math.log(n);
-  }, [index, middle]);
+  const { angle, radAngle } = useMemo(() => {
+    const angle = angleStep * index - 135;
+    const radAngle = (angle * Math.PI) / 180;
 
-  const rotate = useMemo(() => {
-    return index - middle;
-  }, [index, middle]);
+    return { angle, radAngle };
+  }, [angleStep, index]);
 
   return (
     <motion.div
       style={{
-        marginLeft,
-        rotate,
-        translateY,
+        height: rectHeight,
+        width: rectWidth,
+        position: 'absolute',
+        left: -rectWidth / 2 + radius + rectRadius * Math.cos(radAngle),
+        top: -rectHeight / 2 + radius + rectRadius * Math.sin(radAngle),
+        rotate: angle - 180 - 90,
       }}
-      drag
-      whileHover={{ scale: 1.5, translateY: -100, rotate: 0, cursor: 'grab', zIndex: 50 }}
+      whileHover={{ scale: 1.5, rotate: 0, cursor: 'grab', top: 0, zIndex: 50 }}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
-      whileDrag={{ zIndex: 50 }}
+      drag
       dragConstraints={{
         top: 0,
         right: 0,
