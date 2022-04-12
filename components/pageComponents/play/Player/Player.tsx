@@ -12,7 +12,7 @@ const Player = (props: Props) => {
   const middle = useMemo(() => (playerHand.length - 1) / 2, [playerHand]);
 
   return (
-    <div className="flex h-2/6 w-full bg-lime-100">
+    <div className="flex h-1/6 w-full bg-lime-100">
       <div className="h-full w-60"></div>
       <div className="flex h-full w-full items-center justify-center space-x-0">
         {playerHand.map((domino, index) => (
