@@ -6,10 +6,16 @@ import { useContext } from 'react';
 interface Props extends ComponentProps<typeof motion.div> {}
 
 const Deck = ({ className, ...motionDivProps }: Props) => {
-  const { deck } = useContext(GameContext);
+  const { deck, draw } = useContext(GameContext);
 
   return (
-    <motion.div className={classNames(className, 'relative')} {...motionDivProps}>
+    <motion.div
+      className={classNames(className, 'relative')}
+      onClick={() => {
+        draw?.(1);
+      }}
+      {...motionDivProps}
+    >
       <svg
         width={538}
         height={809}

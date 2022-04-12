@@ -22,4 +22,6 @@ for (let i = 0; i < moneyValues.length; i++) {
   }
 }
 
+Object.freeze(dominos);
+
 export default dominos;
