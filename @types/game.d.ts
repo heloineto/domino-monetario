@@ -25,3 +25,14 @@ type WheelConfig = {
   angleStep: number;
   rectRadius: number;
 };
+
+type MaxDominoInfo = {
+  moneyValue: number;
+  index: undefined | number;
+  hand: undefined | Domino[];
+};
+
+type Board = {
+  start: MoneyValue;
+  end: MoneyValue;
+};

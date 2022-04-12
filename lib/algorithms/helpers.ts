@@ -12,3 +12,34 @@ export const draw = (deck: Domino[], quantity = 0) => {
 
   return [updatedDeck, drawnDominos];
 };
+
+export const findFirstDomino = (playerHand: Domino[], enemyHand: Domino[]) => {
+  const _playerHand = [...playerHand];
+  const _enemyHand = [...enemyHand];
+
+  let max: MaxDominoInfo = {
+    moneyValue: 0,
+    index: undefined,
+    hand: undefined,
+  };
+
+  const compare = (hand: Domino[], index: number) => {
+    const domino = hand[index];
+
+    let moneyValue = Number(domino[0]) + Number(domino[1]);
+    if (domino[0] === domino[1]) moneyValue += 1000;
+
+    if (moneyValue > max.moneyValue) max = { moneyValue, index, hand };
+  };
+
+  for (let i = 0; i < _playerHand.length; i++) compare(_playerHand, i);
+  for (let i = 0; i < _enemyHand.length; i++) compare(_enemyHand, i);
+
+  const domino = max.index ? max.hand?.splice(max.index, 1) : undefined;
+
+  return [_playerHand, _enemyHand, domino] as [
+    typeof _playerHand,
+    typeof _enemyHand,
+    typeof domino
+  ];
+};
