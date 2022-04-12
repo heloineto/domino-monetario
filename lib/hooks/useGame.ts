@@ -1,4 +1,4 @@
-import pieces from '@lib/algorithms/pieces';
+import pieces from '@lib/algorithms/dominos';
 import { useCallback, useEffect, useState } from 'react';
 
 const useGame = () => {
