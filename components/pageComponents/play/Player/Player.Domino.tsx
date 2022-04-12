@@ -16,10 +16,11 @@ const PlayerDomino = ({
   handRef,
   ...motionDivProps
 }: Props) => {
-  const { radius, angleStep, rectHeight, rectWidth, rectRadius } = wheelConfig;
+  const { radius, divider, angleStep, rectHeight, rectWidth, rectRadius } = wheelConfig;
 
   const { angle, radAngle } = useMemo(() => {
-    const angle = angleStep * index - 180 + 45 + 45 / 2;
+    // -112.5
+    const angle = angleStep * index - (90 + 180 / divider);
     const radAngle = (angle * Math.PI) / 180;
 
     return { angle, radAngle };

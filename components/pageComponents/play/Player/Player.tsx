@@ -16,7 +16,8 @@ const Player = ({ className, ...divProps }: Props) => {
     const rectWidth = 121.441322;
     const radius = 2000;
     // Display dominos on 1/8 of the circle (360 / 8 = 45)
-    const angleStep = 45 / length;
+    const divider = 64;
+    const angleStep = 360 / divider / length;
     const rectRadius = radius - rectHeight / 2;
 
     return {
@@ -25,6 +26,7 @@ const Player = ({ className, ...divProps }: Props) => {
       rectWidth,
       radius,
       angleStep,
+      divider,
       rectRadius,
     };
   }, [playerHand.length]);

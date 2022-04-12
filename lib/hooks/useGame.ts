@@ -9,7 +9,7 @@ const useGame = () => {
   const [enemyHand, setEnemyHand] = useState<Domino[]>([]);
 
   useEffect(() => {
-    const [_deck, _playerHand] = draw(deck, 13);
+    const [_deck, _playerHand] = draw(deck, 2);
     const [__deck, _enemyHand] = draw(_deck, 13);
 
     setPlayerHand(_playerHand);
