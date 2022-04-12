@@ -9,11 +9,7 @@ const Deck = ({ className, ...motionDivProps }: Props) => {
   const { deck, draw } = useContext(GameContext);
 
   return (
-    <motion.div
-      className={classNames(className, 'relative')}
-      onClick={() => {}}
-      {...motionDivProps}
-    >
+    <motion.div className={classNames(className, 'relative')} {...motionDivProps}>
       <svg
         width={538}
         height={809}
@@ -398,12 +394,10 @@ const Deck = ({ className, ...motionDivProps }: Props) => {
       <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center">
         <div
           className="select-none text-center font-display text-slate-500"
-          style={
-            {
-              '-webkit-text-stroke-width': '1px',
-              '-webkit-text-stroke-color': 'black',
-            } as any
-          }
+          style={{
+            WebkitTextStrokeWidth: '1px',
+            WebkitTextStrokeColor: 'black',
+          }}
         >
           <div className="text-5xl">{deck?.length}</div>
           <div className="text-lg">Dominós</div>

@@ -7,8 +7,25 @@ const useGame = () => {
   const [deck, setDeck] = useState(shuffle(dominos));
   const [playerHand, setPlayerHand] = useState<Domino[]>([]);
   const [enemyHand, setEnemyHand] = useState<Domino[]>([]);
-
-  const [board, setBoard] = useState();
+  const [selectedDomino, setSelectedDomino] = useState<Domino | null>(null);
+  const [boardDominos, setBoardDominos] = useState<BoardDomino[]>([
+    {
+      rotate: 90,
+      domino: ['10', '20'],
+    },
+    {
+      rotate: 0,
+      domino: ['10', '10'],
+    },
+    {
+      rotate: -90,
+      domino: ['10', '50'],
+    },
+    {
+      rotate: -90,
+      domino: ['50', '0.1'],
+    },
+  ]);
 
   useEffect(() => {
     let _deck, _playerHand, _enemyHand;
@@ -18,8 +35,6 @@ const useGame = () => {
 
     let firstDomino;
     [_playerHand, _enemyHand, firstDomino] = findFirstDomino(_playerHand, _enemyHand);
-
-    console.log(firstDomino);
 
     setPlayerHand(_playerHand);
     setEnemyHand(_enemyHand);
@@ -35,6 +50,10 @@ const useGame = () => {
     setEnemyHand,
     draw,
     shuffle,
+    selectedDomino,
+    setSelectedDomino,
+    boardDominos,
+    setBoardDominos,
   };
 };
 

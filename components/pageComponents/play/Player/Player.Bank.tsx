@@ -8,12 +8,10 @@ const PlayerBank = (props: Props) => {
     <motion.div className="relative -mt-20 flex h-40 w-40">
       <div
         className="absolute top-[35%] left-[10%] z-10 w-32 select-none text-center font-display text-xl tracking-widest text-[#F07A6D]"
-        style={
-          {
-            '-webkit-text-stroke-width': '2px',
-            '-webkit-text-stroke-color': '#75231A',
-          } as any
-        }
+        style={{
+          WebkitTextStrokeWidth: '2px',
+          WebkitTextStrokeColor: '#75231A',
+        }}
       >
         <div>00,00</div>
         <div>R$</div>

@@ -28,7 +28,7 @@ const Domino = ({ hidden, domino, className, ...motionSvgProps }: Props) => {
         />
       </motion.svg>
       {!hidden && (
-        <div className="absolute top-0 left-0 flex h-full w-full flex-col p-[0.9rem]">
+        <div className="absolute top-0 left-0 flex h-full w-full flex-col p-[12%]">
           <Money value={domino[0]} />
           <DominoDivider />
           <Money value={domino[1]} style={{ rotate: 180 }} />

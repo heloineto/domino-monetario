@@ -36,3 +36,8 @@ type Board = {
   start: MoneyValue;
   end: MoneyValue;
 };
+
+type BoardDomino = {
+  rotate: 0 | -90 | 90;
+  domino: Domino;
+};
