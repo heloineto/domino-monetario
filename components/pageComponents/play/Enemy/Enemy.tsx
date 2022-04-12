@@ -2,16 +2,17 @@ import Domino from '@components/pageComponents/play/Domino';
 import { GameContext } from '@lib/context';
 import { motion } from 'framer-motion';
 import { useContext, useMemo } from 'react';
+import classNames from 'clsx';
 
-interface Props {}
+interface Props extends ComponentProps<'div'> {}
 
-const Enemy = (props: Props) => {
+const Enemy = ({ className, ...divProps }: Props) => {
   const { enemyHand } = useContext(GameContext);
 
   const middle = useMemo(() => (enemyHand.length - 1) / 2, [enemyHand]);
 
   return (
-    <div className="h-1/6 w-full bg-lime-100">
+    <div className={classNames(className, '')}>
       <div className="flex items-center justify-center space-x-2">
         {enemyHand.map((domino, index) => (
           <motion.div

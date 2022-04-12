@@ -1,18 +1,25 @@
 import { motion } from 'framer-motion';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
   index: number;
   wheelConfig: WheelConfig;
+  handRef: RefObject<HTMLDivElement>;
 }
 
-const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
+const PlayerDomino = ({
+  domino,
+  index,
+  wheelConfig,
+  handRef,
+  ...motionDivProps
+}: Props) => {
   const { radius, angleStep, rectHeight, rectWidth, rectRadius } = wheelConfig;
 
   const { angle, radAngle } = useMemo(() => {
-    const angle = angleStep * index - 135;
+    const angle = angleStep * index - 180 + 45 + 45 / 2;
     const radAngle = (angle * Math.PI) / 180;
 
     return { angle, radAngle };
@@ -24,7 +31,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
         height: rectHeight,
         width: rectWidth,
         position: 'absolute',
-        left: -rectWidth / 2 + radius + rectRadius * Math.cos(radAngle),
+        left: `calc(${rectRadius * Math.cos(radAngle)}px + 50%)`,
         top: -rectHeight / 2 + radius + rectRadius * Math.sin(radAngle),
         rotate: angle + 90,
       }}
