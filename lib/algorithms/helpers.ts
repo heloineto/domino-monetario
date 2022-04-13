@@ -43,3 +43,21 @@ export const findFirstDomino = (playerHand: Domino[], enemyHand: Domino[]) => {
     typeof domino
   ];
 };
+
+export const connect = (edge: Edge, domino: Domino) => {
+  const { value, position } = edge;
+
+  if (domino[0] === domino[1]) {
+    if (!value || domino[0] === value) return { connects: true, rotation: 0 };
+
+    return { connects: false, rotation: 0 };
+  }
+
+  if (!value || domino[0] === value)
+    return { connects: true, rotation: position === 'start' ? 90 : -90 };
+
+  if (!value || domino[1] === value)
+    return { connects: true, rotation: position === 'start' ? -90 : 90 };
+
+  return { connects: false, rotation: 0 };
+};

@@ -38,9 +38,16 @@ type Board = {
   boardDominos?: BoardDomino[];
 };
 
+type DominoRotation = 0 | -90 | 90;
+
 type BoardDomino = {
-  rotate: 0 | -90 | 90;
+  rotation: DominoRotation;
   domino: Domino;
+};
+
+type Edge = {
+  value: MoneyValue | null;
+  position: Position;
 };
 
 type Position = 'start' | 'end';

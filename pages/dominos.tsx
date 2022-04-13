@@ -15,7 +15,7 @@ const PiecesPage = (props: Props) => {
         <title>Dominó Monetário - Dominós</title>
       </Head>
       <div>
-        <div className="my-5 ">
+        <div className="my-5 flex items-center justify-center">
           <ButtonGroup size="large">
             <Button
               className="w-24"

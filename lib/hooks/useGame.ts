@@ -10,8 +10,8 @@ const useGame = () => {
   const [playerHand, setPlayerHand] = useState<Domino[]>([]);
   const [enemyHand, setEnemyHand] = useState<Domino[]>([]);
 
-  const drag = useDrag();
   const board = useBoard();
+  const drag = useDrag(board);
 
   useEffect(() => {
     let _deck, _playerHand, _enemyHand;

@@ -1,14 +1,17 @@
 import { GameContext } from '@lib/context';
 import classNames from 'clsx';
+import { isEmpty } from 'lodash';
 import { useContext } from 'react';
 import Deck from '../Deck';
 import BoardDomino from './Board.Domino';
-import BoardPlaceholder from './Board.Placeholder';
+import BoardDragPlaceholder from './Board.DragPlaceholder';
 
 interface Props extends ComponentProps<'div'> {}
 
 const Board = ({ className, ...divProps }: Props) => {
   const { board, drag } = useContext(GameContext);
+
+  if (!board) return;
 
   return (
     <div className={classNames(className, 'flex')} {...divProps}>
@@ -16,15 +19,19 @@ const Board = ({ className, ...divProps }: Props) => {
         <Deck className="h-60 w-auto" />
       </div>
       <div className="flex flex-grow bg-red-200 p-2.5">
-        {drag?.domino && <BoardPlaceholder domino={drag.domino} position="start" />}
-        {board?.boardDominos?.map(({ rotate, domino }) => (
+        {drag?.dragging && (
+          <BoardDragPlaceholder edge={{ value: board?.start, position: 'start' }} />
+        )}
+        {board?.boardDominos?.map(({ rotation, domino }) => (
           <BoardDomino
             key={`${domino[0]}-${domino[1]}`}
             domino={domino}
-            rotate={rotate}
+            rotation={rotation}
           />
         ))}
-        {drag?.domino && <BoardPlaceholder domino={drag.domino} position="end" />}
+        {board?.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging && (
+          <BoardDragPlaceholder edge={{ value: board?.end, position: 'end' }} />
+        )}
       </div>
     </div>
   );

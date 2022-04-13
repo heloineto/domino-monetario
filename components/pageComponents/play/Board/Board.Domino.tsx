@@ -2,21 +2,21 @@ import Domino from '../Domino';
 import { motion } from 'framer-motion';
 
 interface Props extends ComponentProps<typeof motion.div> {
-  rotate: 0 | -90 | 90;
+  rotation: DominoRotation;
   domino: [MoneyValue, MoneyValue];
 }
 
-const BoardDomino = ({ domino, rotate, ...motionDivProps }: Props) => {
+const BoardDomino = ({ domino, rotation, ...motionDivProps }: Props) => {
   return (
     <div
       className="flex items-center justify-center"
       style={{
         height: 160,
-        width: rotate ? 160 : 86.73,
+        width: rotation ? 160 : 86.73,
       }}
     >
       <motion.div
-        style={{ rotate }}
+        style={{ rotate: rotation }}
         whileHover={{
           scale: 1.2,
           zIndex: 40,
