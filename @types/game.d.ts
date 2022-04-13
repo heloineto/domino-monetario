@@ -35,10 +35,12 @@ type MaxDominoInfo = {
 type Board = {
   start?: MoneyValue;
   end?: MoneyValue;
-  dominos?: BoardDomino[];
+  boardDominos?: BoardDomino[];
 };
 
 type BoardDomino = {
   rotate: 0 | -90 | 90;
   domino: Domino;
 };
+
+type Position = 'start' | 'end';

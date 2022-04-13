@@ -8,7 +8,7 @@ import BoardPlaceholder from './Board.Placeholder';
 interface Props extends ComponentProps<'div'> {}
 
 const Board = ({ className, ...divProps }: Props) => {
-  const { board, selectedDomino } = useContext(GameContext);
+  const { board, drag } = useContext(GameContext);
 
   return (
     <div className={classNames(className, 'flex')} {...divProps}>
@@ -16,15 +16,15 @@ const Board = ({ className, ...divProps }: Props) => {
         <Deck className="h-60 w-auto" />
       </div>
       <div className="flex flex-grow bg-red-200 p-2.5">
-        {selectedDomino && <BoardPlaceholder domino={selectedDomino} position="start" />}
-        {board?.dominos?.map(({ rotate, domino }) => (
+        {drag?.domino && <BoardPlaceholder domino={drag.domino} position="start" />}
+        {board?.boardDominos?.map(({ rotate, domino }) => (
           <BoardDomino
             key={`${domino[0]}-${domino[1]}`}
             domino={domino}
             rotate={rotate}
           />
         ))}
-        {selectedDomino && <BoardPlaceholder domino={selectedDomino} position="end" />}
+        {drag?.domino && <BoardPlaceholder domino={drag.domino} position="end" />}
       </div>
     </div>
   );

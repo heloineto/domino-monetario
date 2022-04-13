@@ -5,7 +5,7 @@ import classNames from 'clsx';
 
 interface Props {
   domino: Domino;
-  position: 'start' | 'end';
+  position: Position;
 }
 
 const BoardPlaceholder = ({ domino, position }: Props) => {

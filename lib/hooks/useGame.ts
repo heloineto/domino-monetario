@@ -2,16 +2,19 @@ import dominos from '@lib/algorithms/dominos';
 import { draw, findFirstDomino } from '@lib/algorithms/helpers';
 import { shuffle } from 'lodash';
 import { useEffect, useState } from 'react';
+import useDrag from './useDrag';
 
 const useGame = () => {
   const [deck, setDeck] = useState(shuffle(dominos));
   const [playerHand, setPlayerHand] = useState<Domino[]>([]);
   const [enemyHand, setEnemyHand] = useState<Domino[]>([]);
-  const [selectedDomino, setSelectedDomino] = useState<Domino | null>(null);
+
+  const drag = useDrag();
+
   const [board, setBoard] = useState<Board>({
     start: '10',
     end: '0.1',
-    dominos: [
+    boardDominos: [
       {
         rotate: 90,
         domino: ['10', '20'],
@@ -55,8 +58,7 @@ const useGame = () => {
     setEnemyHand,
     draw,
     shuffle,
-    selectedDomino,
-    setSelectedDomino,
+    drag,
     board,
     setBoard,
   };
