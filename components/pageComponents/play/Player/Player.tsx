@@ -8,13 +8,12 @@ import { range } from '@lib/utils/math';
 interface Props extends ComponentProps<'div'> {}
 
 const Player = ({ className, ...divProps }: Props) => {
-  const {
-    playerHand,
-    drag: { onDragStart, onDragEnd },
-  } = useContext(GameContext);
+  const { player, drag } = useContext(GameContext);
 
   const wheelConfig = useMemo(() => {
-    const length = playerHand.length;
+    if (!player) return;
+
+    const length = player.hand.length;
     const rectHeight = 224;
     const rectWidth = 121.441322;
     const radius = 2000;
@@ -33,7 +32,9 @@ const Player = ({ className, ...divProps }: Props) => {
       rectRadius,
       middleIndex,
     };
-  }, [playerHand.length]);
+  }, [player?.hand.length]);
+
+  if (!player || !wheelConfig) return null;
 
   return (
     <div
@@ -43,14 +44,14 @@ const Player = ({ className, ...divProps }: Props) => {
       )}
       {...divProps}
     >
-      {playerHand.map((domino, index) => (
+      {player.hand.map((domino, index) => (
         <PlayerDomino
           key={`${domino[0]}-${domino[1]}`}
           domino={domino}
           index={index}
           wheelConfig={wheelConfig}
-          onDragStart={() => onDragStart?.(domino)}
-          onDragEnd={() => onDragEnd?.()}
+          onDragStart={() => drag?.onDragStart(domino)}
+          onDragEnd={() => drag?.onDragEnd()}
         />
       ))}
     </div>

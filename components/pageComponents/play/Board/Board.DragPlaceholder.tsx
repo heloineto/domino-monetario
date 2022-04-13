@@ -44,7 +44,7 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
     return () => {
       document.removeEventListener('mousemove', check);
     };
-  }, []);
+  }, [connection, drag, edge]);
 
   return (
     <motion.div

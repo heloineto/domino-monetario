@@ -1,6 +1,6 @@
 import DominoGrid from '@components/pageComponents/dominos/DominoGrid';
 import DominoWheel from '@components/pageComponents/dominos/DominoWheel';
-import { ButtonGroup, Button } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 import Head from 'next/head';
 import { useState } from 'react';
 
