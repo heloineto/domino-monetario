@@ -7,14 +7,20 @@ import classNames from 'clsx';
 interface Props extends ComponentProps<'div'> {}
 
 const Enemy = ({ className, ...divProps }: Props) => {
-  const { enemyHand } = useContext(GameContext);
+  const { enemy } = useContext(GameContext);
 
-  const middle = useMemo(() => (enemyHand.length - 1) / 2, [enemyHand]);
+  const middle = useMemo(() => {
+    if (!enemy) return;
+
+    return (enemy.hand.length - 1) / 2;
+  }, [enemy?.hand.length]);
+
+  if (!enemy || !middle) return null;
 
   return (
     <div className={classNames(className, '')}>
       <div className="flex items-center justify-center space-x-2">
-        {enemyHand.map((domino, index) => (
+        {enemy.hand.map((domino, index) => (
           <motion.div
             key={`${domino[0]}-${domino[1]}`}
             whileHover={{ scale: 1.3, zIndex: 10 }}
