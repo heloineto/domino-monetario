@@ -5,10 +5,12 @@ import DominoWheelDomino from './DominoWheel.Domino';
 interface Props {}
 
 const DominoWheel = (props: Props) => {
-  const wheelConfig = useMemo(() => {
+  const wheelConfig: WheelConfig = useMemo(() => {
     const length = dominos.length;
     const rectHeight = 224;
     const rectWidth = 121.441322;
+    const divider = range(2, 10, 32, 8, length);
+    const middleIndex = (length - 1) / 2;
     const radius = 1000;
     const angleStep = 360 / length;
     const rectRadius = radius - rectHeight / 2;
@@ -20,6 +22,8 @@ const DominoWheel = (props: Props) => {
       radius,
       angleStep,
       rectRadius,
+      divider,
+      middleIndex
     };
   }, []);
 
