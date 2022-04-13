@@ -18,27 +18,43 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
 
   const [hover, setHover] = useState(false);
 
+  useEffect(() => {
+    if (hover) {
+      drag?.setTargetEdge(edge);
+      drag?.setTargetRef(divRef);
+      drag?.setTargetConnection(connection);
+      return;
+    }
+
+    drag?.setTargetEdge(null);
+    drag?.setTargetRef(null);
+    drag?.setTargetConnection(null);
+  }, [
+    hover,
+    connection,
+    edge,
+    drag?.setTargetEdge,
+    drag?.setTargetRef,
+    drag?.setTargetConnection,
+  ]);
+
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const divElem = divRef.current;
+    const boundingClientRect = divElem?.getBoundingClientRect();
+
     const check = (e: MouseEvent) => {
-      const divElem = divRef.current;
-      if (!divElem) return;
+      if (!boundingClientRect) return;
 
       const { pageX, pageY } = e;
-      const { x, y, height, width } = divElem.getBoundingClientRect();
+      const { x, y, height, width } = boundingClientRect;
 
       if (pageX >= x && pageY >= y && pageX < x + width && pageY < y + height) {
-        drag?.setTargetEdge(edge);
-        drag?.setTargetRef(divRef);
-        drag?.setTargetConnection(connection);
         setHover(true);
         return;
       }
 
-      drag?.setTargetEdge(null);
-      drag?.setTargetRef(null);
-      drag?.setTargetConnection(null);
       setHover(false);
     };
 
@@ -47,7 +63,7 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
     return () => {
       document.removeEventListener('mousemove', check);
     };
-  }, [connection, drag, edge]);
+  }, []);
 
   return (
     <motion.div
