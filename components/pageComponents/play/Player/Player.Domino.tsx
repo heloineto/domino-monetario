@@ -1,6 +1,7 @@
+import { GameContext } from '@lib/context';
 import { range } from '@lib/utils/math';
 import { motion } from 'framer-motion';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -10,6 +11,8 @@ interface Props extends ComponentProps<typeof motion.div> {
 }
 
 const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
+  const { drag } = useContext(GameContext);
+
   const {
     radius,
     divider,
@@ -30,6 +33,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
 
   return (
     <motion.div
+      className="rounded-lg border-2"
       style={{
         height: rectHeight,
         width: rectWidth,
@@ -38,8 +42,23 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
         top: -rectHeight / 2 + radius + rectRadius * Math.sin(radAngle),
         rotate: angle + 90,
       }}
-      whileHover={{ scale: 1.3, rotate: 0, cursor: 'grab', top: -2.5, zIndex: 50 }}
+      whileHover={{
+        scale: 1.3,
+        rotate: 0,
+        cursor: 'grab',
+        top: -2.5,
+        zIndex: 50,
+      }}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
+      whileDrag={
+        drag?.targetConnection?.connects
+          ? {
+              scale: 0.9,
+              rotate: drag.targetConnection.rotation,
+              boxShadow: '0px 0px 10px 2px rgba(34,197,94,0.75)',
+            }
+          : undefined
+      }
       drag
       dragConstraints={{
         top: 0,
@@ -52,6 +71,8 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
         bounceDamping: 50,
       }}
       dragElastic={1}
+      onDragStart={() => drag?.onDragStart(domino)}
+      onDragEnd={() => drag?.onDragEnd()}
       {...motionDivProps}
     >
       <Domino className="h-full w-full" domino={domino} />

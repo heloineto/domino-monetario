@@ -8,7 +8,7 @@ import { range } from '@lib/utils/math';
 interface Props extends ComponentProps<'div'> {}
 
 const Player = ({ className, ...divProps }: Props) => {
-  const { player, drag } = useContext(GameContext);
+  const { player } = useContext(GameContext);
 
   const wheelConfig = useMemo(() => {
     if (!player?.hand.length) return;
@@ -50,8 +50,6 @@ const Player = ({ className, ...divProps }: Props) => {
           domino={domino}
           index={index}
           wheelConfig={wheelConfig}
-          onDragStart={() => drag?.onDragStart(domino)}
-          onDragEnd={() => drag?.onDragEnd()}
         />
       ))}
     </div>

@@ -13,36 +13,13 @@ const useBoard = () => {
       return;
     }
 
-    let startValue: MoneyValue;
     const { rotation: startRotation, domino: startDomino } = boardDominos[0];
+    const startValue = startDomino[startRotation === 90 ? 1 : 0];
 
-    switch (startRotation) {
-      case 0:
-        startValue = startDomino[0];
-        break;
-      case 90:
-        startValue = startDomino[1];
-        break;
-      case -90:
-        startValue = startDomino[0];
-        break;
-    }
-
-    let endValue: MoneyValue;
     const { rotation: endRotation, domino: endDomino } =
       boardDominos[boardDominos.length - 1];
 
-    switch (endRotation) {
-      case 0:
-        endValue = endDomino[1];
-        break;
-      case 90:
-        endValue = endDomino[0];
-        break;
-      case -90:
-        endValue = endDomino[1];
-        break;
-    }
+    const endValue = endDomino[endRotation === 90 ? 0 : 1];
 
     setEdges({
       start: { position: 'start', value: startValue },
@@ -54,14 +31,18 @@ const useBoard = () => {
     (position: Position, rotation: DominoRotation, domino: Domino) => {
       const boardDomino = { rotation, domino };
 
-      console.log(domino);
-
       setBoardDominos((_boardDominos) => {
         if (!_boardDominos) return [boardDomino];
 
-        return position === 'start'
-          ? [boardDomino, ..._boardDominos]
-          : [..._boardDominos, boardDomino];
+        // return position === 'start'
+        //   ? [boardDomino, ..._boardDominos]
+        //   : [..._boardDominos, boardDomino];
+
+        const a = [..._boardDominos];
+
+        position === 'start' ? a.concat([boardDomino]) : a.push(boardDomino);
+
+        return a;
       });
     },
     [setBoardDominos]
