@@ -32,12 +32,6 @@ type MaxDominoInfo = {
   hand: undefined | Domino[];
 };
 
-type Board = {
-  start?: MoneyValue;
-  end?: MoneyValue;
-  boardDominos?: BoardDomino[];
-};
-
 type DominoRotation = 0 | -90 | 90;
 
 type BoardDomino = {

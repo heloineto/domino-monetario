@@ -56,17 +56,19 @@ export const connect = (domino: Domino, edge: Edge | null): Connection => {
     return { connects: false, rotation: 0 };
   }
 
-  if (!edge || domino[0] === edge.value)
+  if (!edge || domino[0] === edge.value) {
     return {
       connects: true,
       rotation: edge?.position === 'start' ? 90 : -90,
     };
+  }
 
-  if (!edge || domino[1] === edge.value)
+  if (!edge || domino[1] === edge.value) {
     return {
       connects: true,
       rotation: edge.position === 'start' ? -90 : 90,
     };
+  }
 
   return { connects: false, rotation: 90 };
 };

@@ -31,6 +31,9 @@ const Board = ({ className, ...divProps }: Props) => {
           <BoardDragPlaceholder edge={board?.edges?.end} />
         )}
       </div>
+      <pre className="absolute bg-white bg-opacity-25">
+        {JSON.stringify(drag?.targetConnection, null, 2)}
+      </pre>
     </div>
   );
 };

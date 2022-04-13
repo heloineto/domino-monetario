@@ -34,15 +34,15 @@ const useBoard = () => {
       setBoardDominos((_boardDominos) => {
         if (!_boardDominos) return [boardDomino];
 
-        // return position === 'start'
-        //   ? [boardDomino, ..._boardDominos]
-        //   : [..._boardDominos, boardDomino];
+        return position === 'start'
+          ? [boardDomino, ..._boardDominos]
+          : [..._boardDominos, boardDomino];
 
-        const a = [..._boardDominos];
+        // const a = [..._boardDominos];
 
-        position === 'start' ? a.concat([boardDomino]) : a.push(boardDomino);
+        // position === 'start' ? a.concat([boardDomino]) : a.push(boardDomino);
 
-        return a;
+        // return a;
       });
     },
     [setBoardDominos]

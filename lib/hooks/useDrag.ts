@@ -12,10 +12,6 @@ const useDrag = (
   const [targetEdge, setTargetEdge] = useState<Edge | null>(null);
   const [targetConnection, setTargetConnection] = useState<Connection | null>(null);
 
-  useEffect(() => {
-    if (!targetEdge) return;
-  }, [targetEdge]);
-
   const onDragStart = useCallback(
     (_domino: Domino) => {
       setDomino(_domino);
@@ -27,11 +23,7 @@ const useDrag = (
   const onDragEnd = useCallback(
     (dominoIndex: number) => {
       if (domino && targetConnection?.connects) {
-        board.addDomino(
-          targetEdge?.position ?? 'start',
-          targetConnection.rotation,
-          domino
-        );
+        board.addDomino(targetEdge?.position ?? 'end', targetConnection.rotation, domino);
         player.setHand((hand) => {
           const _hand = [...hand];
 
@@ -44,7 +36,15 @@ const useDrag = (
       setDomino(null);
       setDragging(false);
     },
-    [setDomino, setDragging, board, domino, targetConnection, targetEdge?.position]
+    [
+      setDomino,
+      setDragging,
+      board,
+      domino,
+      targetConnection,
+      targetEdge?.position,
+      player,
+    ]
   );
 
   return {

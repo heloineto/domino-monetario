@@ -66,6 +66,8 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
         )}
         style={{ height: 160, width: 86.73, rotate: connection?.rotation }}
       />
+      {/* <pre className="absolute">{JSON.stringify(connection)}</pre> */}
+      <pre className="absolute">{JSON.stringify(drag?.targetEdge)}</pre>
     </motion.div>
   );
 };
