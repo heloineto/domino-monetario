@@ -29,14 +29,7 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
     drag?.setTargetEdge(null);
     drag?.setTargetRef(null);
     drag?.setTargetConnection(null);
-  }, [
-    hover,
-    connection,
-    edge,
-    drag?.setTargetEdge,
-    drag?.setTargetRef,
-    drag?.setTargetConnection,
-  ]);
+  }, [hover, connection, edge, drag]);
 
   const divRef = useRef<HTMLDivElement>(null);
 
