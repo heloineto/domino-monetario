@@ -43,6 +43,7 @@ const useGame = () => {
     setPlayerHand(_playerHand);
     setEnemyHand(_enemyHand);
     setDeck(_deck);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

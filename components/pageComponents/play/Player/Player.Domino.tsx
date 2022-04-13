@@ -1,6 +1,6 @@
 import { range } from '@lib/utils/math';
 import { motion } from 'framer-motion';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -26,7 +26,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
     const radAngle = (angle * Math.PI) / 180;
 
     return { angle, radAngle };
-  }, [angleStep, index]);
+  }, [angleStep, index, length, middleIndex]);
 
   return (
     <motion.div
