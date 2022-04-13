@@ -29,7 +29,7 @@ const DominoGrid = (props: Props) => {
     return grids;
   };
 
-  return <div className="space-y-2.5 overflow-hidden">{renderGrids()}</div>;
+  return <div className="space-y-2.5">{renderGrids()}</div>;
 };
 
 export default DominoGrid;

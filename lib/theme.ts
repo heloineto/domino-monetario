@@ -16,10 +16,11 @@ const themeOptions: ThemeOptions = {
   },
   palette: {
     primary: {
-      light: twTheme.colors.rose[500],
-      main: twTheme.colors.rose[600],
-      dark: twTheme.colors.rose[700],
+      light: twTheme.colors.sky[500],
+      main: twTheme.colors.sky[600],
+      dark: twTheme.colors.sky[700],
       contrastText: '#FFF',
+      ...twTheme.colors.sky,
     },
     secondary: {
       light: twTheme.colors.blue[400],
@@ -96,21 +97,9 @@ const themeOptions: ThemeOptions = {
     },
     MuiButton: {
       styleOverrides: {
-        root: {
-          borderRadius: 0,
-          width: '100%',
-          textTransform: 'none',
-          fontWeight: '500',
-          fontSize: twTheme.fontSize['lg'][0],
-          lineHeight: twTheme.fontSize['lg'][1].lineHeight,
-          boxShadow: '0 0 0 #0000',
-          ':hover': {
-            boxShadow: '0 0 0 #0000',
-          },
+        contained: {
+          backgroundColor: `${twTheme.colors.sky[600]} !important`,
         },
-      },
-      defaultProps: {
-        variant: 'contained',
       },
     },
     MuiTextField: {

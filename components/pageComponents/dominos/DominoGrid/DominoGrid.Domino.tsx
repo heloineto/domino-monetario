@@ -7,11 +7,8 @@ interface Props {
 
 const PiecesGridPiece = ({ domino }: Props) => {
   return (
-    <motion.div
-      whileHover={{ scale: 1.5, zIndex: 50 }}
-      whileTap={{ scale: 1.1, zIndex: 50, rotate: 0 }}
-    >
-      <Domino className=" w-auto" domino={domino} />
+    <motion.div whileHover={{ scale: 1.5, zIndex: 50 }} whileTap={{ scale: 1.1 }}>
+      <Domino domino={domino} />
     </motion.div>
   );
 };
