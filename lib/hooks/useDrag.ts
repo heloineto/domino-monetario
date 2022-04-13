@@ -21,8 +21,8 @@ const useDrag = (board: ReturnType<typeof useBoard>) => {
   );
 
   const onDragEnd = useCallback(() => {
-    if (domino && targetEdge?.position && targetConnection?.connects) {
-      board.addDomino(targetEdge.position, targetConnection, domino);
+    if (domino && targetConnection?.connects) {
+      board.addDomino(targetEdge?.position ?? 'start', targetConnection.rotation, domino);
     }
 
     setDomino(null);

@@ -68,5 +68,5 @@ export const connect = (domino: Domino, edge: Edge | null): Connection => {
       rotation: edge.position === 'start' ? -90 : 90,
     };
 
-  return { connects: false, rotation: 0 };
+  return { connects: false, rotation: 90 };
 };

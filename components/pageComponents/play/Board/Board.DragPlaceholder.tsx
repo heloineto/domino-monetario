@@ -59,15 +59,13 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
         className={classNames(
           hover
             ? connection?.connects
-              ? 'border-green-500 bg-green-500 bg-opacity-25'
-              : 'border-red-500 bg-red-500 bg-opacity-25'
+              ? 'border-green-500 bg-green-500'
+              : 'border-red-500 bg-red-500'
             : 'border-slate-400',
-          'rounded border-2 border-dashed'
+          'rounded border-2 border-dashed bg-opacity-25'
         )}
         style={{ height: 160, width: 86.73, rotate: connection?.rotation }}
-      >
-        {JSON.stringify(connection, null, 2)}
-      </motion.div>
+      />
     </motion.div>
   );
 };

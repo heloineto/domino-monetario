@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const useBoard = () => {
   const [edges, setEdges] = useState<{ start: Edge | null; end: Edge | null }>({
@@ -7,7 +7,7 @@ const useBoard = () => {
   });
   const [boardDominos, setBoardDominos] = useState<BoardDomino[] | null>(null);
 
-  const updateEdges = useCallback(() => {
+  useEffect(() => {
     if (!boardDominos) {
       setEdges({ start: null, end: null });
       return;
@@ -21,10 +21,10 @@ const useBoard = () => {
         startValue = startDomino[0];
         break;
       case 90:
-        startValue = startDomino[0];
+        startValue = startDomino[1];
         break;
       case -90:
-        startValue = startDomino[1];
+        startValue = startDomino[0];
         break;
     }
 
@@ -34,7 +34,7 @@ const useBoard = () => {
 
     switch (endRotation) {
       case 0:
-        endValue = endDomino[0];
+        endValue = endDomino[1];
         break;
       case 90:
         endValue = endDomino[0];
@@ -48,12 +48,13 @@ const useBoard = () => {
       start: { position: 'start', value: startValue },
       end: { position: 'end', value: endValue },
     });
-  }, [setEdges]);
+  }, [boardDominos, setEdges]);
 
   const addDomino = useCallback(
-    (position: Position, connection: Connection, domino: Domino) => {
-      const { rotation } = connection;
+    (position: Position, rotation: DominoRotation, domino: Domino) => {
       const boardDomino = { rotation, domino };
+
+      console.log(domino);
 
       setBoardDominos((_boardDominos) => {
         if (!_boardDominos) return [boardDomino];
@@ -62,10 +63,8 @@ const useBoard = () => {
           ? [boardDomino, ..._boardDominos]
           : [..._boardDominos, boardDomino];
       });
-
-      updateEdges();
     },
-    [setBoardDominos, updateEdges]
+    [setBoardDominos]
   );
 
   return { edges, setEdges, boardDominos, setBoardDominos, addDomino };

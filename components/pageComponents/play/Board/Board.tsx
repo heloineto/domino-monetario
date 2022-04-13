@@ -16,7 +16,6 @@ const Board = ({ className, ...divProps }: Props) => {
   return (
     <div className={classNames(className, 'flex')} {...divProps}>
       <div className="flex h-full w-44 flex-col items-center justify-center">
-        <pre>{JSON.stringify(board?.edges, null, 4)}</pre>
         <Deck className="h-60 w-auto" />
       </div>
       <div className="flex flex-grow bg-red-200 p-2.5">
