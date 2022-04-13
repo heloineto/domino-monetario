@@ -12,10 +12,10 @@ const Money = ({ value, ...motionDivProps }: Props) => {
       {...motionDivProps}
     >
       <Image
+        className="pointer-events-none"
         src={`/money/${value}.jpg`}
         layout="fill"
         alt={`${value} reais`}
-        draggable="false"
       />
     </motion.div>
   );

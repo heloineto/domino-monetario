@@ -56,8 +56,8 @@ const BoardPlaceholder = ({ domino, position }: Props) => {
     >
       <motion.div
         className={classNames(
-          hover && 'border-red-500 bg-red-500 bg-opacity-50',
-          'rounded border-2 border-dashed border-slate-400'
+          hover ? 'border-red-500 bg-red-500 bg-opacity-50' : 'border-slate-400',
+          'rounded border-2 border-dashed'
         )}
         style={{ height: 160, width: 86.73, rotate: shouldRotate ? 90 : 0 }}
       ></motion.div>
