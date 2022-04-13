@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import useBoard from './useBoard';
+import usePlayer from './usePlayer';
 
-const useDrag = (board: ReturnType<typeof useBoard>) => {
+const useDrag = (
+  board: ReturnType<typeof useBoard>,
+  player: ReturnType<typeof usePlayer>
+) => {
   const [dragging, setDragging] = useState(false);
   const [domino, setDomino] = useState<Domino | null>(null);
   const [targetRef, setTargetRef] = useState<RefObject<HTMLDivElement> | null>(null);
@@ -20,14 +24,28 @@ const useDrag = (board: ReturnType<typeof useBoard>) => {
     [setDomino, setDragging]
   );
 
-  const onDragEnd = useCallback(() => {
-    if (domino && targetConnection?.connects) {
-      board.addDomino(targetEdge?.position ?? 'start', targetConnection.rotation, domino);
-    }
+  const onDragEnd = useCallback(
+    (dominoIndex: number) => {
+      if (domino && targetConnection?.connects) {
+        board.addDomino(
+          targetEdge?.position ?? 'start',
+          targetConnection.rotation,
+          domino
+        );
+        player.setHand((hand) => {
+          const _hand = [...hand];
 
-    setDomino(null);
-    setDragging(false);
-  }, [setDomino, setDragging, board, domino, targetConnection, targetEdge?.position]);
+          _hand.splice(dominoIndex, 1);
+
+          return _hand;
+        });
+      }
+
+      setDomino(null);
+      setDragging(false);
+    },
+    [setDomino, setDragging, board, domino, targetConnection, targetEdge?.position]
+  );
 
   return {
     domino,

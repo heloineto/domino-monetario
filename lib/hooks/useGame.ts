@@ -14,7 +14,8 @@ const useGame = () => {
   const enemy = useEnemy();
   const player = usePlayer();
   const board = useBoard();
-  const drag = useDrag(board);
+
+  const drag = useDrag(board, player);
 
   useEffect(() => {
     let _deck, _playerHand, _enemyHand;

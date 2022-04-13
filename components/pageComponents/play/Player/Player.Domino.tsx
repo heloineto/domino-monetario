@@ -72,7 +72,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       }}
       dragElastic={1}
       onDragStart={() => drag?.onDragStart(domino)}
-      onDragEnd={() => drag?.onDragEnd()}
+      onDragEnd={() => drag?.onDragEnd(index)}
       {...motionDivProps}
     >
       <Domino className="h-full w-full" domino={domino} />
