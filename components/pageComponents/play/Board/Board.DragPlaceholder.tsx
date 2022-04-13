@@ -11,7 +11,7 @@ interface Props {
 const BoardDragPlaceholder = ({ edge }: Props) => {
   const { drag } = useContext(GameContext);
 
-  const connection = drag?.domino && connect(edge, drag?.domino);
+  const connection = drag?.domino ? connect(edge, drag?.domino) : null;
 
   const [hover, setHover] = useState(false);
 
@@ -28,12 +28,14 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
       if (pageX >= x && pageY >= y && pageX < x + width && pageY < y + height) {
         drag?.setTargetEdge(edge);
         drag?.setTargetRef(divRef);
+        drag?.setTargetConnection(connection);
         setHover(true);
         return;
       }
 
       drag?.setTargetEdge(null);
       drag?.setTargetRef(null);
+      drag?.setTargetConnection(null);
       setHover(false);
     };
 

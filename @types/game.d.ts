@@ -51,3 +51,8 @@ type Edge = {
 };
 
 type Position = 'start' | 'end';
+
+type Connection = {
+  connects: boolean;
+  rotation: Rotation;
+};

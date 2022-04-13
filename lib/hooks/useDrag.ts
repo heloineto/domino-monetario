@@ -4,9 +4,9 @@ import useBoard from './useBoard';
 const useDrag = (board: ReturnType<typeof useBoard>) => {
   const [dragging, setDragging] = useState(false);
   const [domino, setDomino] = useState<Domino | null>(null);
-  const [rotate, setRotate] = useState(0);
   const [targetRef, setTargetRef] = useState<RefObject<HTMLDivElement> | null>(null);
   const [targetEdge, setTargetEdge] = useState<Edge | null>(null);
+  const [targetConnection, setTargetConnection] = useState<Connection | null>(null);
 
   useEffect(() => {
     if (!targetEdge) return;
@@ -38,6 +38,8 @@ const useDrag = (board: ReturnType<typeof useBoard>) => {
     dragging,
     targetEdge,
     setTargetEdge,
+    targetConnection,
+    setTargetConnection,
   };
 };
 
