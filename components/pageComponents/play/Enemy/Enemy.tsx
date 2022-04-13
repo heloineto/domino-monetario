@@ -10,7 +10,7 @@ const Enemy = ({ className, ...divProps }: Props) => {
   const { enemy } = useContext(GameContext);
 
   const middle = useMemo(() => {
-    if (!enemy) return;
+    if (!enemy?.hand.length) return;
 
     return (enemy.hand.length - 1) / 2;
   }, [enemy?.hand.length]);

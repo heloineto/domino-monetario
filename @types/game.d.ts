@@ -46,7 +46,7 @@ type BoardDomino = {
 };
 
 type Edge = {
-  value: MoneyValue | null;
+  value: MoneyValue;
   position: Position;
 };
 
@@ -55,7 +55,6 @@ type Position = 'start' | 'end';
 type Connection = {
   connects: boolean;
   rotation: Rotation;
-  nextEdge: Edge;
 };
 
 type Player = 'player' | 'enemy';

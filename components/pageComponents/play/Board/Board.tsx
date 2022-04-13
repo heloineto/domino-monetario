@@ -15,13 +15,12 @@ const Board = ({ className, ...divProps }: Props) => {
 
   return (
     <div className={classNames(className, 'flex')} {...divProps}>
-      <div className="flex h-full w-44 items-center justify-center">
+      <div className="flex h-full w-44 flex-col items-center justify-center">
+        <pre>{JSON.stringify(board?.edges, null, 4)}</pre>
         <Deck className="h-60 w-auto" />
       </div>
       <div className="flex flex-grow bg-red-200 p-2.5">
-        {drag?.dragging && (
-          <BoardDragPlaceholder edge={{ value: board?.start, position: 'start' }} />
-        )}
+        {drag?.dragging && <BoardDragPlaceholder edge={board?.edges?.start} />}
         {board?.boardDominos?.map(({ rotation, domino }) => (
           <BoardDomino
             key={`${domino[0]}-${domino[1]}`}
@@ -30,7 +29,7 @@ const Board = ({ className, ...divProps }: Props) => {
           />
         ))}
         {board?.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging && (
-          <BoardDragPlaceholder edge={{ value: board?.end, position: 'end' }} />
+          <BoardDragPlaceholder edge={board?.edges?.end} />
         )}
       </div>
     </div>

@@ -27,15 +27,7 @@ const useDrag = (board: ReturnType<typeof useBoard>) => {
 
     setDomino(null);
     setDragging(false);
-  }, [
-    setDomino,
-    setDragging,
-    board,
-    domino,
-    targetConnection?.connects,
-    targetConnection?.rotation,
-    targetEdge?.position,
-  ]);
+  }, [setDomino, setDragging, board, domino, targetConnection, targetEdge?.position]);
 
   return {
     domino,

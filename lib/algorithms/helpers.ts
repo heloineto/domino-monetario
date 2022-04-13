@@ -44,29 +44,29 @@ export const findFirstDomino = (playerHand: Domino[], enemyHand: Domino[]) => {
   ];
 };
 
-export const connect = (edge: Edge, domino: Domino): Connection => {
-  const { value, position } = edge;
-
+export const connect = (domino: Domino, edge: Edge | null): Connection => {
   if (domino[0] === domino[1]) {
-    if (!value || domino[0] === value)
-      return { connects: true, rotation: 0, nextEdge: { value: domino[0], position } };
+    if (!edge || domino[0] === edge.value) {
+      return {
+        connects: true,
+        rotation: 0,
+      };
+    }
 
-    return { connects: false, rotation: 0, nextEdge: edge };
+    return { connects: false, rotation: 0 };
   }
 
-  if (!value || domino[0] === value)
+  if (!edge || domino[0] === edge.value)
     return {
       connects: true,
-      rotation: position === 'start' ? 90 : -90,
-      nextEdge: { value: domino[1], position },
+      rotation: edge?.position === 'start' ? 90 : -90,
     };
 
-  if (!value || domino[1] === value)
+  if (!edge || domino[1] === edge.value)
     return {
       connects: true,
-      rotation: position === 'start' ? -90 : 90,
-      nextEdge: { value: domino[0], position },
+      rotation: edge.position === 'start' ? -90 : 90,
     };
 
-  return { connects: false, rotation: 0, nextEdge: edge };
+  return { connects: false, rotation: 0 };
 };

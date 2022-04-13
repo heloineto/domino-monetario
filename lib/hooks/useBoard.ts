@@ -1,35 +1,74 @@
 import { useCallback, useState } from 'react';
 
 const useBoard = () => {
-  const [start, setStart] = useState<MoneyValue | null>(null);
-  const [end, setEnd] = useState<MoneyValue | null>(null);
+  const [edges, setEdges] = useState<{ start: Edge | null; end: Edge | null }>({
+    start: null,
+    end: null,
+  });
   const [boardDominos, setBoardDominos] = useState<BoardDomino[] | null>(null);
+
+  const updateEdges = useCallback(() => {
+    if (!boardDominos) {
+      setEdges({ start: null, end: null });
+      return;
+    }
+
+    let startValue: MoneyValue;
+    const { rotation: startRotation, domino: startDomino } = boardDominos[0];
+
+    switch (startRotation) {
+      case 0:
+        startValue = startDomino[0];
+        break;
+      case 90:
+        startValue = startDomino[0];
+        break;
+      case -90:
+        startValue = startDomino[1];
+        break;
+    }
+
+    let endValue: MoneyValue;
+    const { rotation: endRotation, domino: endDomino } =
+      boardDominos[boardDominos.length - 1];
+
+    switch (endRotation) {
+      case 0:
+        endValue = endDomino[0];
+        break;
+      case 90:
+        endValue = endDomino[0];
+        break;
+      case -90:
+        endValue = endDomino[1];
+        break;
+    }
+
+    setEdges({
+      start: { position: 'start', value: startValue },
+      end: { position: 'end', value: endValue },
+    });
+  }, [setEdges]);
 
   const addDomino = useCallback(
     (position: Position, connection: Connection, domino: Domino) => {
-      const { rotation, nextEdge } = connection;
+      const { rotation } = connection;
       const boardDomino = { rotation, domino };
 
-      setBoardDominos((currBoard) => {
-        if (!currBoard) return [boardDomino];
+      setBoardDominos((_boardDominos) => {
+        if (!_boardDominos) return [boardDomino];
 
-        const _currBoard = [...currBoard];
-
-        if (position === 'start') {
-          _currBoard.unshift(boardDomino);
-          setStart(nextEdge.value);
-          return _currBoard;
-        }
-
-        setEnd(nextEdge.value);
-        _currBoard.push(boardDomino);
-        return _currBoard;
+        return position === 'start'
+          ? [boardDomino, ..._boardDominos]
+          : [..._boardDominos, boardDomino];
       });
+
+      updateEdges();
     },
-    [setBoardDominos, setStart, setEnd]
+    [setBoardDominos, updateEdges]
   );
 
-  return { start, setStart, end, setEnd, boardDominos, setBoardDominos, addDomino };
+  return { edges, setEdges, boardDominos, setBoardDominos, addDomino };
 };
 
 export default useBoard;

@@ -1,17 +1,20 @@
 import { GameContext } from '@lib/context';
 import { motion } from 'framer-motion';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'clsx';
 import { connect } from '@lib/algorithms/helpers';
 
 interface Props {
-  edge: Edge;
+  edge: Edge | null;
 }
 
 const BoardDragPlaceholder = ({ edge }: Props) => {
   const { drag } = useContext(GameContext);
 
-  const connection = drag?.domino ? connect(edge, drag?.domino) : null;
+  const connection = useMemo(
+    () => (drag?.domino ? connect(drag?.domino, edge) : null),
+    [drag?.domino, edge]
+  );
 
   const [hover, setHover] = useState(false);
 
@@ -62,7 +65,9 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
           'rounded border-2 border-dashed'
         )}
         style={{ height: 160, width: 86.73, rotate: connection?.rotation }}
-      ></motion.div>
+      >
+        {JSON.stringify(connection, null, 2)}
+      </motion.div>
     </motion.div>
   );
 };

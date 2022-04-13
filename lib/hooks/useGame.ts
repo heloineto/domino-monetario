@@ -1,5 +1,5 @@
 import dominos from '@lib/algorithms/dominos';
-import { draw, findFirstDomino } from '@lib/algorithms/helpers';
+import { draw } from '@lib/algorithms/helpers';
 import { shuffle } from 'lodash';
 import { useEffect, useState } from 'react';
 import useBoard from './useBoard';
@@ -22,8 +22,8 @@ const useGame = () => {
     [_deck, _playerHand] = draw(deck, 13);
     [_deck, _enemyHand] = draw(_deck, 0);
 
-    let firstDomino;
-    [_playerHand, _enemyHand, firstDomino] = findFirstDomino(_playerHand, _enemyHand);
+    // let firstDomino;
+    // [_playerHand, _enemyHand, firstDomino] = findFirstDomino(_playerHand, _enemyHand);
 
     player.setHand(_playerHand);
     enemy.setHand(_enemyHand);

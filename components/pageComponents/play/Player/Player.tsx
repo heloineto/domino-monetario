@@ -11,7 +11,7 @@ const Player = ({ className, ...divProps }: Props) => {
   const { player, drag } = useContext(GameContext);
 
   const wheelConfig = useMemo(() => {
-    if (!player) return;
+    if (!player?.hand.length) return;
 
     const length = player.hand.length;
     const rectHeight = 224;
