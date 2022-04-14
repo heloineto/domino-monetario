@@ -11,7 +11,7 @@ interface Props extends ComponentProps<'div'> {}
 const Board = ({ className, ...divProps }: Props) => {
   const { board, drag } = useContext(GameContext);
 
-  if (!board) return;
+  if (!board) return null;
 
   return (
     <div className={classNames(className, 'flex')} {...divProps}>

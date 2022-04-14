@@ -18,6 +18,8 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
 
   const [hover, setHover] = useState(false);
 
+  const divRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (hover) {
       drag?.setTargetEdge(edge);
@@ -26,12 +28,12 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
       return;
     }
 
-    drag?.setTargetEdge(null);
-    drag?.setTargetRef(null);
-    drag?.setTargetConnection(null);
+    if (drag?.targetRef === divRef) {
+      drag?.setTargetEdge(null);
+      drag?.setTargetRef(null);
+      drag?.setTargetConnection(null);
+    }
   }, [hover, connection, edge, drag]);
-
-  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const divElem = divRef.current;
@@ -58,6 +60,8 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
     };
   }, []);
 
+  console.log(drag?.targetEdge);
+
   return (
     <motion.div
       className="flex items-center justify-center"
@@ -75,8 +79,6 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
         )}
         style={{ height: 160, width: 86.73, rotate: connection?.rotation }}
       />
-      {/* <pre className="absolute">{JSON.stringify(connection)}</pre> */}
-      <pre className="absolute">{JSON.stringify(drag?.targetEdge)}</pre>
     </motion.div>
   );
 };
