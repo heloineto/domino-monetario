@@ -5,8 +5,6 @@ import { useCallback, useState } from 'react';
 const useDeck = () => {
   const [deck, setDeck] = useState(dominos);
 
-  const get = useCallback(() => deck, [deck]);
-
   const shuffle = useCallback(() => setDeck((_deck) => _shuffle(_deck)), [setDeck]);
 
   const draw = useCallback(
@@ -29,7 +27,7 @@ const useDeck = () => {
     [setDeck, deck]
   );
 
-  return { get, shuffle, draw };
+  return { value: deck, shuffle, draw };
 };
 
 export default useDeck;

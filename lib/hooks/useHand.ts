@@ -3,8 +3,6 @@ import { useCallback, useState } from 'react';
 const useHand = () => {
   const [hand, setHand] = useState<Domino[]>([]);
 
-  const get = useCallback(() => hand, [hand]);
-
   const add = useCallback((...dominos: Domino[]) => {
     setHand((_hand) => {
       _hand.push(...dominos);
@@ -21,7 +19,7 @@ const useHand = () => {
     });
   }, []);
 
-  return { get, add, remove };
+  return { value: hand, add, remove };
 };
 
 export default useHand;

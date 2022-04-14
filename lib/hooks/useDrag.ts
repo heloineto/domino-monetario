@@ -22,7 +22,7 @@ const useDrag = (
 
   const onDragEnd = useCallback(() => {
     if (domino && dominoIndex && target?.connection?.connects) {
-      board.add(target.edge.position ?? 'start', target.connection.rotation, domino);
+      board.add(target.edge?.position ?? 'start', target.connection.rotation, domino);
       player.hand.remove(dominoIndex);
     }
 
@@ -37,8 +37,10 @@ const useDrag = (
     onDragEnd,
     dragging,
     dominoIndex,
-    target,
-    setTarget,
+    target: {
+      value: target,
+      set: setTarget,
+    },
   };
 };
 
