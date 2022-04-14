@@ -39,6 +39,7 @@ const useDrag = (
     setDragging(false);
   }, [
     setDomino,
+    dominoIndex,
     setDragging,
     board,
     domino,

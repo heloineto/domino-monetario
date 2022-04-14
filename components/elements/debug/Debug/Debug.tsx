@@ -2,9 +2,12 @@ import { Popper, Portal } from '@mui/material';
 
 interface Props {
   value: any;
+  hidden?: boolean;
 }
 
-const Debug = ({ value }: Props) => {
+const Debug = ({ value, hidden }: Props) => {
+  if (hidden) return null;
+
   return (
     <Portal>
       <Popper open={true} placement="top-end">

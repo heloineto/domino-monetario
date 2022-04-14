@@ -1,7 +1,7 @@
 import { GameContext } from '@lib/context';
 import { range } from '@lib/utils/math';
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
-import { useCallback, useContext, useEffect, useMemo } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {

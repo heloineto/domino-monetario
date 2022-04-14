@@ -26,12 +26,6 @@ type WheelConfig = {
   rectRadius: number;
 };
 
-type MaxDominoInfo = {
-  moneyValue: number;
-  index: undefined | number;
-  hand: undefined | Domino[];
-};
-
 type DominoRotation = 0 | -90 | 90;
 
 type BoardDomino = {

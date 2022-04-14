@@ -17,31 +17,38 @@ export const findFirstDomino = (playerHand: Domino[], enemyHand: Domino[]) => {
   const _playerHand = [...playerHand];
   const _enemyHand = [...enemyHand];
 
-  let max: MaxDominoInfo = {
-    moneyValue: 0,
-    index: undefined,
-    hand: undefined,
-  };
+  let moneyValue = 0;
+  let index: number | undefined;
+  let hand: Domino[] | undefined;
+  let player: Player | undefined;
 
-  const compare = (hand: Domino[], index: number) => {
-    const domino = hand[index];
+  const compare = (currHand: Domino[], currPlayer: Player, currIndex: number) => {
+    const domino = currHand[currIndex];
 
-    let moneyValue = Number(domino[0]) + Number(domino[1]);
+    let currMoneyValue = Number(domino[0]) + Number(domino[1]);
     if (domino[0] === domino[1]) moneyValue += 1000;
 
-    if (moneyValue > max.moneyValue) max = { moneyValue, index, hand };
+    if (currMoneyValue > moneyValue) {
+      moneyValue = currMoneyValue;
+      index = currIndex;
+      hand = currHand;
+      player = currPlayer;
+    }
   };
 
-  for (let i = 0; i < _playerHand.length; i++) compare(_playerHand, i);
-  for (let i = 0; i < _enemyHand.length; i++) compare(_enemyHand, i);
+  for (let i = 0; i < _playerHand.length; i++) compare(_playerHand, 'player', i);
+  for (let i = 0; i < _enemyHand.length; i++) compare(_enemyHand, 'enemy', i);
 
-  const domino = max.index ? max.hand?.splice(max.index, 1) : undefined;
+  if (!index || !hand || !player) return undefined;
 
-  return [_playerHand, _enemyHand, domino] as [
-    typeof _playerHand,
-    typeof _enemyHand,
-    typeof domino
-  ];
+  const [domino] = hand?.splice(index, 1);
+
+  return {
+    playerHand: _playerHand,
+    enemyHand: _enemyHand,
+    domino,
+    player,
+  };
 };
 
 export const connect = (domino: Domino, edge: Edge | null): Connection => {
