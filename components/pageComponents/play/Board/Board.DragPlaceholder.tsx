@@ -25,13 +25,17 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
     if (hover) {
       drag?.setTargetEdge(edge);
       drag?.setTargetRef(divRef);
+      drag?.setTargetId(id);
       drag?.setTargetConnection(connection);
       return;
     }
 
-    drag?.setTargetEdge(null);
-    drag?.setTargetRef(null);
-    drag?.setTargetConnection(null);
+    if (drag?.targetId === id) {
+      drag?.setTargetEdge(null);
+      drag?.setTargetRef(null);
+      drag?.setTargetId(null);
+      drag?.setTargetConnection(null);
+    }
   }, [hover, connection, edge, drag]);
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import { GameContext } from '@lib/context';
 import { range } from '@lib/utils/math';
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
-import { isNil } from 'lodash';
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 import Domino from '../Domino';
 

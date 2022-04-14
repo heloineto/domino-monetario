@@ -9,6 +9,7 @@ const useDrag = (
   const [dragging, setDragging] = useState(false);
   const [domino, setDomino] = useState<Domino | null>(null);
   const [dominoIndex, setDominoIndex] = useState<number | null>(null);
+  const [targetId, setTargetId] = useState<string | null>(null);
   const [targetRef, setTargetRef] = useState<RefObject<HTMLDivElement> | null>(null);
   const [targetEdge, setTargetEdge] = useState<Edge | null>(null);
   const [targetConnection, setTargetConnection] = useState<Connection | null>(null);
@@ -60,6 +61,8 @@ const useDrag = (
     setTargetConnection,
     dominoIndex,
     setDominoIndex,
+    targetId,
+    setTargetId,
   };
 };
 
