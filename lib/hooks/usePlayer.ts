@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import useHand from './useHand';
 
 const usePlayer = () => {
-  const [hand, setHand] = useState<Domino[]>([]);
+  const hand = useHand();
 
-  return { hand, setHand };
+  return { hand };
 };
 
 export default usePlayer;

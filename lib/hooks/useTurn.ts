@@ -1,16 +1,17 @@
 import { useCallback, useState } from 'react';
 
 const useTurn = () => {
-  const [player, setPlayer] = useState<Player | null>(null);
+  const [turn, setTurn] = useState<Player | null>(null);
+
+  const get = useCallback(() => turn, [turn]);
 
   const toggle = useCallback(
-    () => setPlayer((_player) => (_player === 'enemy' ? 'player' : 'enemy')),
-    [player, setPlayer]
+    () => setTurn((_turn) => (_turn === 'enemy' ? 'player' : 'enemy')),
+    [setTurn]
   );
 
   return {
-    player,
-    setPlayer,
+    get,
     toggle,
   };
 };
