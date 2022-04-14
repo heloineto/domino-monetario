@@ -46,3 +46,9 @@ type Connection = {
 };
 
 type Player = 'player' | 'enemy';
+
+type DragTarget = {
+  id: string;
+  edge: Edge;
+  connection: Connection;
+};

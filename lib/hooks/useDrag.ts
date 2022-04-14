@@ -9,10 +9,7 @@ const useDrag = (
   const [dragging, setDragging] = useState(false);
   const [domino, setDomino] = useState<Domino | null>(null);
   const [dominoIndex, setDominoIndex] = useState<number | null>(null);
-  const [targetId, setTargetId] = useState<string | null>(null);
-  const [targetRef, setTargetRef] = useState<RefObject<HTMLDivElement> | null>(null);
-  const [targetEdge, setTargetEdge] = useState<Edge | null>(null);
-  const [targetConnection, setTargetConnection] = useState<Connection | null>(null);
+  const [target, setTarget] = useState<DragTarget | null>(null);
 
   const onDragStart = useCallback(
     (_domino: Domino, _dominoIndex: number) => {
@@ -24,41 +21,23 @@ const useDrag = (
   );
 
   const onDragEnd = useCallback(() => {
-    if (domino && dominoIndex && targetConnection?.connects) {
-      board.add(targetEdge?.position ?? 'start', targetConnection.rotation, domino);
+    if (domino && dominoIndex && target?.connection?.connects) {
+      board.add(target.edge.position ?? 'start', target.connection.rotation, domino);
       player.hand.remove(dominoIndex);
     }
 
     setDomino(null);
     setDominoIndex(null);
     setDragging(false);
-  }, [
-    setDomino,
-    dominoIndex,
-    setDragging,
-    board,
-    domino,
-    targetConnection,
-    targetEdge?.position,
-    player,
-  ]);
+  }, [setDomino, dominoIndex, setDragging, board, domino, target, player]);
 
   return {
     domino,
-    setDomino,
-    targetRef,
-    setTargetRef,
     onDragStart,
     onDragEnd,
     dragging,
-    targetEdge,
-    setTargetEdge,
-    targetConnection,
-    setTargetConnection,
     dominoIndex,
-    setDominoIndex,
-    targetId,
-    setTargetId,
+    target,
   };
 };
 
