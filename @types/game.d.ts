@@ -49,6 +49,6 @@ type Player = 'player' | 'enemy';
 
 type DragTarget = {
   id: string;
-  edge: Edge;
+  edge: Edge | null;
   connection: Connection;
 };

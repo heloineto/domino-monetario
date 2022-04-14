@@ -26,7 +26,7 @@ const useDeck = () => {
 
       return drawnDominos;
     },
-    [setDeck]
+    [setDeck, deck]
   );
 
   return { get, shuffle, draw };

@@ -25,7 +25,7 @@ export const findFirstDomino = (playerHand: Domino[], enemyHand: Domino[]) => {
   const compare = (currHand: Domino[], currPlayer: Player, currIndex: number) => {
     const domino = currHand[currIndex];
 
-    let currMoneyValue = Number(domino[0]) + Number(domino[1]);
+    const currMoneyValue = Number(domino[0]) + Number(domino[1]);
     if (domino[0] === domino[1]) moneyValue += 1000;
 
     if (currMoneyValue > moneyValue) {

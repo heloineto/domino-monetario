@@ -41,7 +41,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
 
   useEffect(() => {
     animate(angle, angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length));
-  }, [angleStep, index, length, middleIndex]);
+  }, [angleStep, index, length, middleIndex, angle]);
 
   const getWhileDrag = useCallback((connection?: Connection | null) => {
     if (!connection) return undefined;

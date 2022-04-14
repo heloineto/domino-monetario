@@ -38,6 +38,7 @@ const useDrag = (
     dragging,
     dominoIndex,
     target,
+    setTarget,
   };
 };
 

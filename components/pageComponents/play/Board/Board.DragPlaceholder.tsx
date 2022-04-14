@@ -5,8 +5,8 @@ import classNames from 'clsx';
 import { connect } from '@lib/algorithms/helpers';
 
 interface Props {
-  edge: Edge | null;
   id: string;
+  edge: Edge | null;
 }
 
 const BoardDragPlaceholder = ({ id, edge }: Props) => {
@@ -22,21 +22,15 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (hover) {
-      drag?.setTargetEdge(edge);
-      drag?.setTargetRef(divRef);
-      drag?.setTargetId(id);
-      drag?.setTargetConnection(connection);
+    if (hover && connection) {
+      drag?.setTarget({ id, edge, connection });
       return;
     }
 
-    if (drag?.targetId === id) {
-      drag?.setTargetEdge(null);
-      drag?.setTargetRef(null);
-      drag?.setTargetId(null);
-      drag?.setTargetConnection(null);
+    if (drag?.target?.id === id) {
+      drag?.setTarget(null);
     }
-  }, [hover, connection, edge, drag]);
+  }, [hover, connection, edge, drag, id]);
 
   useEffect(() => {
     const divElem = divRef.current;
@@ -62,8 +56,6 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
       document.removeEventListener('mousemove', check);
     };
   }, []);
-
-  console.log(drag?.targetEdge);
 
   return (
     <motion.div
