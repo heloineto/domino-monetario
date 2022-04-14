@@ -19,7 +19,7 @@ const Board = ({ className, ...divProps }: Props) => {
         <Deck className="h-60 w-auto" />
       </div>
       <div className="flex flex-grow items-center justify-center bg-red-200 p-2.5">
-        {drag?.dragging && <BoardDragPlaceholder edge={board?.edges?.start} />}
+        {drag?.dragging && <BoardDragPlaceholder id="start" edge={board?.edges?.start} />}
         {board?.boardDominos?.map(({ rotation, domino }) => (
           <BoardDomino
             key={`${domino[0]}-${domino[1]}`}
@@ -28,7 +28,7 @@ const Board = ({ className, ...divProps }: Props) => {
           />
         ))}
         {board?.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging && (
-          <BoardDragPlaceholder edge={board?.edges?.end} />
+          <BoardDragPlaceholder id="end" edge={board?.edges?.end} />
         )}
       </div>
     </div>

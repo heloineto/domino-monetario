@@ -48,7 +48,6 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
     if (!connection) return undefined;
 
     const { connects, rotation } = connection;
-
     const whileDrag: ComponentProps<typeof motion.div>['whileDrag'] = {};
 
     if (connects) {
@@ -67,13 +66,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
   return (
     <motion.div
       className="absolute rounded-lg border-2"
-      style={{
-        height: rectHeight,
-        width: rectWidth,
-        left,
-        top,
-        rotate,
-      }}
+      style={{ height: rectHeight, width: rectWidth, left, top, rotate }}
       whileHover={{
         scale: 1.3,
         rotate: 0,

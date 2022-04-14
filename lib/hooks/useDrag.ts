@@ -27,7 +27,6 @@ const useDrag = (
       board.addDomino(targetEdge?.position ?? 'end', targetConnection.rotation, domino);
       player.setHand((hand) => {
         const _hand = [...hand];
-
         _hand.splice(dominoIndex, 1);
 
         return _hand;

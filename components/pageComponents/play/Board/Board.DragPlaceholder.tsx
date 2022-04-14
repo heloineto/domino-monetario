@@ -6,9 +6,10 @@ import { connect } from '@lib/algorithms/helpers';
 
 interface Props {
   edge: Edge | null;
+  id: string;
 }
 
-const BoardDragPlaceholder = ({ edge }: Props) => {
+const BoardDragPlaceholder = ({ id, edge }: Props) => {
   const { drag } = useContext(GameContext);
 
   const connection = useMemo(
@@ -28,11 +29,9 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
       return;
     }
 
-    if (drag?.targetRef === divRef) {
-      drag?.setTargetEdge(null);
-      drag?.setTargetRef(null);
-      drag?.setTargetConnection(null);
-    }
+    drag?.setTargetEdge(null);
+    drag?.setTargetRef(null);
+    drag?.setTargetConnection(null);
   }, [hover, connection, edge, drag]);
 
   useEffect(() => {
@@ -65,6 +64,7 @@ const BoardDragPlaceholder = ({ edge }: Props) => {
   return (
     <motion.div
       className="flex items-center justify-center"
+      id={id}
       style={{ height: 160, width: connection?.rotation ? 160 : 86.73 }}
       ref={divRef}
     >
