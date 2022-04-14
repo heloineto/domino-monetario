@@ -6,16 +6,12 @@ const useDeck = () => {
   const [deck, setDeck] = useState(dominos);
 
   const shuffle = useCallback(
-    () =>
-      setDeck((currDeck) => {
-        const newDeck = [...currDeck];
-        return _shuffle(newDeck);
-      }),
+    async () => await setDeck((currDeck) => _shuffle(currDeck)),
     [setDeck]
   );
 
   const draw = useCallback(
-    (quantity = 0) => {
+    async (quantity = 0) => {
       const newDeck = [...deck];
       const drawnDominos: Domino[] = [];
 
@@ -27,16 +23,14 @@ const useDeck = () => {
         drawnDominos.push(domino);
       }
 
-      console.log(newDeck);
-
-      setDeck(newDeck);
+      await setDeck(newDeck);
 
       return drawnDominos;
     },
     [setDeck, deck]
   );
 
-  return { value: deck, shuffle, draw };
+  return { value: deck, shuffle, draw, set: setDeck };
 };
 
 export default useDeck;

@@ -1,8 +1,9 @@
 import { GameContext } from '@lib/context';
 import { useGame } from '@lib/hooks';
+import { Button } from '@mui/material';
 import Board from '../Board';
-
 import Player from '../Player';
+import GameStartMenu from './Game.StartMenu';
 
 interface Props {}
 
@@ -16,6 +17,7 @@ const Game = (props: Props) => {
         <Board className="flex-grow bg-sky-100" />
         <Player className="h-[256px] flex-shrink-0 bg-lime-100" />
       </main>
+      <GameStartMenu />
     </GameContext.Provider>
   );
 };

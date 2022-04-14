@@ -3,8 +3,8 @@ import { useCallback, useState } from 'react';
 const useHand = () => {
   const [hand, setHand] = useState<Domino[]>([]);
 
-  const add = useCallback((...dominos: Domino[]) => {
-    setHand((currHand) => {
+  const add = useCallback(async (...dominos: Domino[]) => {
+    await setHand((currHand) => {
       const newHand = [...currHand];
       newHand.push(...dominos);
 
@@ -12,8 +12,8 @@ const useHand = () => {
     });
   }, []);
 
-  const remove = useCallback((index: number) => {
-    setHand((currHand) => {
+  const remove = useCallback(async (index: number) => {
+    await setHand((currHand) => {
       const newHand = [...currHand];
       newHand.splice(index, 1);
 
