@@ -10,10 +10,12 @@ interface Props extends ComponentProps<'div'> {}
 const Player = ({ className, ...divProps }: Props) => {
   const { player } = useContext(GameContext);
 
-  const wheelConfig = useMemo(() => {
-    if (!player?.hand.length) return;
+  const hand = player?.hand.value;
 
-    const length = player.hand.length;
+  const wheelConfig = useMemo(() => {
+    if (!hand?.length) return;
+
+    const length = hand.length;
     const rectHeight = 224;
     const rectWidth = 121.441322;
     const radius = 2000;
@@ -32,9 +34,9 @@ const Player = ({ className, ...divProps }: Props) => {
       rectRadius,
       middleIndex,
     };
-  }, [player?.hand.length]);
+  }, [hand?.length]);
 
-  if (!player || !wheelConfig) return null;
+  if (!hand || !wheelConfig) return null;
 
   return (
     <div
@@ -44,7 +46,7 @@ const Player = ({ className, ...divProps }: Props) => {
       )}
       {...divProps}
     >
-      {player.hand.map((domino, index) => (
+      {hand.map((domino, index) => (
         <PlayerDomino
           key={`${domino[0]}-${domino[1]}`}
           domino={domino}
