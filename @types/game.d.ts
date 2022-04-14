@@ -26,10 +26,10 @@ type WheelConfig = {
   rectRadius: number;
 };
 
-type DominoRotation = 0 | -90 | 90;
+type Rotation = 0 | -90 | 90;
 
 type BoardDomino = {
-  rotation: DominoRotation;
+  rotation: Rotation;
   domino: Domino;
 };
 

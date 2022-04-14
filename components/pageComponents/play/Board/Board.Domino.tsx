@@ -2,7 +2,7 @@ import Domino from '../Domino';
 import { motion } from 'framer-motion';
 
 interface Props extends ComponentProps<typeof motion.div> {
-  rotation: DominoRotation;
+  rotation: Rotation;
   domino: [MoneyValue, MoneyValue];
 }
 

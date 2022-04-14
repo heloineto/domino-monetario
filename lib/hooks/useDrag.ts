@@ -25,13 +25,8 @@ const useDrag = (
 
   const onDragEnd = useCallback(() => {
     if (domino && dominoIndex && targetConnection?.connects) {
-      board.addDomino(targetEdge?.position ?? 'end', targetConnection.rotation, domino);
-      player.setHand((hand) => {
-        const _hand = [...hand];
-        _hand.splice(dominoIndex, 1);
-
-        return _hand;
-      });
+      board.add(targetEdge?.position ?? 'start', targetConnection.rotation, domino);
+      player.hand.remove(dominoIndex);
     }
 
     setDomino(null);

@@ -27,8 +27,8 @@ const useBoard = () => {
     });
   }, [boardDominos, setEdges]);
 
-  const addDomino = useCallback(
-    (position: Position, rotation: DominoRotation, domino: Domino) => {
+  const add = useCallback(
+    (position: Position, rotation: Rotation, domino: Domino) => {
       const boardDomino = { rotation, domino };
 
       setBoardDominos((_boardDominos) => {
@@ -48,7 +48,7 @@ const useBoard = () => {
     [setBoardDominos]
   );
 
-  return { edges, setEdges, boardDominos, setBoardDominos, addDomino };
+  return { edges, setEdges, boardDominos, setBoardDominos, add };
 };
 
 export default useBoard;
