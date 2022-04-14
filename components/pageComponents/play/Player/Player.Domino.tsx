@@ -1,7 +1,8 @@
 import { GameContext } from '@lib/context';
 import { range } from '@lib/utils/math';
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
-import { useContext, useEffect, useMemo } from 'react';
+import { isNil } from 'lodash';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -24,13 +25,6 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
     length,
   } = wheelConfig;
 
-  // const { angle, radAngle } = useMemo(() => {
-  //   const angle = angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length);
-  //   const radAngle = (angle * Math.PI) / 180;
-
-  //   return { angle, radAngle };
-  // }, [angleStep, index, length, middleIndex]);
-
   const angle = useMotionValue(
     angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length)
   );
@@ -49,6 +43,26 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
   useEffect(() => {
     animate(angle, angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length));
   }, [angleStep, index, length, middleIndex]);
+
+  const getWhileDrag = useCallback((connection?: Connection | null) => {
+    if (!connection) return undefined;
+
+    const { connects, rotation } = connection;
+
+    const whileDrag: ComponentProps<typeof motion.div>['whileDrag'] = {};
+
+    if (connects) {
+      whileDrag.scale = 0.9;
+      whileDrag.rotate = rotation;
+      whileDrag.boxShadow = '0px 0px 10px 2px rgba(34,197,94,0.75)';
+
+      return whileDrag;
+    }
+
+    whileDrag.boxShadow = '0px 0px 10px 2px rgba(239,68,68,0.75)';
+
+    return whileDrag;
+  }, []);
 
   return (
     <motion.div
@@ -69,16 +83,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       }}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
       whileDrag={
-        {
-          rotate: 0,
-        }
-        // drag?.targetConnection?.connects
-        //   ? {
-        //       scale: 0.9,
-        //       rotate: drag.targetConnection.rotation,
-        //       boxShadow: '0px 0px 10px 2px rgba(34,197,94,0.75)',
-        //     }
-        //   : undefined
+        drag?.dominoIndex === index ? getWhileDrag(drag?.targetConnection) : undefined
       }
       drag
       dragConstraints={{
@@ -87,10 +92,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
         bottom: 0,
         left: 0,
       }}
-      dragTransition={{
-        bounceStiffness: 600,
-        bounceDamping: 50,
-      }}
+      dragTransition={{ bounceStiffness: 600, bounceDamping: 50 }}
       dragElastic={1}
       onDragStart={() => drag?.onDragStart(domino, index)}
       onDragEnd={() => drag?.onDragEnd()}

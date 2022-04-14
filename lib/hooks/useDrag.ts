@@ -35,6 +35,7 @@ const useDrag = (
     }
 
     setDomino(null);
+    setDominoIndex(null);
     setDragging(false);
   }, [
     setDomino,
@@ -58,6 +59,8 @@ const useDrag = (
     setTargetEdge,
     targetConnection,
     setTargetConnection,
+    dominoIndex,
+    setDominoIndex,
   };
 };
 
