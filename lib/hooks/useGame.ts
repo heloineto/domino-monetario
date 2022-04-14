@@ -15,11 +15,16 @@ const useGame = () => {
 
   // Start Game
   useEffect(() => {
+    player.hand.set([]);
+    // enemy.hand.set([]);
+
+    deck.shuffle();
+
     const playerDominos = deck.draw(13);
-    const enemyDominos = deck.draw(13);
+    // const enemyDominos = deck.draw(0);
 
     player.hand.add(...playerDominos);
-    enemy.hand.add(...enemyDominos);
+    // enemy.hand.add(...enemyDominos);
 
     // const result = findFirstDomino(_playerHand, _enemyHand);
 

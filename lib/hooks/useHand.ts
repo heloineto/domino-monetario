@@ -4,22 +4,24 @@ const useHand = () => {
   const [hand, setHand] = useState<Domino[]>([]);
 
   const add = useCallback((...dominos: Domino[]) => {
-    setHand((_hand) => {
-      _hand.push(...dominos);
-      return _hand;
+    setHand((currHand) => {
+      const newHand = [...currHand];
+      newHand.push(...dominos);
+
+      return newHand;
     });
   }, []);
 
   const remove = useCallback((index: number) => {
-    setHand((hand) => {
-      const _hand = [...hand];
-      _hand.splice(index, 1);
+    setHand((currHand) => {
+      const newHand = [...currHand];
+      newHand.splice(index, 1);
 
-      return _hand;
+      return newHand;
     });
   }, []);
 
-  return { value: hand, add, remove };
+  return { value: hand, add, remove, set: setHand };
 };
 
 export default useHand;
