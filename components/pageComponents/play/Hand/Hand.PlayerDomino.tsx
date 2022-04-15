@@ -18,19 +18,18 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
   const connection = drag?.target?.connection;
 
   const whileDrag: TargetAndTransition | undefined = useMemo(() => {
-    if (!selected) {
-      return undefined;
-    }
+    if (!selected) return;
 
-    if (!connection) {
-      return undefined;
-    }
+    if (!connection) return;
 
-    if (!connection.connects) {
-      return undefined;
-    }
+    if (!connection.connects)
+      return { boxShadow: '0px 0px 10px 2px rgba(239,68,68,0.75)' };
 
-    return { rotate: connection.rotation, scale: 0.9 };
+    return {
+      rotate: connection.rotation,
+      scale: 0.9,
+      boxShadow: '0px 0px 10px 2px rgba(34,197,94,0.75)',
+    };
   }, [connection, selected]);
 
   return (
@@ -48,8 +47,8 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       onDragEnd={() => drag?.onDragEnd()}
       {...motionDivProps}
     >
-      <Domino className="h-full w-full" domino={domino} animate={{}} />
-      {index === 0 && <Debug value={{ selected }} />}
+      <Domino className="h-full w-full" domino={domino} />
+      {index === 0 && <Debug value={{}} />}
     </HandBaseDomino>
   );
 };
