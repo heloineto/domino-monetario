@@ -1,7 +1,7 @@
+import Debug from '@components/elements/debug/Debug';
 import { GameContext } from '@lib/context';
-import { range } from '@lib/utils/math';
-import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
-import { useContext, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { useContext } from 'react';
 import Domino from '../Domino';
 import HandBaseDomino from './Hand.BaseDomino';
 
@@ -53,7 +53,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
             : undefined
         }
       />
-      {/* {!isEnemy && index === 0 && <Debug value={{ rotate }} />} */}
+      {index === 0 && <Debug value={{ selected, connection }} />}
     </HandBaseDomino>
   );
 };

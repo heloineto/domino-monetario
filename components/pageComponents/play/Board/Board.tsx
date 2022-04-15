@@ -31,7 +31,6 @@ const Board = ({ className, ...divProps }: Props) => {
         {board?.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging && (
           <BoardDragPlaceholder id="end" edge={board?.edges?.end} />
         )}
-        <Debug value={drag} />
       </div>
     </div>
   );

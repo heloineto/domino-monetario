@@ -36,7 +36,7 @@ const Hand = ({ player }: Props) => {
     };
   }, [player.hand.length, isEnemy]);
 
-  const Domino = useMemo(() => (isEnemy ? HandEnemyDomino : HandPlayerDomino), []);
+  const Domino = useMemo(() => (isEnemy ? HandEnemyDomino : HandPlayerDomino), [isEnemy]);
 
   return (
     <>

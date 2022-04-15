@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import usePlayer from './usePlayer';
 
 const useDrag = (player: ReturnType<typeof usePlayer>) => {
