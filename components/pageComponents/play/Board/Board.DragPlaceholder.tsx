@@ -22,15 +22,15 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const isTarget = drag?.target?.id === id;
+
     if (hover && connection) {
-      drag?.targetActions.set({ id, edge, connection });
+      if (!isTarget) drag?.targetActions.set({ id, edge, connection });
       return;
     }
 
-    if (drag?.target?.id === id) drag?.targetActions.set(null);
-
-    return () => drag?.targetActions.set(null);
-  }, [hover, connection, edge, drag, id]);
+    if (isTarget) drag?.targetActions.set(null);
+  }, [hover, connection, edge, drag?.target?.id, drag?.targetActions, id]);
 
   useEffect(() => {
     const divElem = divRef.current;

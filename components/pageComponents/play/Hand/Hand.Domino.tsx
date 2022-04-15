@@ -97,7 +97,7 @@ const HandDomino = ({
     }
 
     return props;
-  }, [isEnemy, drag?.dominoIndex, index]);
+  }, [isEnemy, drag?.dominoIndex, domino, drag, index]);
 
   return (
     <motion.div

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import usePlayer from './usePlayer';
 
 const useDrag = (player: ReturnType<typeof usePlayer>) => {
@@ -15,8 +15,6 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
     },
     [setDomino, setDragging]
   );
-
-  console.log(target);
 
   const onDragEnd = useCallback(() => {
     console.log('onDragEnd', dominoIndex, target);
@@ -36,6 +34,10 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
     setTarget(null);
     setDragging(false);
   }, [setDomino, dominoIndex, setDragging, target, player]);
+
+  useEffect(() => {
+    console.log('target changed');
+  }, [target]);
 
   return {
     drag: {
