@@ -58,10 +58,10 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
   }, []);
 
   return (
-    <motion.div
+    <div
       className="flex items-center justify-center"
       id={id}
-      style={{ height: 160, width: connection?.rotation ? 160 : 86.73 }}
+      style={{ height: 160, width: connection?.rotation === 0 ? 86.73 : 160 }}
       ref={divRef}
     >
       <motion.div
@@ -75,7 +75,7 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
         )}
         style={{ height: 160, width: 86.73, rotate: connection?.rotation }}
       />
-    </motion.div>
+    </div>
   );
 };
 

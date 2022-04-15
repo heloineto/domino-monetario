@@ -10,6 +10,8 @@ import useDrag from './useDrag';
 import usePlayer from './usePlayer';
 import useTurn from './useTurn';
 
+const STARTING_HAND_SIZE = 13;
+
 const useGame = () => {
   const [playing, setPlaying] = useState(false);
   const { turn, turnActions } = useTurn();
@@ -25,16 +27,14 @@ const useGame = () => {
 
     const newDeck = shuffle(deck);
 
-    const playerDominos = draw(newDeck, 13);
-    const enemyDominos = draw(newDeck, 13);
+    const playerDominos = draw(newDeck, STARTING_HAND_SIZE);
+    const enemyDominos = draw(newDeck, STARTING_HAND_SIZE);
 
     const playerMax = findMax(playerDominos);
     const enemyMax = findMax(enemyDominos);
 
-    console.log({ playerMax, enemyMax });
-
     let firstDomino: Domino | undefined;
-    if (playerMax.index && enemyMax.index) {
+    if (playerMax.index !== undefined && enemyMax.index !== undefined) {
       if (playerMax.score > enemyMax.score) {
         [firstDomino] = playerDominos.splice(playerMax.index, 1);
         turnActions.set('enemy');
@@ -43,8 +43,6 @@ const useGame = () => {
         turnActions.set('player');
       }
     }
-
-    console.log({ firstDomino });
 
     if (firstDomino) {
       boardActions.add('start', isDouble(firstDomino) ? 0 : -90, firstDomino);
