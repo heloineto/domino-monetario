@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import Head from 'next/head';
-import Link from 'next/link';
+import Game from '@components/pageComponents/play/Game';
 
 const HomePage: NextPage = () => {
   // const;
@@ -12,11 +12,7 @@ const HomePage: NextPage = () => {
       <Head>
         <title>Dominó Monetário</title>
       </Head>
-      <div>
-        <Link href="/play" passHref>
-          <Button>Jogar</Button>
-        </Link>
-      </div>
+      <Game />
     </>
   );
 };

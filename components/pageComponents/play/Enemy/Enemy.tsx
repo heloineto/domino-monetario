@@ -12,7 +12,7 @@ const Enemy = ({ className, ...divProps }: Props) => {
     <div
       className={classNames(
         className,
-        'relative flex h-[256px] w-full flex-shrink-0 items-start justify-start space-x-0'
+        'relative flex w-full flex-shrink-0 items-start justify-start space-x-0'
       )}
       {...divProps}
     >

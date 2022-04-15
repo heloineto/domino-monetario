@@ -1,5 +1,6 @@
 import usePlayer from '@lib/hooks/usePlayer';
 import { range } from '@lib/utils/math';
+import classNames from 'clsx';
 import { useMemo } from 'react';
 import HandDomino from './Hand.Domino';
 
@@ -12,10 +13,12 @@ const Hand = ({ player }: Props) => {
 
   const wheelConfig = useMemo(() => {
     const length = player.hand.length;
-    const rectHeight = 224;
-    const rectWidth = 121.441322;
-    const radius = player.type === 'enemy' ? -2000 : 2000;
-    const divider = range(2, 10, 32, 8, length);
+    const rectHeight = isEnemy ? 224 * 0.6 : 224;
+    const rectWidth = isEnemy ? 121.441322 * 0.6 : 121.441322;
+    const radius = isEnemy ? -2000 : 2000;
+    const divider = isEnemy
+      ? range(2, 10, 64, 8 * 2, length)
+      : range(2, 10, 32, 8, length);
     const middleIndex = (length - 1) / 2;
     const angleStep = 360 / divider / length;
     const rectRadius = radius - rectHeight / 2;
@@ -30,20 +33,30 @@ const Hand = ({ player }: Props) => {
       rectRadius,
       middleIndex,
     };
-  }, [player.hand.length]);
+  }, [player.hand.length, isEnemy]);
 
   return (
-    <div className="absolute top-0 left-1/2 h-full w-full">
-      {player.hand.map((domino, index) => (
-        <HandDomino
-          key={`${domino[0]}-${domino[1]}`}
-          domino={domino}
-          index={index}
-          wheelConfig={wheelConfig}
-          isEnemy={isEnemy}
-        />
-      ))}
-    </div>
+    <>
+      <div
+        className={classNames(
+          isEnemy ? 'bottom-0 right-0' : 'top-0 right-0',
+          'absolute z-[60] grid h-12 w-12 select-none place-items-center rounded-full bg-white/50 font-display text-3xl'
+        )}
+      >
+        {player.hand.length}
+      </div>
+      <div className="absolute top-0 left-1/2 h-full w-full">
+        {player.hand.map((domino, index) => (
+          <HandDomino
+            key={`${domino[0]}-${domino[1]}`}
+            domino={domino}
+            index={index}
+            wheelConfig={wheelConfig}
+            isEnemy={isEnemy}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

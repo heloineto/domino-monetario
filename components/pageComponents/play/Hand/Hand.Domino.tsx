@@ -109,7 +109,7 @@ const HandDomino = ({
 
   return (
     <motion.div
-      className="absolute rounded-lg border-2"
+      className="absolute rounded-lg"
       style={{ height: rectHeight, width: rectWidth, left, top, rotate }}
       {...props}
       {...motionDivProps}
