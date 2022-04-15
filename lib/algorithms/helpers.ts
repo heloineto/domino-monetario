@@ -5,9 +5,9 @@ export const findFirstDomino = (playerHand: Domino[], enemyHand: Domino[]) => {
   let moneyValue = 0;
   let index: number | undefined;
   let hand: Domino[] | undefined;
-  let player: Player | undefined;
+  let player: PlayerType | undefined;
 
-  const compare = (currHand: Domino[], currPlayer: Player, currIndex: number) => {
+  const compare = (currHand: Domino[], currPlayer: PlayerType, currIndex: number) => {
     const domino = currHand[currIndex];
 
     const currMoneyValue = Number(domino[0]) + Number(domino[1]);

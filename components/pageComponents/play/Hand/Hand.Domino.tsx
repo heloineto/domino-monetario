@@ -27,9 +27,16 @@ interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
   index: number;
   wheelConfig: WheelConfig;
+  playerType?: PlayerType;
 }
 
-const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
+const HandDomino = ({
+  domino,
+  index,
+  wheelConfig,
+  playerType,
+  ...motionDivProps
+}: Props) => {
   const { drag } = useContext(GameContext);
 
   const {
@@ -44,14 +51,16 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
   } = wheelConfig;
 
   const angle = useMotionValue(
-    angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length)
+    angleStep * (middleIndex - index) -
+      90 +
+      range(1, 20, 0, -2, length) * (playerType === 'enemy' ? -1 : 1)
   );
   const radAngle = useTransform(angle, (currAngle) => (currAngle * Math.PI) / 180);
 
   const rotate = useTransform(angle, (currAngle) => currAngle + 90);
   const left = useTransform(
     radAngle,
-    (currRadAngle) => `calc(${rectRadius * Math.cos(currRadAngle)}px + 50%)`
+    (currRadAngle) => rectRadius * Math.cos(currRadAngle)
   );
   const top = useTransform(
     radAngle,
@@ -59,7 +68,12 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
   );
 
   useEffect(() => {
-    animate(angle, angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length));
+    animate(
+      angle,
+      angleStep * (middleIndex - index) -
+        90 +
+        range(1, 20, 0, -2, length) * (playerType === 'enemy' ? -1 : 1)
+    );
   }, [angleStep, index, length, middleIndex, angle]);
 
   return (
@@ -79,9 +93,9 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       onDragEnd={() => drag?.onDragEnd()}
       {...motionDivProps}
     >
-      <Domino className="h-full w-full" domino={domino} />
+      <Domino className="h-full w-full" domino={domino} hidden={playerType === 'enemy'} />
     </motion.div>
   );
 };
 
-export default PlayerDomino;
+export default HandDomino;

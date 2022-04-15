@@ -45,7 +45,7 @@ type Connection = {
   rotation: Rotation;
 };
 
-type Player = 'player' | 'enemy';
+type PlayerType = 'player' | 'enemy';
 
 type DragTarget = {
   id: string;

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 const useTurn = () => {
-  const [turn, setTurn] = useState<Player | null>(null);
+  const [turn, setTurn] = useState<PlayerType | null>(null);
 
   const toggle = useCallback(
     () => setTurn((_turn) => (_turn === 'enemy' ? 'player' : 'enemy')),
