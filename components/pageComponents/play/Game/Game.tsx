@@ -1,7 +1,6 @@
 import { GameContext } from '@lib/context';
 import { useGame } from '@lib/hooks';
 import Board from '../Board';
-import Enemy from '../Enemy';
 import Player from '../Player';
 import GameSettingsMenu from './Game.SettingsMenu';
 import GameStartMenu from './Game.StartMenu';

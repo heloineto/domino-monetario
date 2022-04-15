@@ -48,7 +48,6 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       {...motionDivProps}
     >
       <Domino className="h-full w-full" domino={domino} />
-      {index === 0 && <Debug value={{}} />}
     </HandBaseDomino>
   );
 };
