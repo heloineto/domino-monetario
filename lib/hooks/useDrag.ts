@@ -35,10 +35,6 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
     setDragging(false);
   }, [setDomino, dominoIndex, setDragging, target, player]);
 
-  useEffect(() => {
-    console.log('target changed');
-  }, [target]);
-
   return {
     drag: {
       domino,
