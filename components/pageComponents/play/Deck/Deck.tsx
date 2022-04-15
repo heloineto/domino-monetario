@@ -399,7 +399,7 @@ const Deck = ({ className, ...motionDivProps }: Props) => {
             WebkitTextStrokeColor: 'black',
           }}
         >
-          <div className="text-5xl">{deck?.value.length}</div>
+          <div className="text-5xl">{deck?.length}</div>
           <div className="text-lg">Dominós</div>
         </div>
       </div>

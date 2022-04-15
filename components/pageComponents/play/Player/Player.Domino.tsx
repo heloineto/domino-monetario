@@ -69,9 +69,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       whileHover={{ scale: 1.3, rotate: 0, cursor: 'grab', top: -2.5, zIndex: 50 }}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
       whileDrag={
-        drag?.dominoIndex === index
-          ? getWhileDrag(drag?.target.value?.connection)
-          : undefined
+        drag?.dominoIndex === index ? getWhileDrag(drag?.target?.connection) : undefined
       }
       drag
       dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}

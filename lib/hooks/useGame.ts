@@ -14,7 +14,7 @@ const useGame = () => {
   const { board, boardActions } = useBoard();
   const player = usePlayer({ board, boardActions });
   const enemy = usePlayer({ board, boardActions });
-  const { drag, dragActions } = useDrag(player);
+  const { drag } = useDrag(player);
 
   const start = useCallback(() => {
     if (playing) return;
@@ -31,18 +31,15 @@ const useGame = () => {
   }, [deck, deckActions, enemy.handActions, player.handActions, playing]);
 
   return {
-    game: {
-      turn,
-      deck,
-      board,
-      enemy,
-      player,
-      drag,
-      playing,
-      boardActions,
-      dragActions,
-      turnActions,
-    },
+    turn,
+    deck,
+    board,
+    enemy,
+    player,
+    drag,
+    playing,
+    boardActions,
+    turnActions,
     gameActions: {
       start,
     },

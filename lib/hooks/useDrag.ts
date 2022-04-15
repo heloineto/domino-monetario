@@ -38,10 +38,11 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
       dragging,
       dominoIndex,
       target,
+      targetActions: {
+        set: setTarget,
+      },
     },
-    dragActions: {
-      setTarget,
-    },
+    dragActions: {},
   };
 };
 

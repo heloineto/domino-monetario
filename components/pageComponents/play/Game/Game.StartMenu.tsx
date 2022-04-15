@@ -5,7 +5,7 @@ import { useContext } from 'react';
 interface Props {}
 
 const GameStartMenu = (props: Props) => {
-  const { playing, start } = useContext(GameContext);
+  const { playing, gameActions } = useContext(GameContext);
 
   return (
     <Dialog
@@ -16,7 +16,7 @@ const GameStartMenu = (props: Props) => {
       }}
     >
       <div className="flex h-full items-center justify-center">
-        <Button variant="contained" onClick={() => start?.()}>
+        <Button variant="contained" onClick={() => gameActions?.start()}>
           Jogar
         </Button>
       </div>

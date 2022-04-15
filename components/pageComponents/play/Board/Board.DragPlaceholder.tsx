@@ -23,12 +23,12 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
 
   useEffect(() => {
     if (hover && connection) {
-      drag?.target.set({ id, edge, connection });
+      drag?.targetActions.set({ id, edge, connection });
       return;
     }
 
-    if (drag?.target?.value?.id === id) {
-      drag?.target.set(null);
+    if (drag?.target?.id === id) {
+      drag?.targetActions.set(null);
     }
   }, [hover, connection, edge, drag, id]);
 
