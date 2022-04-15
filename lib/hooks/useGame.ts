@@ -1,6 +1,6 @@
 import draw from '@lib/algorithms/draw';
 import { shuffle } from 'lodash';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import useBoard from './useBoard';
 import useDeck from './useDeck';
 import useDrag from './useDrag';
@@ -20,7 +20,7 @@ const useGame = () => {
     if (playing) return;
     setPlaying(true);
 
-    let newDeck = shuffle(deck);
+    const newDeck = shuffle(deck);
 
     const playerDominos = draw(newDeck, 13);
     const enemyDominos = draw(newDeck, 13);
@@ -28,7 +28,7 @@ const useGame = () => {
     player.handActions.set(playerDominos);
     enemy.handActions.set(enemyDominos);
     deckActions.set(newDeck);
-  }, []);
+  }, [deck, deckActions, enemy.handActions, player.handActions, playing]);
 
   return {
     game: {

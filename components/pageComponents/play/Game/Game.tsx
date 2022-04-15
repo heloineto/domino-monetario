@@ -1,6 +1,5 @@
 import { GameContext } from '@lib/context';
 import { useGame } from '@lib/hooks';
-import { Button } from '@mui/material';
 import Board from '../Board';
 import Player from '../Player';
 import GameStartMenu from './Game.StartMenu';

@@ -22,10 +22,13 @@ const useHand = ({ board, boardActions }: ReturnType<typeof useBoard>) => {
     });
   }, []);
 
-  const toBoard = useCallback((position: Position, rotation: Rotation, index: number) => {
-    boardActions.add(position, rotation, hand[index]);
-    remove(index);
-  }, []);
+  const toBoard = useCallback(
+    (position: Position, rotation: Rotation, index: number) => {
+      boardActions.add(position, rotation, hand[index]);
+      remove(index);
+    },
+    [boardActions, hand, remove]
+  );
 
   return { hand, handActions: { add, remove, toBoard, set: setHand } };
 };

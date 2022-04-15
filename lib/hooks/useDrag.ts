@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import useBoard from './useBoard';
 import usePlayer from './usePlayer';
 
 const useDrag = (player: ReturnType<typeof usePlayer>) => {
@@ -29,7 +28,7 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
     setDomino(null);
     setDominoIndex(null);
     setDragging(false);
-  }, [setDomino, dominoIndex, setDragging, domino, target, player]);
+  }, [setDomino, dominoIndex, setDragging, target, player]);
 
   return {
     drag: {
