@@ -37,18 +37,15 @@ const useBoard = () => {
         return position === 'start'
           ? [boardDomino, ..._boardDominos]
           : [..._boardDominos, boardDomino];
-
-        // const a = [..._boardDominos];
-
-        // position === 'start' ? a.concat([boardDomino]) : a.push(boardDomino);
-
-        // return a;
       });
     },
     [setBoardDominos]
   );
 
-  return { edges, setEdges, boardDominos, setBoardDominos, add };
+  return {
+    board: { edges, boardDominos },
+    boardActions: { setEdges, setBoardDominos, add },
+  };
 };
 
 export default useBoard;

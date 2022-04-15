@@ -8,8 +8,18 @@ const GameStartMenu = (props: Props) => {
   const { playing, start } = useContext(GameContext);
 
   return (
-    <Dialog fullScreen open={!playing}>
-      <Button onClick={() => start?.()}>Jogar</Button>
+    <Dialog
+      fullScreen
+      open={!playing}
+      classes={{
+        paper: 'bg-white/25',
+      }}
+    >
+      <div className="flex h-full items-center justify-center">
+        <Button variant="contained" onClick={() => start?.()}>
+          Jogar
+        </Button>
+      </div>
     </Dialog>
   );
 };

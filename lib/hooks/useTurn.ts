@@ -9,8 +9,8 @@ const useTurn = () => {
   );
 
   return {
-    value: turn,
-    toggle,
+    turn,
+    turnActions: { toggle, set: setTurn },
   };
 };
 

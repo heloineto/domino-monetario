@@ -1,9 +1,10 @@
+import useBoard from './useBoard';
 import useHand from './useHand';
 
-const usePlayer = () => {
-  const hand = useHand();
+const usePlayer = ({ board, boardActions }: ReturnType<typeof useBoard>) => {
+  const { hand, handActions } = useHand({ board, boardActions });
 
-  return { hand };
+  return { hand, handActions };
 };
 
 export default usePlayer;

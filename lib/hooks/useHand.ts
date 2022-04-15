@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
+import useBoard from './useBoard';
 
-const useHand = () => {
+const useHand = ({ board, boardActions }: ReturnType<typeof useBoard>) => {
   const [hand, setHand] = useState<Domino[]>([]);
 
   const add = useCallback(async (...dominos: Domino[]) => {
@@ -21,7 +22,12 @@ const useHand = () => {
     });
   }, []);
 
-  return { value: hand, add, remove, set: setHand };
+  const toBoard = useCallback((position: Position, rotation: Rotation, index: number) => {
+    boardActions.add(position, rotation, hand[index]);
+    remove(index);
+  }, []);
+
+  return { hand, handActions: { add, remove, toBoard, set: setHand } };
 };
 
 export default useHand;

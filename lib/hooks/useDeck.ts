@@ -5,13 +5,12 @@ import { useCallback, useState } from 'react';
 const useDeck = () => {
   const [deck, setDeck] = useState(dominos);
 
-  const shuffle = useCallback(
-    async () => await setDeck((currDeck) => _shuffle(currDeck)),
-    [setDeck]
-  );
+  const shuffle = useCallback(() => {
+    setDeck((currDeck) => _shuffle(currDeck));
+  }, [setDeck]);
 
   const draw = useCallback(
-    async (quantity = 0) => {
+    (quantity = 0) => {
       const newDeck = [...deck];
       const drawnDominos: Domino[] = [];
 
@@ -23,14 +22,14 @@ const useDeck = () => {
         drawnDominos.push(domino);
       }
 
-      await setDeck(newDeck);
+      setDeck(newDeck);
 
       return drawnDominos;
     },
     [setDeck, deck]
   );
 
-  return { value: deck, shuffle, draw, set: setDeck };
+  return { deck, deckActions: { shuffle, draw, set: setDeck } };
 };
 
 export default useDeck;
