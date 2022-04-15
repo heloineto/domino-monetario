@@ -14,11 +14,17 @@ const Board = ({ className, ...divProps }: Props) => {
   if (!board) return null;
 
   return (
-    <div className={classNames(className, 'flex')} {...divProps}>
-      <div className="flex h-full w-44 flex-col items-center justify-center">
-        <Deck className="h-60 w-auto" />
+    <div
+      className={classNames(
+        className,
+        'mx-5 flex overflow-hidden rounded-xl border-4 border-white/50'
+      )}
+      {...divProps}
+    >
+      <div className="flex h-full w-40 flex-col items-center justify-center">
+        <Deck className="h-52 w-auto" />
       </div>
-      <div className="flex flex-grow items-center justify-center overflow-x-scroll bg-red-200 p-2.5">
+      <div className="flex flex-grow items-center justify-center p-2.5">
         {drag?.dragging ? (
           <BoardDragPlaceholder id="start" edge={board?.edges?.start} />
         ) : (

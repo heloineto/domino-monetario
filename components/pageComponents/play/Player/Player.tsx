@@ -2,12 +2,13 @@ import { useContext } from 'react';
 import { GameContext } from '@lib/context';
 import classNames from 'clsx';
 import Hand from '../Hand';
+import usePlayer from '@lib/hooks/usePlayer';
 
-interface Props extends ComponentProps<'div'> {}
+interface Props extends ComponentProps<'div'> {
+  player: ReturnType<typeof usePlayer>;
+}
 
-const Player = ({ className, ...divProps }: Props) => {
-  const { player } = useContext(GameContext);
-
+const Player = ({ player, className, ...divProps }: Props) => {
   return (
     <div
       className={classNames(

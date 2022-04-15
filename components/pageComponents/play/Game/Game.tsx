@@ -13,10 +13,13 @@ const Game = (props: Props) => {
 
   return (
     <GameContext.Provider value={game}>
-      <main className="flex h-screen max-h-screen w-full flex-col overflow-hidden">
-        <Enemy className="h-[128px] flex-shrink-0 bg-lime-100" />
-        <Board className="flex-grow bg-sky-100" />
-        <Player className="h-[256px] flex-shrink-0 bg-lime-100" />
+      <main
+        className="flex h-screen max-h-screen w-full flex-col overflow-hidden  bg-green-200"
+        style={{ boxShadow: 'inset 0 0 300px rgba(0,0,0,0.5)' }}
+      >
+        <Player className="h-[128px] flex-shrink-0" player={game.enemy} />
+        <Board className="my-4 flex-grow" />
+        <Player className="h-[256px] flex-shrink-0" player={game.player} />
       </main>
       <GameStartMenu />
       <GameSettingsMenu />

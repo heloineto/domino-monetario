@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'clsx';
 import { connect } from '@lib/algorithms/helpers';
+import twColors from 'tailwindcss/colors';
 
 interface Props {
   id: string;
@@ -57,6 +58,12 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
     };
   }, []);
 
+  const color = useMemo(() => {
+    if (!hover) return twColors.slate;
+
+    return connection?.connects ? twColors.green : twColors.red;
+  }, [connection?.connects, hover]);
+
   return (
     <div
       className="flex items-center justify-center"
@@ -65,15 +72,16 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
       ref={divRef}
     >
       <motion.div
-        className={classNames(
-          hover
-            ? connection?.connects
-              ? 'border-green-500 bg-green-500'
-              : 'border-red-500 bg-red-500'
-            : 'border-slate-400',
-          'rounded border-2 border-dashed bg-opacity-25'
-        )}
-        style={{ height: 160, width: 86.73, rotate: connection?.rotation }}
+        className={classNames('rounded border-2 border-dashed bg-opacity-25')}
+        style={{
+          height: 160,
+          width: 86.73,
+          rotate: connection?.rotation,
+          borderColor: color[500],
+          background: hover
+            ? `repeating-linear-gradient(45deg, ${color[200]}, ${color[200]} 0.25rem, ${color[300]} 0.25rem, ${color[300]} 0.5rem)`
+            : undefined,
+        }}
       />
     </div>
   );

@@ -19,7 +19,7 @@ const useGame = () => {
   const { board, boardActions } = useBoard();
   const player = usePlayer('player', { board, boardActions });
   const enemy = usePlayer('enemy', { board, boardActions });
-  const { drag, dragActions } = useDrag(player);
+  const drag = useDrag(player, { turn, turnActions });
 
   const start = useCallback(() => {
     if (playing) return;
@@ -68,7 +68,7 @@ const useGame = () => {
     enemy.handActions.set([]);
     boardActions.setBoardDominos([]);
     setPlaying(false);
-  }, []);
+  }, [boardActions, deckActions, enemy.handActions, player.handActions]);
 
   return {
     turn,
@@ -79,7 +79,6 @@ const useGame = () => {
     drag,
     playing,
     boardActions,
-    dragActions,
     turnActions,
     gameActions: {
       start,

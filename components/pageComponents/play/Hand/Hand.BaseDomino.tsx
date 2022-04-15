@@ -1,6 +1,6 @@
 import { range } from '@lib/utils/math';
 import { useMemo } from 'react';
-import { motion, TargetAndTransition, Variant } from 'framer-motion';
+import { TargetAndTransition, motion } from 'framer-motion';
 
 interface Props extends ComponentProps<typeof motion.div> {
   wheelConfig: WheelConfig;

@@ -1,7 +1,11 @@
 import { useCallback, useState } from 'react';
 import usePlayer from './usePlayer';
+import useTurn from './useTurn';
 
-const useDrag = (player: ReturnType<typeof usePlayer>) => {
+const useDrag = (
+  player: ReturnType<typeof usePlayer>,
+  { turn, turnActions }: ReturnType<typeof useTurn>
+) => {
   const [dragging, setDragging] = useState(false);
   const [domino, setDomino] = useState<Domino | null>(null);
   const [dominoIndex, setDominoIndex] = useState<number | null>(null);
@@ -9,6 +13,8 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
 
   const onDragStart = useCallback(
     (_domino: Domino, _dominoIndex: number) => {
+      if (turn !== player.type) return;
+
       setDomino(_domino);
       setDominoIndex(_dominoIndex);
       setDragging(true);
@@ -32,18 +38,15 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
   }, [setDomino, dominoIndex, setDragging, target, player]);
 
   return {
-    drag: {
-      domino,
-      onDragStart,
-      onDragEnd,
-      dragging,
-      dominoIndex,
-      target,
-      targetActions: {
-        set: setTarget,
-      },
+    domino,
+    onDragStart,
+    onDragEnd,
+    dragging,
+    dominoIndex,
+    target,
+    targetActions: {
+      set: setTarget,
     },
-    dragActions: {},
   };
 };
 
