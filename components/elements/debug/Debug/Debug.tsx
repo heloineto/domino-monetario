@@ -1,4 +1,4 @@
-import { Popper, Portal } from '@mui/material';
+import { Portal } from '@mui/material';
 
 interface Props {
   value: any;

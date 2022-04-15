@@ -51,7 +51,15 @@ const useGame = () => {
     enemy.handActions.set(enemyDominos);
 
     deckActions.set(newDeck);
-  }, [deck, deckActions, enemy.handActions, player.handActions, playing]);
+  }, [
+    deck,
+    deckActions,
+    enemy.handActions,
+    player.handActions,
+    playing,
+    boardActions,
+    turnActions,
+  ]);
 
   return {
     turn,

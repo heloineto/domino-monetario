@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import Head from 'next/head';
 import Game from '@components/pageComponents/play/Game';
 

@@ -1,8 +1,7 @@
-import Debug from '@components/elements/debug/Debug';
 import { GameContext } from '@lib/context';
 import { range } from '@lib/utils/math';
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
-import { useCallback, useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import Domino from '../Domino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -56,7 +55,7 @@ const HandDomino = ({
         90 +
         range(1, 20, 0, -2, length) * (isEnemy ? -1 : 1)
     );
-  }, [angleStep, index, length, middleIndex, angle]);
+  }, [angleStep, index, length, middleIndex, angle, isEnemy]);
 
   const props = useMemo(() => {
     const props: ComponentProps<typeof motion.div> = {};
@@ -66,13 +65,6 @@ const HandDomino = ({
     props.whileHover.zIndex = 50;
     props.whileTap = {};
     props.whileTap.scale = 1.1;
-
-    props.style = {};
-    props.style.height = rectHeight;
-    props.style.width = rectWidth;
-    props.style.left = left;
-    props.style.top = top;
-    props.style.rotate = rotate;
 
     if (isEnemy) return props;
 

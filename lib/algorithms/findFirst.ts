@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash';
 
 const findFirst = (hand: Domino[]) => {
   let maxScore = -1;

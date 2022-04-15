@@ -1,7 +1,7 @@
 import Debug from '@components/elements/debug/Debug';
 import { GameContext } from '@lib/context';
 import classNames from 'clsx';
-import { isEmpty, omit } from 'lodash';
+import { isEmpty } from 'lodash';
 import { useContext } from 'react';
 import Deck from '../Deck';
 import BoardDomino from './Board.Domino';
