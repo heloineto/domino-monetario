@@ -1,10 +1,11 @@
 import { range } from '@lib/utils/math';
 import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, TargetAndTransition, Variant } from 'framer-motion';
 
 interface Props extends ComponentProps<typeof motion.div> {
   wheelConfig: WheelConfig;
   index: number;
+  animation?: TargetAndTransition;
 }
 
 const HandBaseDomino = ({
@@ -12,6 +13,7 @@ const HandBaseDomino = ({
   index,
   variants,
   animate,
+  animation,
   ...motionDivProps
 }: Props) => {
   const {
@@ -25,7 +27,7 @@ const HandBaseDomino = ({
     length,
   } = wheelConfig;
 
-  const normalVariant = useMemo(() => {
+  const defaultAnimation: TargetAndTransition = useMemo(() => {
     const angle = angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length);
     const radAngle = (angle * Math.PI) / 180;
 
@@ -40,11 +42,7 @@ const HandBaseDomino = ({
     <motion.div
       className="absolute"
       style={{ height: rectHeight, width: rectWidth }}
-      variants={{
-        normal: normalVariant,
-        ...variants,
-      }}
-      animate={animate ?? 'normal'}
+      animate={{ ...defaultAnimation, ...animation }}
       {...motionDivProps}
     />
   );
