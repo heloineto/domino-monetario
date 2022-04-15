@@ -5,11 +5,9 @@ import HandDomino from './Hand.Domino';
 
 type Props = {
   player: ReturnType<typeof usePlayer>;
-  hidden?: boolean;
-  inverted?: boolean;
 };
 
-const Hand = ({ player, hidden, inverted }: Props) => {
+const Hand = ({ player }: Props) => {
   const wheelConfig = useMemo(() => {
     const length = player.hand.length;
     const rectHeight = 224;
@@ -30,7 +28,7 @@ const Hand = ({ player, hidden, inverted }: Props) => {
       rectRadius,
       middleIndex,
     };
-  }, [player.hand.length, inverted]);
+  }, [player.hand.length]);
 
   return (
     <div className="absolute top-0 left-1/2 h-full w-full">
