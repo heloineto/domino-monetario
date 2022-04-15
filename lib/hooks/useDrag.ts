@@ -17,8 +17,6 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
   );
 
   const onDragEnd = useCallback(() => {
-    console.log('onDragEnd', dominoIndex, target);
-
     if (dominoIndex !== null && target?.connection?.connects) {
       console.log('RAN');
 

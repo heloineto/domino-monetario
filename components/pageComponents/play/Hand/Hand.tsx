@@ -2,7 +2,8 @@ import usePlayer from '@lib/hooks/usePlayer';
 import { range } from '@lib/utils/math';
 import classNames from 'clsx';
 import { useMemo } from 'react';
-import HandDomino from './Hand.Domino';
+import HandEnemyDomino from './Hand.EnemyDomino';
+import HandPlayerDomino from './Hand.PlayerDomino';
 
 type Props = {
   player: ReturnType<typeof usePlayer>;
@@ -35,6 +36,8 @@ const Hand = ({ player }: Props) => {
     };
   }, [player.hand.length, isEnemy]);
 
+  const Domino = useMemo(() => (isEnemy ? HandEnemyDomino : HandPlayerDomino), []);
+
   return (
     <>
       <div
@@ -47,12 +50,11 @@ const Hand = ({ player }: Props) => {
       </div>
       <div className="absolute top-0 left-1/2 h-full w-full">
         {player.hand.map((domino, index) => (
-          <HandDomino
+          <Domino
             key={`${domino[0]}-${domino[1]}`}
             domino={domino}
             index={index}
             wheelConfig={wheelConfig}
-            isEnemy={isEnemy}
           />
         ))}
       </div>
