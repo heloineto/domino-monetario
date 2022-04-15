@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 
 const useBoard = () => {
@@ -8,7 +9,7 @@ const useBoard = () => {
   const [boardDominos, setBoardDominos] = useState<BoardDomino[] | null>(null);
 
   useEffect(() => {
-    if (!boardDominos) {
+    if (!boardDominos || isEmpty(boardDominos)) {
       setEdges({ start: null, end: null });
       return;
     }

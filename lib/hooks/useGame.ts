@@ -1,5 +1,6 @@
+import dominos from '@lib/algorithms/dominos';
 import draw from '@lib/algorithms/draw';
-import findFirst from '@lib/algorithms/findFirst';
+import findMax from '@lib/algorithms/findMax';
 import isDouble from '@lib/algorithms/isDouble';
 import { shuffle } from 'lodash';
 import { useCallback, useState } from 'react';
@@ -27,21 +28,23 @@ const useGame = () => {
     const playerDominos = draw(newDeck, 13);
     const enemyDominos = draw(newDeck, 13);
 
-    const playerMax = findFirst(playerDominos);
-    const enemyMax = findFirst(enemyDominos);
+    const playerMax = findMax(playerDominos);
+    const enemyMax = findMax(enemyDominos);
+
+    console.log({ playerMax, enemyMax });
 
     let firstDomino: Domino | undefined;
-    if (playerMax.score > enemyMax.score) {
-      [firstDomino] = playerMax.index
-        ? playerDominos.splice(playerMax.index, 1)
-        : [undefined];
-      turnActions.set('enemy');
-    } else {
-      [firstDomino] = enemyMax.index
-        ? enemyDominos.splice(enemyMax.index, 1)
-        : [undefined];
-      turnActions.set('player');
+    if (playerMax.index && enemyMax.index) {
+      if (playerMax.score > enemyMax.score) {
+        [firstDomino] = playerDominos.splice(playerMax.index, 1);
+        turnActions.set('enemy');
+      } else {
+        [firstDomino] = enemyDominos.splice(enemyMax.index, 1);
+        turnActions.set('player');
+      }
     }
+
+    console.log({ firstDomino });
 
     if (firstDomino) {
       boardActions.add('start', isDouble(firstDomino) ? 0 : -90, firstDomino);
@@ -61,6 +64,14 @@ const useGame = () => {
     turnActions,
   ]);
 
+  const reset = useCallback(() => {
+    deckActions.set(dominos);
+    player.handActions.set([]);
+    enemy.handActions.set([]);
+    boardActions.setBoardDominos([]);
+    setPlaying(false);
+  }, []);
+
   return {
     turn,
     deck,
@@ -74,6 +85,7 @@ const useGame = () => {
     turnActions,
     gameActions: {
       start,
+      reset,
     },
   };
 };

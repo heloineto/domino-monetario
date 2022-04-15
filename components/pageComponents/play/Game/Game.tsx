@@ -3,6 +3,7 @@ import { useGame } from '@lib/hooks';
 import Board from '../Board';
 import Enemy from '../Enemy';
 import Player from '../Player';
+import GameSettingsMenu from './Game.SettingsMenu';
 import GameStartMenu from './Game.StartMenu';
 
 interface Props {}
@@ -18,6 +19,7 @@ const Game = (props: Props) => {
         <Player className="h-[256px] flex-shrink-0 bg-lime-100" />
       </main>
       <GameStartMenu />
+      <GameSettingsMenu />
     </GameContext.Provider>
   );
 };

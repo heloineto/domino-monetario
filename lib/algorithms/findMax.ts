@@ -1,5 +1,4 @@
-
-const findFirst = (hand: Domino[]) => {
+const findMax = (hand: Domino[]) => {
   let maxScore = -1;
   let maxIndex: number | undefined;
 
@@ -18,4 +17,4 @@ const findFirst = (hand: Domino[]) => {
   return { index: maxIndex, score: maxScore };
 };
 
-export default findFirst;
+export default findMax;
