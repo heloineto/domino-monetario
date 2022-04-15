@@ -18,8 +18,6 @@ const useDrag = (
       setDomino(_domino);
       setDominoIndex(_dominoIndex);
       setDragging(true);
-
-      turnActions.toggle();
     },
     [setDomino, setDragging, player.type, turn]
   );
@@ -31,6 +29,8 @@ const useDrag = (
         target.connection.rotation,
         dominoIndex
       );
+
+      turnActions.toggle();
     }
 
     setDomino(null);

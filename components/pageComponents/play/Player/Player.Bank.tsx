@@ -1,6 +1,5 @@
 import usePlayer from '@lib/hooks/usePlayer';
 import { motion } from 'framer-motion';
-import { round } from 'lodash';
 import Image from 'next/image';
 
 interface Props {
