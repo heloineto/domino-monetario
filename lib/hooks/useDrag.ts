@@ -18,8 +18,6 @@ const useDrag = (player: ReturnType<typeof usePlayer>) => {
 
   const onDragEnd = useCallback(() => {
     if (dominoIndex !== null && target?.connection?.connects) {
-      console.log('RAN');
-
       player.handActions.toBoard(
         target.edge?.position ?? 'start',
         target.connection.rotation,

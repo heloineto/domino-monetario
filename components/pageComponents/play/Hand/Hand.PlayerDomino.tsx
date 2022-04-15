@@ -1,7 +1,7 @@
 import Debug from '@components/elements/debug/Debug';
 import { GameContext } from '@lib/context';
-import { motion } from 'framer-motion';
-import { useContext } from 'react';
+import { Variant, motion } from 'framer-motion';
+import { useCallback, useContext, useMemo } from 'react';
 import Domino from '../Domino';
 import HandBaseDomino from './Hand.BaseDomino';
 
@@ -16,6 +16,53 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
 
   const selected = drag?.dominoIndex === index;
   const connection = drag?.target?.connection;
+
+  // const selectedVariant = useMemo(() => {
+  //   const variant: Variant = {};
+
+  //   if (connection) {
+  //     variant.boxShadow = connection.connects
+  //       ? '0px 0px 10px 2px rgba(34,197,94,0.75)'
+  //       : '0px 0px 10px 2px rgba(239,68,68,0.75)';
+  //   }
+
+  //   return variant;
+  // }, [connection]);
+
+  // const connectsVariant = useMemo(() => {
+  //   const variant: Variant = {};
+
+  //   if (!connection) {
+  //     return;
+  //   }
+
+  //   if (!connection.connects) {
+  //     return;
+  //   }
+
+  //   variant.rotate = connection.rotation;
+  //   variant.scale = 0.9;
+
+  //   return variant;
+  // }, [connection]);
+
+  const getAnimation = useCallback(() => {
+    const variant: Variant = {};
+
+    if (!selected) {
+      return;
+    }
+
+    if (!connection) {
+      return;
+    }
+
+    if (!connection.connects) {
+      return;
+    }
+
+    return { rotate: connection.rotation, scale: 0.9 };
+  }, [connection]);
 
   return (
     <HandBaseDomino
@@ -38,22 +85,18 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       dragElastic={1}
       onDragStart={() => drag?.onDragStart(domino, index)}
       onDragEnd={() => drag?.onDragEnd()}
+      // whileDrag={connectsVariant}
+      animate={getAnimation()}
+      // whileDrag={connectsVariant}
+      // variants={{
+      //   connects: {
+      //     scale: 0.9,
+      //   },
+      // }}
       {...motionDivProps}
     >
-      <Domino
-        className="h-full w-full"
-        domino={domino}
-        style={
-          selected && connection
-            ? {
-                boxShadow: connection.connects
-                  ? '0px 0px 10px 2px rgba(34,197,94,0.75)'
-                  : '0px 0px 10px 2px rgba(239,68,68,0.75)',
-              }
-            : undefined
-        }
-      />
-      {index === 0 && <Debug value={{ selected, connection }} />}
+      <Domino className="h-full w-full" domino={domino} />
+      {index === 0 && <Debug value={{ selected }} />}
     </HandBaseDomino>
   );
 };

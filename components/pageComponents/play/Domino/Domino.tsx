@@ -17,7 +17,7 @@ const Domino = ({ hidden, domino, className, ...motionSvgProps }: Props) => {
         viewBox="0 0 656 1232"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-[calc(100%-3px)] w-full rounded-lg border-2 border-slate-400 bg-white shadow-md hover:shadow-2xl"
+        className="h-full w-full rounded-lg border-2 border-slate-400 bg-white shadow-md hover:shadow-2xl"
         {...motionSvgProps}
       >
         <path
