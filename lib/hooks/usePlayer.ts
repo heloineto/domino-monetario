@@ -30,34 +30,20 @@ const usePlayer = (
   }, [hand, board.edges]);
 
   const getPlays = useCallback(() => {
-    const plays: BoardDomino[] = [];
-
+    const plays: { edge: Edge | null; rotation: Rotation; index: number }[] = [];
     const { start, end } = board.edges;
-
-    if (!start || !end) return true;
+    const edges = [start, end];
 
     for (let i = 0; i < hand.length; i++) {
-      // position: Position, rotation: Rotation, domino: Domino;
-
-      const domino = hand[i];
-      const connection = connect(domino, start);
-
-      // if(connection.connects) plays.push({domino:  })
-
-      // if (domino[0] === start.value) {
-      // }
-
-      // if (domino[0] === end.value) {
-      // }
-
-      // if (domino[1] === start.value) {
-      // }
-
-      // if (domino[1] === end.value) {
-      // }
+      for (let j = 0; j < edges.length; j++) {
+        const { connects, rotation } = connect(hand[i], start);
+        if (connects) {
+          plays.push({ index: i, rotation, edge: edges[j] });
+        }
+      }
     }
 
-    return false;
+    return plays;
   }, [hand, board.edges]);
 
   return {
@@ -66,6 +52,7 @@ const usePlayer = (
     handActions,
     money,
     hasPlays,
+    getPlays,
     moneyActions: { set: setMoney, add: addMoney },
   };
 };

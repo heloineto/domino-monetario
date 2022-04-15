@@ -3,7 +3,7 @@ import draw from '@lib/algorithms/draw';
 import findMax from '@lib/algorithms/findMax';
 import isDouble from '@lib/algorithms/isDouble';
 import { shuffle } from 'lodash';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useBoard from './useBoard';
 import useDeck from './useDeck';
 import useDrag from './useDrag';
@@ -20,6 +20,17 @@ const useGame = () => {
   const player = usePlayer('player', { board, boardActions });
   const enemy = usePlayer('enemy', { board, boardActions });
   const drag = useDrag(player, { turn, turnActions });
+
+  useEffect(() => {
+    if (turn === 'enemy') {
+      const plays = enemy.getPlays();
+      const { index, edge, rotation } = plays[Math.floor(Math.random() * plays.length)];
+
+      enemy.handActions.toBoard(edge?.position ?? 'start', rotation, index);
+
+      turnActions.toggle();
+    }
+  }, [turn]);
 
   const start = useCallback(() => {
     if (playing) return;
