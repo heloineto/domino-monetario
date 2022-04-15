@@ -1,27 +1,9 @@
+import Debug from '@components/elements/debug/Debug';
 import { GameContext } from '@lib/context';
 import { range } from '@lib/utils/math';
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import Domino from '../Domino';
-
-const getWhileDrag = (connection?: Connection | null) => {
-  if (!connection) return undefined;
-
-  const { connects, rotation } = connection;
-  const whileDrag: ComponentProps<typeof motion.div>['whileDrag'] = {};
-
-  if (connects) {
-    whileDrag.scale = 0.9;
-    whileDrag.rotate = rotation;
-    whileDrag.boxShadow = '0px 0px 10px 2px rgba(34,197,94,0.75)';
-
-    return whileDrag;
-  }
-
-  whileDrag.boxShadow = '0px 0px 10px 2px rgba(239,68,68,0.75)';
-
-  return whileDrag;
-};
 
 interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
@@ -76,24 +58,64 @@ const HandDomino = ({
     );
   }, [angleStep, index, length, middleIndex, angle]);
 
+  const props = useMemo(() => {
+    const props: ComponentProps<typeof motion.div> = {};
+
+    props.whileHover = {};
+    props.whileHover.scale = 1.3;
+    props.whileHover.zIndex = 50;
+    props.whileTap = {};
+    props.whileTap.scale = 1.1;
+
+    props.style = {};
+    props.style.height = rectHeight;
+    props.style.width = rectWidth;
+    props.style.left = left;
+    props.style.top = top;
+    props.style.rotate = rotate;
+
+    if (isEnemy) return props;
+
+    props.whileTap.cursor = 'grabbing';
+    props.whileHover.rotate = 0;
+    props.whileHover.cursor = 'grab';
+    props.whileHover.top = -2.5;
+    props.onDragStart = () => drag?.onDragStart(domino, index);
+    props.onDragEnd = () => drag?.onDragEnd();
+
+    props.drag = true;
+    props.dragConstraints = { top: 0, right: 0, bottom: 0, left: 0 };
+    props.dragTransition = { bounceStiffness: 600, bounceDamping: 50 };
+    props.dragElastic = 1;
+
+    const connection = drag?.target?.connection;
+
+    if (drag?.dominoIndex === index && connection) {
+      props.whileDrag = {};
+
+      const { connects, rotation } = connection;
+
+      if (connects) {
+        props.whileDrag.scale = 0.9;
+        props.whileDrag.rotate = rotation;
+        props.whileDrag.boxShadow = '0px 0px 10px 2px rgba(34,197,94,0.75)';
+      } else {
+        props.whileDrag.boxShadow = '0px 0px 10px 2px rgba(239,68,68,0.75)';
+      }
+    }
+
+    return props;
+  }, [isEnemy, drag?.dominoIndex, index]);
+
   return (
     <motion.div
       className="absolute rounded-lg border-2"
       style={{ height: rectHeight, width: rectWidth, left, top, rotate }}
-      whileHover={{ scale: 1.3, rotate: 0, cursor: 'grab', top: -2.5, zIndex: 50 }}
-      whileTap={{ scale: 1.1, cursor: 'grabbing' }}
-      whileDrag={
-        drag?.dominoIndex === index ? getWhileDrag(drag?.target?.connection) : undefined
-      }
-      drag
-      dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
-      dragTransition={{ bounceStiffness: 600, bounceDamping: 50 }}
-      dragElastic={1}
-      onDragStart={isEnemy ? () => drag?.onDragStart(domino, index) : undefined}
-      onDragEnd={isEnemy ? () => drag?.onDragEnd() : undefined}
+      {...props}
       {...motionDivProps}
     >
       <Domino className="h-full w-full" domino={domino} hidden={isEnemy} />
+      {!isEnemy && index === 0 && <Debug value={{ rotate }} />}
     </motion.div>
   );
 };

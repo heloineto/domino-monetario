@@ -32,7 +32,6 @@ const Board = ({ className, ...divProps }: Props) => {
           <BoardDragPlaceholder id="end" edge={board?.edges?.end} />
         )}
       </div>
-      <Debug value={omit(drag, ['targetRef'])} hidden />
     </div>
   );
 };
