@@ -18,8 +18,10 @@ const useDrag = (
       setDomino(_domino);
       setDominoIndex(_dominoIndex);
       setDragging(true);
+
+      turnActions.toggle();
     },
-    [setDomino, setDragging]
+    [setDomino, setDragging, player.type, turn]
   );
 
   const onDragEnd = useCallback(() => {

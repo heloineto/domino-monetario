@@ -1,20 +1,23 @@
+import usePlayer from '@lib/hooks/usePlayer';
 import { motion } from 'framer-motion';
+import { round } from 'lodash';
 import Image from 'next/image';
 
-interface Props {}
+interface Props {
+  player: ReturnType<typeof usePlayer>;
+}
 
-const PlayerBank = (props: Props) => {
+const PlayerBank = ({ player }: Props) => {
   return (
-    <motion.div className="relative -mt-20 flex h-40 w-40">
-      <div
-        className="absolute top-[35%] left-[10%] z-10 w-32 select-none text-center font-display text-xl tracking-widest text-[#F07A6D]"
-        style={{
-          WebkitTextStrokeWidth: '2px',
-          WebkitTextStrokeColor: '#75231A',
-        }}
-      >
-        <div>00,00</div>
-        <div>R$</div>
+    <motion.div
+      className="absolute top-0 left-5 flex h-32 w-32"
+      whileHover={{ scale: 1.2 }}
+    >
+      <div className="z-10 grid h-full w-full select-none place-items-center text-center font-display text-lg font-bold tracking-widest text-[#75231A]">
+        <div>
+          <div>{Number(player.money).toFixed(2).replace('.', ',')}</div>
+          <div>R$</div>
+        </div>
       </div>
       <Image
         src="/piggy-bank.svg"

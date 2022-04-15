@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { GameContext } from '@lib/context';
 import classNames from 'clsx';
 import Hand from '../Hand';
 import usePlayer from '@lib/hooks/usePlayer';
+import PlayerBank from './Player.Bank';
 
 interface Props extends ComponentProps<'div'> {
   player: ReturnType<typeof usePlayer>;
@@ -17,7 +16,8 @@ const Player = ({ player, className, ...divProps }: Props) => {
       )}
       {...divProps}
     >
-      {player && <Hand player={player} />}
+      <Hand player={player} />
+      <PlayerBank player={player} />
     </div>
   );
 };
