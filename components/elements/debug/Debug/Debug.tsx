@@ -10,11 +10,9 @@ const Debug = ({ value, hidden }: Props) => {
 
   return (
     <Portal>
-      <Popper open={true} placement="top-end">
-        <div className="rounded-lg bg-white bg-opacity-50">
-          <pre>{JSON.stringify(value, null, 2)}</pre>
-        </div>
-      </Popper>
+      <div className="absolute top-0 right-0 z-[100] rounded-lg bg-white bg-opacity-50">
+        <pre>{JSON.stringify(value, null, 2)}</pre>
+      </div>
     </Portal>
   );
 };

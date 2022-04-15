@@ -115,7 +115,7 @@ const HandDomino = ({
       {...motionDivProps}
     >
       <Domino className="h-full w-full" domino={domino} hidden={isEnemy} />
-      {!isEnemy && index === 0 && <Debug value={{ rotate }} />}
+      {/* {!isEnemy && index === 0 && <Debug value={{ rotate }} />} */}
     </motion.div>
   );
 };
