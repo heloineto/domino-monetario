@@ -1,4 +1,6 @@
 import draw from '@lib/algorithms/draw';
+import findFirst from '@lib/algorithms/findFirst';
+import isDouble from '@lib/algorithms/isDouble';
 import { shuffle } from 'lodash';
 import { useCallback, useState } from 'react';
 import useBoard from './useBoard';
@@ -25,8 +27,29 @@ const useGame = () => {
     const playerDominos = draw(newDeck, 13);
     const enemyDominos = draw(newDeck, 13);
 
+    const playerMax = findFirst(playerDominos);
+    const enemyMax = findFirst(enemyDominos);
+
+    let firstDomino: Domino | undefined;
+    if (playerMax.score > enemyMax.score) {
+      [firstDomino] = playerMax.index
+        ? playerDominos.splice(playerMax.index, 1)
+        : [undefined];
+      turnActions.set('enemy');
+    } else {
+      [firstDomino] = enemyMax.index
+        ? enemyDominos.splice(enemyMax.index, 1)
+        : [undefined];
+      turnActions.set('player');
+    }
+
+    if (firstDomino) {
+      boardActions.add('start', isDouble(firstDomino) ? 0 : -90, firstDomino);
+    }
+
     player.handActions.set(playerDominos);
     enemy.handActions.set(enemyDominos);
+
     deckActions.set(newDeck);
   }, [deck, deckActions, enemy.handActions, player.handActions, playing]);
 

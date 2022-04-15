@@ -27,14 +27,14 @@ interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
   index: number;
   wheelConfig: WheelConfig;
-  playerType?: PlayerType;
+  isEnemy?: boolean;
 }
 
 const HandDomino = ({
   domino,
   index,
   wheelConfig,
-  playerType,
+  isEnemy,
   ...motionDivProps
 }: Props) => {
   const { drag } = useContext(GameContext);
@@ -53,7 +53,7 @@ const HandDomino = ({
   const angle = useMotionValue(
     angleStep * (middleIndex - index) -
       90 +
-      range(1, 20, 0, -2, length) * (playerType === 'enemy' ? -1 : 1)
+      range(1, 20, 0, -2, length) * (isEnemy ? -1 : 1)
   );
   const radAngle = useTransform(angle, (currAngle) => (currAngle * Math.PI) / 180);
 
@@ -72,7 +72,7 @@ const HandDomino = ({
       angle,
       angleStep * (middleIndex - index) -
         90 +
-        range(1, 20, 0, -2, length) * (playerType === 'enemy' ? -1 : 1)
+        range(1, 20, 0, -2, length) * (isEnemy ? -1 : 1)
     );
   }, [angleStep, index, length, middleIndex, angle]);
 
@@ -89,11 +89,11 @@ const HandDomino = ({
       dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
       dragTransition={{ bounceStiffness: 600, bounceDamping: 50 }}
       dragElastic={1}
-      onDragStart={() => drag?.onDragStart(domino, index)}
-      onDragEnd={() => drag?.onDragEnd()}
+      onDragStart={isEnemy ? () => drag?.onDragStart(domino, index) : undefined}
+      onDragEnd={isEnemy ? () => drag?.onDragEnd() : undefined}
       {...motionDivProps}
     >
-      <Domino className="h-full w-full" domino={domino} hidden={playerType === 'enemy'} />
+      <Domino className="h-full w-full" domino={domino} hidden={isEnemy} />
     </motion.div>
   );
 };

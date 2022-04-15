@@ -8,6 +8,8 @@ type Props = {
 };
 
 const Hand = ({ player }: Props) => {
+  const isEnemy = useMemo(() => player.type === 'enemy', [player.type]);
+
   const wheelConfig = useMemo(() => {
     const length = player.hand.length;
     const rectHeight = 224;
@@ -38,7 +40,7 @@ const Hand = ({ player }: Props) => {
           domino={domino}
           index={index}
           wheelConfig={wheelConfig}
-          playerType={player.type}
+          isEnemy={isEnemy}
         />
       ))}
     </div>
