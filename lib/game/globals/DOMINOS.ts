@@ -14,14 +14,14 @@ export const moneyValues: MoneyValue[] = [
   '0',
 ];
 
-const dominos: Domino[] = [];
+const DOMINOS: Domino[] = [];
 
 for (let i = 0; i < moneyValues.length; i++) {
   for (let j = i; j < moneyValues.length; j++) {
-    dominos.push([moneyValues[i], moneyValues[j]]);
+    DOMINOS.push([moneyValues[i], moneyValues[j]]);
   }
 }
 
-Object.freeze(dominos);
+Object.freeze(DOMINOS);
 
-export default dominos;
+export default DOMINOS;

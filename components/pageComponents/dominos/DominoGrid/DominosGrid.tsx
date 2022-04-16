@@ -1,4 +1,4 @@
-import { moneyValues } from '@lib/algorithms/dominos';
+import { moneyValues } from '@lib/game/globals/DOMINOS';
 import DominoGridDomino from './DominoGrid.Domino';
 
 interface Props {}

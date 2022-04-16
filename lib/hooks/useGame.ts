@@ -1,49 +1,33 @@
-import dominos from '@lib/algorithms/dominos';
+import getPlays from '@lib/game/getPlays';
+import INITIAL_STATE from '@lib/game/globals/INITIAL_STATE';
+import makePlay from '@lib/game/makePlay';
+import toggleTurn from '@lib/game/toggleTurn';
 import { cloneDeep, isEmpty, shuffle } from 'lodash';
-import { useReducer } from 'react';
-
-const INITIAL_STATE: Game = {
-  playing: false,
-  turn: 'player',
-  deck: dominos,
-  player: {
-    hand: [],
-    money: 0,
-    type: 'player',
-  },
-  enemy: {
-    hand: [],
-    money: 0,
-    type: 'enemy',
-  },
-  board: {
-    boardDominos: [],
-    edges: {
-      start: null,
-      end: null,
-    },
-  },
-};
-
-Object.freeze(INITIAL_STATE);
+import { useEffect, useReducer } from 'react';
 
 export enum GAME_ACTIONS_TYPES {
   START = 'START',
   RESET = 'RESET',
   HAND_TO_BOARD = 'HAND_TO_BOARD',
+  MAKE_ENEMY_PLAY = 'MAKE_ENEMY_PLAY',
 }
 
-type GameActionTypes = keyof typeof GAME_ACTIONS_TYPES;
+type GameAction =
+  | {
+      type:
+        | GAME_ACTIONS_TYPES.START
+        | GAME_ACTIONS_TYPES.RESET
+        | GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY;
+    }
+  | GameActionHandToBoard;
 
-type GameAction = {
-  type: GameActionTypes;
-  payload?: GameActionPayloads;
-};
-
-type GameActionPayloads = {
-  playerType: PlayerType;
-  connection: Connection;
-  index: number;
+type GameActionHandToBoard = {
+  type: GAME_ACTIONS_TYPES.HAND_TO_BOARD;
+  payload: {
+    playerType: PlayerType;
+    connection: Connection;
+    index: number;
+  };
 };
 
 const STARTING_HAND_SIZE = 13;
@@ -140,10 +124,6 @@ const gameReducer = (state: Game, action: GameAction) => {
 
   const isDouble = (domino: Domino) => domino[0] === domino[1];
 
-  const toggleTurn = () => {
-    newState.turn = newState.turn === 'player' ? 'enemy' : 'player';
-  };
-
   const opositeTurn = (turn: PlayerType) => {
     newState.turn = turn === 'player' ? 'enemy' : 'player';
   };
@@ -184,13 +164,47 @@ const gameReducer = (state: Game, action: GameAction) => {
 
       opositeTurn(playerType);
       return newState;
+    case GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY:
+      const plays = getPlays(newState.enemy, newState.board);
+
+      console.log(plays);
+
+      if (isEmpty(plays)) {
+        //! Draw and recheck
+
+        const turn = toggleTurn(state.turn);
+
+        return { ...state, turn };
+      }
+
+      const play = plays[Math.floor(Math.random() * plays.length)];
+
+      const updates = makePlay(
+        state.enemy,
+        state.board,
+        state.turn,
+        play.index,
+        play.connection
+      );
+
+      console.log(updates);
+
+      if (!updates) return state;
+
+      return { ...state, ...updates };
     default:
-      throw new Error();
+      throw new Error(`Unknown action: ${JSON.stringify(action)}`);
   }
 };
 
 const useGame = () => {
   const [game, dispatch] = useReducer(gameReducer, cloneDeep(INITIAL_STATE));
+
+  useEffect(() => {
+    if (game.turn === 'enemy') {
+      dispatch({ type: GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY });
+    }
+  }, [game.turn]);
 
   return { game, dispatch };
 };

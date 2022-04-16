@@ -2,8 +2,8 @@ import { DragContext } from '@lib/context';
 import { motion } from 'framer-motion';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'clsx';
-import { connect } from '@lib/algorithms/helpers';
 import twColors from 'tailwindcss/colors';
+import getConnection from '@lib/game/getConnection';
 
 interface Props {
   id: string;
@@ -14,7 +14,7 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
   const drag = useContext(DragContext);
 
   const connection = useMemo(
-    () => (drag.domino ? connect(drag.domino, edge) : null),
+    () => (drag.domino ? getConnection(drag.domino, edge) : null),
     [drag?.domino, edge]
   );
 

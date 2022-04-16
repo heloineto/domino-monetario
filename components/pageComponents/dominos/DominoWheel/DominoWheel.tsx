@@ -1,4 +1,4 @@
-import dominos from '@lib/algorithms/dominos';
+import dominos from '@lib/game/globals/DOMINOS';
 import { useMemo } from 'react';
 import DominoWheelDomino from './DominoWheel.Domino';
 
@@ -23,7 +23,7 @@ const DominoWheel = (props: Props) => {
       angleStep,
       rectRadius,
       divider,
-      middleIndex
+      middleIndex,
     };
   }, []);
 
