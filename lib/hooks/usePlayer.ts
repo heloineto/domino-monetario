@@ -36,7 +36,7 @@ const usePlayer = (
 
     for (let i = 0; i < hand.length; i++) {
       for (let j = 0; j < edges.length; j++) {
-        const { connects, rotation } = connect(hand[i], start);
+        const { connects, rotation } = connect(hand[i], edges[j]);
         if (connects) {
           plays.push({ index: i, rotation, edge: edges[j] });
         }

@@ -43,6 +43,7 @@ type Position = 'start' | 'end';
 type Connection = {
   connects: boolean;
   rotation: Rotation;
+  edge?: Edge | null;
 };
 
 type PlayerType = 'player' | 'enemy';

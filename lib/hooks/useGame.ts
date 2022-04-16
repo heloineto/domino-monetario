@@ -23,12 +23,17 @@ const useGame = () => {
 
   useEffect(() => {
     if (turn === 'enemy') {
-      const plays = enemy.getPlays();
-      const { index, edge, rotation } = plays[Math.floor(Math.random() * plays.length)];
+      console.log('RAN enemy turn', board);
 
-      enemy.handActions.toBoard(edge?.position ?? 'start', rotation, index);
+      setTimeout(() => {
+        const plays = enemy.getPlays();
+        const { index, edge, rotation } =
+          plays[Math.floor(Math.random() * (plays.length - 1))];
 
-      turnActions.toggle();
+        enemy.handActions.toBoard(edge?.position ?? 'start', rotation, index);
+
+        turnActions.toggle();
+      }, 1000);
     }
   }, [turn]);
 
@@ -45,13 +50,14 @@ const useGame = () => {
     const enemyMax = findMax(enemyDominos);
 
     let firstDomino: Domino | undefined;
+    let startTurn: PlayerType | undefined;
     if (playerMax.index !== undefined && enemyMax.index !== undefined) {
       if (playerMax.score > enemyMax.score) {
         [firstDomino] = playerDominos.splice(playerMax.index, 1);
-        turnActions.set('enemy');
+        startTurn = 'enemy';
       } else {
         [firstDomino] = enemyDominos.splice(enemyMax.index, 1);
-        turnActions.set('player');
+        startTurn = 'player';
       }
     }
 
@@ -63,6 +69,8 @@ const useGame = () => {
     enemy.handActions.set(enemyDominos);
 
     deckActions.set(newDeck);
+
+    turnActions.set(startTurn ?? 'player');
   }, [
     deck,
     deckActions,

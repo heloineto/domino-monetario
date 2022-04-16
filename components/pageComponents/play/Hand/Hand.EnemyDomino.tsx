@@ -17,7 +17,7 @@ const HandEnemyDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Prop
       index={index}
       {...motionDivProps}
     >
-      <Domino className="h-full w-full" domino={domino} hidden />
+      <Domino className="h-full w-full" domino={domino} hidden={false} />
     </HandBaseDomino>
   );
 };
