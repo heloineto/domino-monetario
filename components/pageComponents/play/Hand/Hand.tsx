@@ -39,14 +39,6 @@ const Hand = ({ player }: Props) => {
 
   return (
     <>
-      <div
-        className={classNames(
-          isEnemy ? 'bottom-0 right-0' : 'top-0 right-0',
-          'absolute z-[60] grid h-12 w-12 select-none place-items-center rounded-full bg-white/50 font-display text-3xl'
-        )}
-      >
-        {player.hand.length}
-      </div>
       <div className="absolute top-0 left-1/2 h-full w-full">
         {player.hand.map((domino, index) => (
           <Domino

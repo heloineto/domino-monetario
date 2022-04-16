@@ -12,7 +12,6 @@ const HandBaseDomino = ({
   wheelConfig,
   index,
   variants,
-  animate,
   animation,
   ...motionDivProps
 }: Props) => {

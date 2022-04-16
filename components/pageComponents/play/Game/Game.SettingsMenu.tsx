@@ -1,3 +1,7 @@
+import PrimaryIconButton from '@components/elements/buttons/PrimaryIconButton';
+import MenuDialog from '@components/elements/dialog/MenuDialog';
+import Cog from '@components/elements/icons/Cog';
+import X from '@components/elements/icons/X';
 import { GameContext } from '@lib/context';
 import { GAME_ACTIONS_TYPES } from '@lib/hooks/useGame';
 import { Button, Dialog, IconButton } from '@mui/material';
@@ -12,18 +16,15 @@ const GameSettingsMenu = (props: Props) => {
 
   return (
     <>
-      <IconButton
-        className="absolute top-0 right-0 h-10 w-10"
-        onClick={() => setOpen(true)}
-      >
-        <CodesandboxLogo />
-      </IconButton>
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={() => setOpen(false)}
-        classes={{ paper: 'bg-white/25' }}
-      >
+      {!open && (
+        <PrimaryIconButton
+          className="absolute top-2 right-2 h-10 w-10"
+          onClick={() => setOpen(true)}
+        >
+          <Cog className="h-10 w-10" />
+        </PrimaryIconButton>
+      )}
+      <MenuDialog open={open} onClose={() => setOpen(false)}>
         <Button
           onClick={() => {
             dispatch?.({ type: GAME_ACTIONS_TYPES.RESET });
@@ -32,7 +33,7 @@ const GameSettingsMenu = (props: Props) => {
         >
           Resetar Jogo
         </Button>
-      </Dialog>
+      </MenuDialog>
     </>
   );
 };

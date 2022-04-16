@@ -1,4 +1,4 @@
-import { DragContext } from '@lib/context';
+import { DragContext, GameContext } from '@lib/context';
 import { TargetAndTransition, motion } from 'framer-motion';
 import { useContext, useMemo } from 'react';
 import Domino from '../Domino';
@@ -12,6 +12,7 @@ interface Props extends ComponentProps<typeof motion.div> {
 
 const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
   const drag = useContext(DragContext);
+  const { game } = useContext(GameContext);
 
   const selected = drag?.dominoIndex === index;
   const connection = drag?.target?.connection;
@@ -36,7 +37,13 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       wheelConfig={wheelConfig}
       index={index}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
-      whileHover={{ rotate: 0, cursor: 'grab', top: -2.5, scale: 1.3, zIndex: 50 }}
+      whileHover={{
+        rotate: 0,
+        cursor: 'grab',
+        top: -2.5,
+        scale: 1.3,
+        zIndex: 50,
+      }}
       whileDrag={whileDrag}
       drag={true}
       dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
@@ -44,6 +51,12 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       dragElastic={1}
       onDragStart={() => drag.onDragStart?.(domino, index)}
       onDragEnd={() => drag.onDragEnd?.()}
+      animation={{
+        boxShadow:
+          game?.turn === 'player'
+            ? '0px 0px 10px 2px rgba(255, 255, 255, 0.5)'
+            : undefined,
+      }}
       {...motionDivProps}
     >
       <Domino className="h-full w-full" domino={domino} />
