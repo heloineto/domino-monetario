@@ -14,7 +14,7 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
   const drag = useContext(DragContext);
 
   const connection = useMemo(
-    () => (drag?.domino ? connect(drag?.domino, edge) : null),
+    () => (drag.domino ? connect(drag.domino, edge) : null),
     [drag?.domino, edge]
   );
 
@@ -31,7 +31,7 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
     }
 
     if (isTarget) drag.setTarget?.(null);
-  }, [hover, connection, edge, drag?.target?.id, id]);
+  }, [hover, connection, edge, drag, id]);
 
   useEffect(() => {
     const divElem = divRef.current;

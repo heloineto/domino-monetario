@@ -1,4 +1,5 @@
 import { GameContext } from '@lib/context';
+import { GAME_ACTIONS_TYPES } from '@lib/hooks/useGame';
 import { Button, Dialog, IconButton } from '@mui/material';
 import { CodesandboxLogo } from 'phosphor-react';
 import { useContext, useState } from 'react';
@@ -7,7 +8,7 @@ interface Props {}
 
 const GameSettingsMenu = (props: Props) => {
   const [open, setOpen] = useState(false);
-  const { gameActions } = useContext(GameContext);
+  const { dispatch } = useContext(GameContext);
 
   return (
     <>
@@ -25,7 +26,7 @@ const GameSettingsMenu = (props: Props) => {
       >
         <Button
           onClick={() => {
-            gameActions?.reset();
+            dispatch?.({ type: GAME_ACTIONS_TYPES.RESET });
             setOpen(false);
           }}
         >

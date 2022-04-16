@@ -35,7 +35,7 @@ const useDrag = ({ game, dispatch }: ReturnType<typeof useGame>) => {
     setDominoIndex(null);
     setTarget(null);
     setDragging(false);
-  }, [setDomino, dominoIndex, setDragging, target]);
+  }, [setDomino, dominoIndex, setDragging, target, dispatch]);
 
   return {
     domino,
