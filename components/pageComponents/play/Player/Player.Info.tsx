@@ -47,7 +47,7 @@ const PlayerInfo = ({ player }: Props) => {
       >
         {isEnemy && (
           <div className="absolute -bottom-1.5 left-px h-[3.25rem] w-[3.25rem] rounded-b-2xl">
-            <Image src="/robot/normal.svg" layout="fill" />
+            <Image src="/robot/normal.svg" alt="robô" layout="fill" />
           </div>
         )}
       </motion.div>

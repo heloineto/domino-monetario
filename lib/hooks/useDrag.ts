@@ -1,6 +1,6 @@
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
 import { useCallback, useState } from 'react';
-
-import useGame, { GAME_ACTIONS_TYPES } from './useGame';
+import useGame from './useGame';
 
 const useDrag = ({ game, dispatch }: ReturnType<typeof useGame>) => {
   const [dragging, setDragging] = useState(false);
@@ -22,7 +22,7 @@ const useDrag = ({ game, dispatch }: ReturnType<typeof useGame>) => {
   const onDragEnd = useCallback(() => {
     if (dominoIndex !== null && target?.connection?.connects) {
       dispatch({
-        type: GAME_ACTIONS_TYPES.HAND_TO_BOARD,
+        type: GAME_ACTIONS_TYPES.MAKE_PLAY,
         payload: {
           playerType: 'player',
           connection: target.connection,

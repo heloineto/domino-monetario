@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'clsx';
 import twColors from 'tailwindcss/colors';
-import getConnection from '@lib/game/getConnection';
+import getConnection from '@lib/game/domino/getConnection';
 
 interface Props {
   id: string;

@@ -1,13 +1,13 @@
 const draw = (player: Player, deck: Domino[], quantity = 0) => {
-  const drawnDominos: Domino[] = [];
+  const _quantity = -Math.abs(quantity);
 
-  for (let i = 0; i < quantity; i++) {
-    const domino = deck.pop();
-    if (!domino) break;
-    drawnDominos.push(domino);
-  }
+  const drawnDominos = deck.slice(_quantity);
+  const newHand = [...player.hand, ...drawnDominos];
+  const newPlayer = { ...player, hand: newHand };
 
-  return { player, deck };
+  const newDeck = deck.slice(0, _quantity);
+
+  return { player: newPlayer, deck: newDeck };
 };
 
 export default draw;

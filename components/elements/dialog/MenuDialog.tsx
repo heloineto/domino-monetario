@@ -1,5 +1,4 @@
 import { Dialog, DialogProps } from '@mui/material';
-import PrimaryIconButton from '../buttons/PrimaryIconButton';
 import XButton from '../buttons/XButton';
 
 interface Props extends Omit<DialogProps, 'onClose'> {

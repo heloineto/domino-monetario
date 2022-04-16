@@ -2,11 +2,8 @@ import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import PrimaryIconButton from '@components/elements/buttons/PrimaryIconButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import Cog from '@components/elements/icons/Cog';
-import X from '@components/elements/icons/X';
 import { GameContext } from '@lib/context';
-import { GAME_ACTIONS_TYPES } from '@lib/hooks/useGame';
-import { Button, Dialog, IconButton } from '@mui/material';
-import { CodesandboxLogo } from 'phosphor-react';
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
 import { useContext, useState } from 'react';
 
 interface Props {}

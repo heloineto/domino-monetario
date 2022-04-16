@@ -1,8 +1,7 @@
 import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import { GameContext } from '@lib/context';
-import { GAME_ACTIONS_TYPES } from '@lib/hooks/useGame';
-import { Button, Dialog } from '@mui/material';
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
 import { useContext } from 'react';
 
 interface Props {}
