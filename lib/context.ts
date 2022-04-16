@@ -1,4 +1,5 @@
 import { createContext } from 'react';
-import { useGame } from './hooks';
+import { useDrag, useGame } from './hooks';
 
 export const GameContext = createContext<Partial<ReturnType<typeof useGame>>>({});
+export const DragContext = createContext<Partial<ReturnType<typeof useDrag>>>({});

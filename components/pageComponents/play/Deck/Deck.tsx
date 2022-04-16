@@ -6,7 +6,7 @@ import { useContext } from 'react';
 interface Props extends ComponentProps<typeof motion.div> {}
 
 const Deck = ({ className, ...motionDivProps }: Props) => {
-  const { deck } = useContext(GameContext);
+  const { game } = useContext(GameContext);
 
   return (
     <motion.div className={classNames(className, 'relative')} {...motionDivProps}>
@@ -399,7 +399,7 @@ const Deck = ({ className, ...motionDivProps }: Props) => {
             WebkitTextStrokeColor: 'black',
           }}
         >
-          <div className="text-5xl">{deck?.length}</div>
+          <div className="text-5xl">{game?.deck.length}</div>
           <div className="text-lg">Dominós</div>
         </div>
       </div>

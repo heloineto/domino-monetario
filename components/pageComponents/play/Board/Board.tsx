@@ -1,4 +1,4 @@
-import { GameContext } from '@lib/context';
+import { DragContext, GameContext } from '@lib/context';
 import classNames from 'clsx';
 import { isEmpty } from 'lodash';
 import { useContext } from 'react';
@@ -9,7 +9,10 @@ import BoardDragPlaceholder from './Board.DragPlaceholder';
 interface Props extends ComponentProps<'div'> {}
 
 const Board = ({ className, ...divProps }: Props) => {
-  const { board, drag } = useContext(GameContext);
+  const { game } = useContext(GameContext);
+  const drag = useContext(DragContext);
+
+  const board = game?.board;
 
   if (!board) return null;
 
@@ -26,7 +29,7 @@ const Board = ({ className, ...divProps }: Props) => {
       </div>
       <div className="flex flex-grow items-center justify-center p-2.5">
         {drag?.dragging ? (
-          <BoardDragPlaceholder id="start" edge={board?.edges?.start} />
+          <BoardDragPlaceholder id="start" edge={board.edges.start} />
         ) : (
           <div style={{ width: 160 }} />
         )}
@@ -38,7 +41,7 @@ const Board = ({ className, ...divProps }: Props) => {
           />
         ))}
         {board?.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging ? (
-          <BoardDragPlaceholder id="end" edge={board?.edges?.end} />
+          <BoardDragPlaceholder id="end" edge={board.edges.end} />
         ) : (
           <div style={{ width: 160 }} />
         )}

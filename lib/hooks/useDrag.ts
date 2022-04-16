@@ -1,11 +1,8 @@
 import { useCallback, useState } from 'react';
-import usePlayer from './usePlayer';
-import useTurn from './useTurn';
 
-const useDrag = (
-  player: ReturnType<typeof usePlayer>,
-  { turn, turnActions }: ReturnType<typeof useTurn>
-) => {
+import useGame, { GAME_ACTIONS_TYPES } from './useGame';
+
+const useDrag = ({ game, dispatch }: ReturnType<typeof useGame>) => {
   const [dragging, setDragging] = useState(false);
   const [domino, setDomino] = useState<Domino | null>(null);
   const [dominoIndex, setDominoIndex] = useState<number | null>(null);
@@ -13,31 +10,32 @@ const useDrag = (
 
   const onDragStart = useCallback(
     (_domino: Domino, _dominoIndex: number) => {
-      if (turn !== player.type) return;
+      if (game.turn !== 'player') return;
 
       setDomino(_domino);
       setDominoIndex(_dominoIndex);
       setDragging(true);
     },
-    [setDomino, setDragging, player.type, turn]
+    [setDomino, setDragging, game.turn]
   );
 
   const onDragEnd = useCallback(() => {
     if (dominoIndex !== null && target?.connection?.connects) {
-      player.handActions.toBoard(
-        target.edge?.position ?? 'start',
-        target.connection.rotation,
-        dominoIndex
-      );
-
-      turnActions.toggle();
+      dispatch({
+        type: GAME_ACTIONS_TYPES.HAND_TO_BOARD,
+        payload: {
+          playerType: 'player',
+          connection: target.connection,
+          index: dominoIndex,
+        },
+      });
     }
 
     setDomino(null);
     setDominoIndex(null);
     setTarget(null);
     setDragging(false);
-  }, [setDomino, dominoIndex, setDragging, target, player]);
+  }, [setDomino, dominoIndex, setDragging, target]);
 
   return {
     domino,
@@ -46,9 +44,7 @@ const useDrag = (
     dragging,
     dominoIndex,
     target,
-    targetActions: {
-      set: setTarget,
-    },
+    setTarget,
   };
 };
 

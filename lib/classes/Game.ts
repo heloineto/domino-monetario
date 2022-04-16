@@ -21,6 +21,8 @@ class Game {
   }
 
   start = () => {
+    console.log('STARTING');
+
     this.playing = true;
     this.deck.shuffle();
 

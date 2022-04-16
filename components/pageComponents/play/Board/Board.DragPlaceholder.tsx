@@ -1,4 +1,4 @@
-import { GameContext } from '@lib/context';
+import { DragContext } from '@lib/context';
 import { motion } from 'framer-motion';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'clsx';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const BoardDragPlaceholder = ({ id, edge }: Props) => {
-  const { drag } = useContext(GameContext);
+  const drag = useContext(DragContext);
 
   const connection = useMemo(
     () => (drag?.domino ? connect(drag?.domino, edge) : null),
@@ -26,12 +26,12 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
     const isTarget = drag?.target?.id === id;
 
     if (hover && connection) {
-      if (!isTarget) drag?.targetActions.set({ id, edge, connection });
+      if (!isTarget) drag.setTarget?.({ id, connection });
       return;
     }
 
-    if (isTarget) drag?.targetActions.set(null);
-  }, [hover, connection, edge, drag?.target?.id, drag?.targetActions, id]);
+    if (isTarget) drag.setTarget?.(null);
+  }, [hover, connection, edge, drag?.target?.id, id]);
 
   useEffect(() => {
     const divElem = divRef.current;

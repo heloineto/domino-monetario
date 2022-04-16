@@ -1,109 +1,138 @@
 import dominos from '@lib/algorithms/dominos';
-import draw from '@lib/algorithms/draw';
-import findMax from '@lib/algorithms/findMax';
-import isDouble from '@lib/algorithms/isDouble';
 import { shuffle } from 'lodash';
-import { useCallback, useEffect, useState } from 'react';
-import useBoard from './useBoard';
-import useDeck from './useDeck';
-import useDrag from './useDrag';
-import usePlayer from './usePlayer';
-import useTurn from './useTurn';
+import { useReducer } from 'react';
+
+export enum GAME_ACTIONS_TYPES {
+  START = 'START',
+  HAND_TO_BOARD = 'HAND_TO_BOARD',
+}
+
+type GameActionTypes = keyof typeof GAME_ACTIONS_TYPES;
+
+type GameAction = {
+  type: GameActionTypes;
+  payload?: any;
+};
+
+type PAYLOADS = {};
 
 const STARTING_HAND_SIZE = 13;
 
-const useGame = () => {
-  const [playing, setPlaying] = useState(false);
-  const { turn, turnActions } = useTurn();
-  const { deck, deckActions } = useDeck();
-  const { board, boardActions } = useBoard();
-  const player = usePlayer('player', { board, boardActions });
-  const enemy = usePlayer('enemy', { board, boardActions });
-  const drag = useDrag(player, { turn, turnActions });
+const gameReducer = (state: Game, action: GameAction) => {
+  const findMaxDomino = (hand: Domino[]) => {
+    let maxScore = -1;
+    let maxIndex: number | undefined;
 
-  useEffect(() => {
-    if (turn === 'enemy') {
-      console.log('RAN enemy turn', board);
+    for (let i = 0; i < hand.length; i++) {
+      const domino = hand[i];
 
-      setTimeout(() => {
-        const plays = enemy.getPlays();
-        const { index, edge, rotation } =
-          plays[Math.floor(Math.random() * (plays.length - 1))];
+      let score = Number(domino[0]) + Number(domino[1]);
+      if (domino[0] === domino[1]) score += 1000;
 
-        enemy.handActions.toBoard(edge?.position ?? 'start', rotation, index);
-
-        turnActions.toggle();
-      }, 1000);
-    }
-  }, [turn]);
-
-  const start = useCallback(() => {
-    if (playing) return;
-    setPlaying(true);
-
-    const newDeck = shuffle(deck);
-
-    const playerDominos = draw(newDeck, STARTING_HAND_SIZE);
-    const enemyDominos = draw(newDeck, STARTING_HAND_SIZE);
-
-    const playerMax = findMax(playerDominos);
-    const enemyMax = findMax(enemyDominos);
-
-    let firstDomino: Domino | undefined;
-    let startTurn: PlayerType | undefined;
-    if (playerMax.index !== undefined && enemyMax.index !== undefined) {
-      if (playerMax.score > enemyMax.score) {
-        [firstDomino] = playerDominos.splice(playerMax.index, 1);
-        startTurn = 'enemy';
-      } else {
-        [firstDomino] = enemyDominos.splice(enemyMax.index, 1);
-        startTurn = 'player';
+      if (score > maxScore) {
+        maxScore = score;
+        maxIndex = i;
       }
     }
 
-    if (firstDomino) {
-      boardActions.add('start', isDouble(firstDomino) ? 0 : -90, firstDomino);
+    return { index: maxIndex, score: maxScore };
+  };
+
+  const getFirstDomino = () => {
+    const playerMax = findMaxDomino(state.player.hand);
+    const enemyMax = findMaxDomino(state.enemy.hand);
+
+    if (playerMax.index === undefined || enemyMax.index === undefined) return;
+
+    if (playerMax.score > enemyMax.score) {
+      const [firstDomino] = state.player.hand.splice(playerMax.index, 1);
+      state.turn = 'enemy';
+
+      return firstDomino;
     }
 
-    player.handActions.set(playerDominos);
-    enemy.handActions.set(enemyDominos);
+    const [firstDomino] = state.enemy.hand.splice(enemyMax.index, 1);
+    state.turn = 'player';
 
-    deckActions.set(newDeck);
-
-    turnActions.set(startTurn ?? 'player');
-  }, [
-    deck,
-    deckActions,
-    enemy.handActions,
-    player.handActions,
-    playing,
-    boardActions,
-    turnActions,
-  ]);
-
-  const reset = useCallback(() => {
-    deckActions.set(dominos);
-    player.handActions.set([]);
-    enemy.handActions.set([]);
-    boardActions.setBoardDominos([]);
-    setPlaying(false);
-  }, [boardActions, deckActions, enemy.handActions, player.handActions]);
-
-  return {
-    turn,
-    deck,
-    board,
-    enemy,
-    player,
-    drag,
-    playing,
-    boardActions,
-    turnActions,
-    gameActions: {
-      start,
-      reset,
-    },
+    return firstDomino;
   };
+
+  const draw = (quantity = 0) => {
+    const drawnDominos: Domino[] = [];
+
+    for (let i = 0; i < quantity; i++) {
+      const domino = state.deck.pop();
+      if (!domino) break;
+      drawnDominos.push(domino);
+    }
+
+    return drawnDominos;
+  };
+
+  const addBoardDomino = (domino: Domino, connection: Connection) => {
+    const { rotation } = connection;
+    const boardDomino = { rotation, domino };
+
+    if (connection.edge?.position === 'start') {
+      state.board.boardDominos.unshift(boardDomino);
+      return;
+    }
+
+    state.board.boardDominos.push(boardDomino);
+  };
+
+  const isDouble = (domino: Domino) => domino[0] === domino[1];
+
+  switch (action.type) {
+    case GAME_ACTIONS_TYPES.START:
+      state.deck = shuffle(state.deck);
+      state.playing = true;
+      state.player.hand = draw(STARTING_HAND_SIZE);
+      state.enemy.hand = draw(STARTING_HAND_SIZE);
+      const firstDomino = getFirstDomino();
+
+      if (!firstDomino) return { ...state };
+
+      addBoardDomino(firstDomino, {
+        connects: true,
+        rotation: isDouble(firstDomino) ? 0 : -90,
+      });
+
+      return { ...state };
+    case GAME_ACTIONS_TYPES.HAND_TO_BOARD:
+      const { playerType } = action.payload;
+
+      return { ...state };
+    default:
+      throw new Error();
+  }
+};
+
+const useGame = () => {
+  const [game, dispatch] = useReducer(gameReducer, {
+    playing: false,
+    turn: 'player',
+    deck: dominos,
+    player: {
+      hand: [],
+      money: 0,
+      type: 'player',
+    },
+    enemy: {
+      hand: [],
+      money: 0,
+      type: 'enemy',
+    },
+    board: {
+      boardDominos: [],
+      edges: {
+        start: null,
+        end: null,
+      },
+    },
+  });
+
+  return { game, dispatch };
 };
 
 export default useGame;

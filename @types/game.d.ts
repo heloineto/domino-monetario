@@ -50,6 +50,28 @@ type PlayerType = 'player' | 'enemy';
 
 type DragTarget = {
   id: string;
-  edge: Edge | null;
   connection: Connection;
+};
+
+type Player = {
+  hand: Domino[];
+  money: number;
+  type: PlayerType;
+};
+
+type Board = {
+  boardDominos: BoardDomino[];
+  edges: {
+    start: Edge | null;
+    end: Edge | null;
+  };
+};
+
+type Game = {
+  playing: boolean;
+  turn: PlayerType;
+  deck: Domino[];
+  player: Player;
+  enemy: Player;
+  board: Board;
 };

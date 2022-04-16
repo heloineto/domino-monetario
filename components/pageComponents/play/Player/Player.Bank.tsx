@@ -1,4 +1,3 @@
-import usePlayer from '@lib/hooks/usePlayer';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
