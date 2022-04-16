@@ -1,3 +1,4 @@
+import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import PrimaryIconButton from '@components/elements/buttons/PrimaryIconButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import Cog from '@components/elements/icons/Cog';
@@ -25,14 +26,14 @@ const GameSettingsMenu = (props: Props) => {
         </PrimaryIconButton>
       )}
       <MenuDialog open={open} onClose={() => setOpen(false)}>
-        <Button
+        <PrimaryButton
           onClick={() => {
             dispatch?.({ type: GAME_ACTIONS_TYPES.RESET });
             setOpen(false);
           }}
         >
           Resetar Jogo
-        </Button>
+        </PrimaryButton>
       </MenuDialog>
     </>
   );

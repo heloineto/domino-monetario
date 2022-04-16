@@ -1,3 +1,4 @@
+import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import { GameContext } from '@lib/context';
 import { GAME_ACTIONS_TYPES } from '@lib/hooks/useGame';
@@ -12,12 +13,12 @@ const GameStartMenu = (props: Props) => {
   return (
     <MenuDialog open={!game?.playing}>
       <div className="flex h-full items-center justify-center">
-        <Button
+        <PrimaryButton
           variant="contained"
           onClick={() => dispatch?.({ type: GAME_ACTIONS_TYPES.START })}
         >
           Jogar
-        </Button>
+        </PrimaryButton>
       </div>
     </MenuDialog>
   );

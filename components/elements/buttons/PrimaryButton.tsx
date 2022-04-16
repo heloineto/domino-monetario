@@ -1,7 +1,9 @@
-interface Props {}
+import { Button, ButtonProps } from '@mui/material';
 
-const PrimaryButton = (props: Props) => {
-  return <div>PrimaryButton</div>;
+interface Props extends ButtonProps {}
+
+const PrimaryButton = ({ ...muiButtonProps }: Props) => {
+  return <Button variant="contained" {...muiButtonProps} />;
 };
 
 export default PrimaryButton;
