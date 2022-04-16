@@ -19,21 +19,30 @@ const GameSettingsMenu = (props: Props) => {
     <>
       {!open && (
         <PrimaryIconButton
-          className="absolute top-2 right-2 h-10 w-10"
+          className="absolute top-2 right-5 h-12 w-12"
           onClick={() => setOpen(true)}
         >
-          <Cog className="h-10 w-10" />
+          <Cog className="h-7 w-7" />
         </PrimaryIconButton>
       )}
       <MenuDialog open={open} onClose={() => setOpen(false)}>
-        <PrimaryButton
-          onClick={() => {
-            dispatch?.({ type: GAME_ACTIONS_TYPES.RESET });
-            setOpen(false);
-          }}
-        >
-          Resetar Jogo
-        </PrimaryButton>
+        <div className="flex flex-col gap-y-5">
+          <PrimaryButton
+            onClick={() => {
+              dispatch?.({ type: GAME_ACTIONS_TYPES.RESET });
+              setOpen(false);
+            }}
+          >
+            Reiniciar Jogo
+          </PrimaryButton>
+          <PrimaryButton
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            Continuar Jogo
+          </PrimaryButton>
+        </div>
       </MenuDialog>
     </>
   );

@@ -7,7 +7,7 @@ interface Props extends ComponentProps<typeof motion.div> {}
 const PrimaryIconButton = ({ className, children, ...motionDivProps }: Props) => {
   return (
     <motion.div
-      className={classNames(className, 'h-14 w-14 p-0')}
+      className={classNames(className, 'p-0')}
       whileHover={{ scale: 1.2 }}
       whileTap={{ scale: 0.9 }}
       {...motionDivProps}

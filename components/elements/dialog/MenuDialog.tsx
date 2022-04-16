@@ -11,13 +11,11 @@ const MenuDialog = ({ onClose, children, ...muiDialogProps }: Props) => {
     <Dialog
       fullScreen
       onClose={onClose}
-      classes={{
-        paper: 'bg-white/10 relative',
-      }}
+      classes={{ paper: 'bg-white/10' }}
       {...muiDialogProps}
     >
       {onClose && (
-        <XButton className="absolute top-5 right-5 h-10 w-10" onClick={onClose} />
+        <XButton className="absolute top-5 right-5 h-14 w-14" onClick={onClose} />
       )}
       <div className="grid h-full place-items-center">
         <div className="rounded-2xl border-2 border-white bg-white/50 py-10 px-20">
