@@ -70,6 +70,7 @@ type Board = {
 type Game = {
   playing: boolean;
   turn: PlayerType;
+  round: number;
   deck: Domino[];
   player: Player;
   enemy: Player;

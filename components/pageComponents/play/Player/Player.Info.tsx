@@ -2,7 +2,7 @@ import { GameContext } from '@lib/context';
 import classNames from 'clsx';
 import { useContext } from 'react';
 import { motion } from 'framer-motion';
-import { Hand } from 'phosphor-react';
+import { Hand, Money } from 'phosphor-react';
 import Image from 'next/image';
 import twColors from 'tailwindcss/colors';
 
@@ -28,8 +28,12 @@ const PlayerInfo = ({ player }: Props) => {
         border: isPlayerTurn ? '2px solid white' : undefined,
       }}
     >
-      <div className="mx-2.5 flex">
-        <div className="flex items-center font-display text-3xl">
+      <div className="mx-2.5 flex divide-x divide-slate-500">
+        <div className="mx-1 flex items-center font-display text-3xl">
+          <Money className="h-5 w-5 text-slate-900" weight="bold" />
+          {player.hand.length}
+        </div>
+        <div className="mx-1 flex items-center font-display text-3xl">
           <Hand className="h-5 w-5 text-slate-900" weight="bold" />
           {player.hand.length}
         </div>
