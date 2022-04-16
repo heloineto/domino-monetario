@@ -45,7 +45,7 @@ const mountGraph = (maxDeep: number) => (searchFn: ISearchFunction) => (player1P
   let actualDeep = 0
 
   const mountNodeTree = (prevPieceSide: Edge) => (actualPieces: Array<Domino>) => (nextPieces: Array<Domino>): IGraph | null => {
-    if (maxDeep > actualDeep++) {
+    if (actualDeep++ > maxDeep) {
       return null
     }
 
@@ -78,19 +78,17 @@ const mountGraph = (maxDeep: number) => (searchFn: ISearchFunction) => (player1P
 }
 
 const getPlays = (player: Player, board: Board): IPlayablePiece | undefined => {
-  const { start, end } = board.edges;
-  const { hand } = player;
+  const { start, end } = board.edges
+  const { hand } = player
 
   if (!start || !end) throw new Error('missing board edges')
 
-  const graph = mountGraph(1)(greedySearch)(hand)([])([start, end])
+  const graph = mountGraph(2)(greedySearch)(hand)([])([start, end])
 
   const pieceToPlayInStart = graph[0]?.piece
   const pieceToPlayInEnd = graph[1]?.piece
 
-  console.log({ pieceToPlayInStart, pieceToPlayInEnd })
-
-  return piecePrice(pieceToPlayInStart?.piece) > piecePrice(pieceToPlayInEnd?.piece) ? pieceToPlayInStart : pieceToPlayInEnd;
+  return piecePrice(pieceToPlayInStart?.piece) > piecePrice(pieceToPlayInEnd?.piece) ? pieceToPlayInStart : pieceToPlayInEnd
 };
 
 export default getPlays;

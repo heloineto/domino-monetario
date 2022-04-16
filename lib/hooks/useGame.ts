@@ -176,7 +176,6 @@ const gameReducer = (state: Game, action: GameAction) => {
     case GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY:
       const play = getPlays(newState.enemy, newState.board);
 
-
       if (!play) {
         console.log('Draw and recheck');
 
