@@ -174,19 +174,16 @@ const gameReducer = (state: Game, action: GameAction) => {
       opositeTurn(playerType);
       return newState;
     case GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY:
-      const plays = getPlays(newState.enemy, newState.board);
+      const play = getPlays(newState.enemy, newState.board);
 
-      console.log(plays);
 
-      if (isEmpty(plays)) {
-        //! Draw and recheck
+      if (!play) {
+        console.log('Draw and recheck');
 
         const turn = toggleTurn(state.turn);
 
         return { ...state, turn };
       }
-
-      const play = plays[Math.floor(Math.random() * plays.length)];
 
       const updates = makePlay(
         state.enemy,
