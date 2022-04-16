@@ -102,10 +102,9 @@ const gameReducer = (state: Game, action: GameAction) => {
 
     if (connection.edge?.position === 'start') {
       newState.board.boardDominos.unshift(boardDomino);
-      return;
+    } else {
+      newState.board.boardDominos.push(boardDomino);
     }
-
-    newState.board.boardDominos.push(boardDomino);
 
     updateBoardEdges();
   };
