@@ -1,10 +1,12 @@
 import { GameContext } from '@lib/context';
 import classNames from 'clsx';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Hand, Money } from 'phosphor-react';
 import Image from 'next/image';
 import twColors from 'tailwindcss/colors';
+import sumDominos from '@lib/game/player/sumDominos';
+import { round } from 'lodash';
 
 interface Props {
   player: Player;
@@ -14,6 +16,8 @@ const PlayerInfo = ({ player }: Props) => {
   const { game } = useContext(GameContext);
   const isEnemy = player.type === 'enemy';
   const isPlayerTurn = game?.turn === player.type;
+
+  const dominosSum = useMemo(() => sumDominos(player.hand), [player.hand]);
 
   const color = twColors[isEnemy ? 'blue' : 'orange'];
 
@@ -28,22 +32,20 @@ const PlayerInfo = ({ player }: Props) => {
         border: isPlayerTurn ? '2px solid white' : undefined,
       }}
     >
-      <div className="mx-2.5 flex divide-x divide-slate-500">
-        <div className="mx-1 flex items-center font-display text-3xl">
+      <div className="mx-2.5 flex">
+        <div className="flex items-center font-display text-xl">
           <Money className="h-5 w-5 text-slate-900" weight="bold" />
-          {player.hand.length}
+          {round(dominosSum, 2).toFixed(2)} R$
         </div>
-        <div className="mx-1 flex items-center font-display text-3xl">
+        <div className="h-full w-px bg-slate-500"></div>
+        <div className=" flex items-center font-display text-xl">
           <Hand className="h-5 w-5 text-slate-900" weight="bold" />
           {player.hand.length}
         </div>
       </div>
       <motion.div
         className="relative h-12 w-12 rounded-full border-2"
-        style={{
-          borderColor: color[500],
-          backgroundColor: color[300],
-        }}
+        style={{ borderColor: color[500], backgroundColor: color[300] }}
       >
         {isEnemy && (
           <div className="absolute -bottom-1.5 left-px h-[3.25rem] w-[3.25rem] rounded-b-2xl">
