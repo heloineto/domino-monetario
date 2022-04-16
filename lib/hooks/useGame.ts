@@ -1,5 +1,5 @@
 import dominos from '@lib/algorithms/dominos';
-import { cloneDeep, shuffle } from 'lodash';
+import { cloneDeep, isEmpty, shuffle } from 'lodash';
 import { useReducer } from 'react';
 
 const INITIAL_STATE: Game = {
@@ -113,6 +113,29 @@ const gameReducer = (state: Game, action: GameAction) => {
     }
 
     newState.board.boardDominos.push(boardDomino);
+
+    updateBoardEdges();
+  };
+
+  const updateBoardEdges = () => {
+    if (!newState.board.boardDominos || isEmpty(newState.board.boardDominos)) {
+      newState.board.edges = { start: null, end: null };
+      return;
+    }
+
+    const { rotation: startRotation, domino: startDomino } =
+      newState.board.boardDominos[0];
+    const startValue = startDomino[startRotation === 90 ? 1 : 0];
+
+    const { rotation: endRotation, domino: endDomino } =
+      newState.board.boardDominos[newState.board.boardDominos.length - 1];
+
+    const endValue = endDomino[endRotation === 90 ? 0 : 1];
+
+    newState.board.edges = {
+      start: { position: 'start', value: startValue },
+      end: { position: 'end', value: endValue },
+    };
   };
 
   const isDouble = (domino: Domino) => domino[0] === domino[1];
