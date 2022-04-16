@@ -35,14 +35,14 @@ const PlayerInfo = ({ player }: Props) => {
         </div>
       </div>
       <motion.div
-        className="relative h-12 w-12 rounded-full border-2 p-1"
+        className="relative h-12 w-12 rounded-full border-2"
         style={{
           borderColor: color[500],
           backgroundColor: color[300],
         }}
       >
         {isEnemy && (
-          <div className="relative -mt-1.5 h-full w-full rounded-b-2xl">
+          <div className="absolute -bottom-1.5 left-px h-[3.25rem] w-[3.25rem] rounded-b-2xl">
             <Image src="/robot/normal.svg" layout="fill" />
           </div>
         )}

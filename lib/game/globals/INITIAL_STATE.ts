@@ -21,6 +21,7 @@ const INITIAL_STATE: Game = {
       end: null,
     },
   },
+  round: 1,
 };
 
 Object.freeze(INITIAL_STATE);

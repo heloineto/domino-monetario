@@ -25,6 +25,7 @@ const Board = ({ className, ...divProps }: Props) => {
       {...divProps}
     >
       <div className="flex h-full w-40 flex-col items-center justify-center">
+        <div className="font-display text-xl">Round: {game.round}</div>
         <Deck className="h-52 w-auto" />
       </div>
       <div className="flex flex-grow items-center justify-center p-2.5">

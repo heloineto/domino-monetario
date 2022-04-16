@@ -6,27 +6,36 @@ import { cloneDeep, isEmpty, shuffle } from 'lodash';
 import { useEffect, useReducer } from 'react';
 
 export enum GAME_ACTIONS_TYPES {
-  START = 'START',
-  RESET = 'RESET',
-  HAND_TO_BOARD = 'HAND_TO_BOARD',
-  MAKE_ENEMY_PLAY = 'MAKE_ENEMY_PLAY',
+  START,
+  RESET,
+  HAND_TO_BOARD,
+  MAKE_ENEMY_PLAY,
+  DRAW_UNTIL_FIND_PLAY,
 }
 
-type GameAction =
-  | {
-      type:
-        | GAME_ACTIONS_TYPES.START
-        | GAME_ACTIONS_TYPES.RESET
-        | GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY;
-    }
-  | GameActionHandToBoard;
+type GameAction = GAWithoutPayload | GAHandToBoard | GADrawUntilFindPlay;
 
-type GameActionHandToBoard = {
+type GAWithoutPayload = {
+  type:
+    | GAME_ACTIONS_TYPES.START
+    | GAME_ACTIONS_TYPES.RESET
+    | GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY;
+};
+
+type GAHandToBoard = {
   type: GAME_ACTIONS_TYPES.HAND_TO_BOARD;
   payload: {
     playerType: PlayerType;
     connection: Connection;
     index: number;
+  };
+};
+
+type GADrawUntilFindPlay = {
+  type: GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY;
+  payload: {
+    playerType: PlayerType;
+    edges: (Edge | null)[];
   };
 };
 
@@ -187,11 +196,11 @@ const gameReducer = (state: Game, action: GameAction) => {
         play.connection
       );
 
-      console.log(updates);
-
       if (!updates) return state;
 
       return { ...state, ...updates };
+    case GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY:
+      return state;
     default:
       throw new Error(`Unknown action: ${JSON.stringify(action)}`);
   }
