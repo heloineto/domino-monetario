@@ -19,6 +19,7 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "framer-motion": "^6.2.8",
+    "jsnetworkx": "^0.3.4",
     "lodash": "^4.17.21",
     "luxon": "^2.3.1",
     "next": "latest",
