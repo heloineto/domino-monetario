@@ -1,5 +1,6 @@
 class Player {
   hand: Domino[] = [];
+  money: number = 0;
 
   findMaxDomino() {
     let maxScore = -1;

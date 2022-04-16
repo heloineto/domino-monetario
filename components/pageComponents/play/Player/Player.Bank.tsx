@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 interface Props {
-  player: ReturnType<typeof usePlayer>;
+  player: Player;
 }
 
 const PlayerBank = ({ player }: Props) => {

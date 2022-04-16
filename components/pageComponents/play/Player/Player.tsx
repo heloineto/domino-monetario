@@ -2,9 +2,10 @@ import classNames from 'clsx';
 import Hand from '../Hand';
 import usePlayer from '@lib/hooks/usePlayer';
 import PlayerBank from './Player.Bank';
+import _Player from '@lib/classes/Player';
 
 interface Props extends ComponentProps<'div'> {
-  player: ReturnType<typeof usePlayer>;
+  player: _Player;
 }
 
 const Player = ({ player, className, ...divProps }: Props) => {
@@ -16,7 +17,7 @@ const Player = ({ player, className, ...divProps }: Props) => {
       )}
       {...divProps}
     >
-      <Hand player={player} />
+      {/* <Hand player={player} /> */}
       <PlayerBank player={player} />
     </div>
   );
