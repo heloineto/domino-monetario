@@ -12,12 +12,12 @@ const useGame = () => {
   useEffect(() => {
     if (!game.playing) return;
 
-    if (!hasPlays(game.board, game[game.turn])) {
-      dispatch({
-        type: GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY,
-        payload: { playerType: game.turn },
-      });
-    }
+    // if (!hasPlays(game.board, game[game.turn])) {
+    //   dispatch({
+    //     type: GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY,
+    //     payload: { playerType: game.turn },
+    //   });
+    // }
 
     if (game.turn === 'enemy') {
       if (game.aiAlgorithm === 'A_START') {

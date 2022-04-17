@@ -121,7 +121,7 @@ const drawUntilFindPlay = (board: Board, player: Player, deck: Domino[]) => {
   return { player: newPlayer, deck: newDeck };
 };
 
-const endRound = (result: GameResult, game: Game) => {};
+const endRound = (result: RoundResult, game: Game) => {};
 
 const gameReducer = (state: Game, action: GameAction) => {
   let updates: Partial<Game> | undefined;

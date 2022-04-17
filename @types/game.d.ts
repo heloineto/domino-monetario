@@ -76,9 +76,10 @@ type Game = {
   deck: Domino[];
   round: number;
   aiAlgorithm: AIAlgorithm;
+  roundResults: RoundResult[];
   player: Player;
   enemy: Player;
   board: Board;
 };
 
-type GameResult = 'DRAW' | 'PLAYER_WINS' | 'ENEMY_WINS';
+type RoundResult = 'DRAW' | 'PLAYER_WINS' | 'ENEMY_WINS';

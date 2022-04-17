@@ -1,15 +1,16 @@
 import Domino from '../Domino';
 import { motion } from 'framer-motion';
+import classNames from 'clsx';
 
 interface Props extends ComponentProps<typeof motion.div> {
   rotation: Rotation;
   domino: [MoneyValue, MoneyValue];
 }
 
-const BoardDomino = ({ domino, rotation, ...motionDivProps }: Props) => {
+const BoardDomino = ({ className, domino, rotation, ...motionDivProps }: Props) => {
   return (
     <div
-      className="flex items-center justify-center"
+      className={classNames(className, 'flex items-center justify-center')}
       style={{
         height: 160,
         width: rotation ? 160 : 86.73,

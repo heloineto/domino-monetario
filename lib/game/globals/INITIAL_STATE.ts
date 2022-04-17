@@ -23,6 +23,7 @@ const INITIAL_STATE: Game = {
   },
   round: 1,
   aiAlgorithm: 'GREEDY_SEARCH',
+  roundResults: [],
 };
 
 Object.freeze(INITIAL_STATE);

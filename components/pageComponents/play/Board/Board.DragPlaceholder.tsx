@@ -5,12 +5,12 @@ import classNames from 'clsx';
 import twColors from 'tailwindcss/colors';
 import getConnection from '@lib/game/domino/getConnection';
 
-interface Props {
+interface Props extends ComponentProps<'div'> {
   id: string;
   edge: Edge | null;
 }
 
-const BoardDragPlaceholder = ({ id, edge }: Props) => {
+const BoardDragPlaceholder = ({ className, id, edge }: Props) => {
   const drag = useContext(DragContext);
 
   const connection = useMemo(
@@ -66,7 +66,7 @@ const BoardDragPlaceholder = ({ id, edge }: Props) => {
 
   return (
     <div
-      className="flex items-center justify-center"
+      className={classNames(className, 'flex items-center justify-center')}
       id={id}
       style={{ height: 160, width: connection?.rotation === 0 ? 86.73 : 160 }}
       ref={divRef}
