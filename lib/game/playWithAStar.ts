@@ -1,4 +1,4 @@
-import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
+import { GAME_ACTIONS_TYPES, GameAction } from '@lib/reducers/gameReducer';
 import { Dispatch } from 'react';
 import getConnection from './domino/getConnection';
 

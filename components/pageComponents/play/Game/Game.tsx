@@ -2,6 +2,7 @@ import { DragContext, GameContext } from '@lib/context';
 import { useDrag, useGame } from '@lib/hooks';
 import Board from '../Board';
 import Player from '../Player';
+import GameGameOverMenu from './Game.GameOverMenu';
 import GameRoundOverMenu from './Game.RoundOverMenu';
 import GameSettingsMenu from './Game.SettingsMenu';
 import GameStartMenu from './Game.StartMenu';
@@ -27,6 +28,7 @@ const Game = (props: Props) => {
         <GameSettingsMenu />
         <GameStartMenu />
         <GameRoundOverMenu />
+        <GameGameOverMenu />
       </DragContext.Provider>
     </GameContext.Provider>
   );

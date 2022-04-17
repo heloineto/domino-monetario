@@ -24,6 +24,7 @@ const INITIAL_STATE: Game = {
   roundOver: false,
   aiAlgorithm: 'GREEDY_SEARCH',
   roundResults: [],
+  winner: null,
 };
 
 Object.freeze(INITIAL_STATE);

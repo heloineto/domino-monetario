@@ -1,7 +1,7 @@
 import { GameContext } from '@lib/context';
-import getRoundInfo from '@lib/game/getRoundInfo';
 import { useContext } from 'react';
-import twColors from 'tailwindcss/colors';
+// import getRoundInfo from '@lib/game/getRoundInfo';
+// import twColors from 'tailwindcss/colors';
 
 interface Props {}
 
@@ -15,7 +15,7 @@ const BoardRound = (props: Props) => {
       {!game.roundOver && (
         <div className="font-display text-xl">Rodada: {game.roundResults.length + 1}</div>
       )}
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         {game.roundResults.map((roundResult, index) => {
           const { message, colorName } = getRoundInfo(roundResult);
 
@@ -31,7 +31,7 @@ const BoardRound = (props: Props) => {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 };

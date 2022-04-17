@@ -21,7 +21,7 @@ export enum GAME_ACTIONS_TYPES {
   START_ROUND,
 }
 
-type GameAction =
+export type GameAction =
   | GAWithoutPayload
   | GAHandToBoard
   | GADrawUntilFindPlay
@@ -59,10 +59,11 @@ type GADraw = {
 const startRound = (player: Player, enemy: Player) => {
   const updates: Partial<Game> = { roundOver: false };
 
+  updates.turn = 'player';
   updates.board = INITIAL_STATE.board;
   updates.deck = shuffle(INITIAL_STATE.deck);
-  updates.enemy = { ...player, hand: [] };
-  updates.player = { ...enemy, hand: [] };
+  updates.player = { ...player, hand: [] };
+  updates.enemy = { ...enemy, hand: [] };
 
   const firstDraw = draw(updates.player, updates.deck, STARTING_HAND_SIZE);
   updates.player = firstDraw.player;
@@ -100,31 +101,50 @@ const startRound = (player: Player, enemy: Player) => {
   return { ...updates, ...playUpdates };
 };
 
-const endRound = (
-  result: RoundResult,
-  roundResults: RoundResult[],
-  player: Player,
-  enemy: Player
-) => {
+const endRound = (result: RoundResult, game: Game) => {
   const updates: Partial<Game> = {};
 
   updates.roundOver = true;
-  updates.roundResults = [...roundResults, result];
+  updates.roundResults = [...game.roundResults, result];
 
   if (result === 'DRAW') {
-    updates.player = { ...player, money: player.money + sumDominos(enemy.hand) };
-    updates.enemy = { ...enemy, money: enemy.money + sumDominos(player.hand) };
-
-    return updates;
+    updates.player = {
+      ...game.player,
+      money: game.player.money + sumDominos(game.enemy.hand),
+    };
+    updates.enemy = {
+      ...game.enemy,
+      money: game.enemy.money + sumDominos(game.player.hand),
+    };
+  } else if (result === 'ENEMY_WINS') {
+    updates.enemy = {
+      ...game.enemy,
+      money: game.enemy.money + sumDominos(game.player.hand),
+    };
+  } else {
+    updates.player = {
+      ...game.player,
+      money: game.player.money + sumDominos(game.enemy.hand),
+    };
   }
 
-  if (result === 'ENEMY_WINS') {
-    updates.enemy = { ...enemy, money: enemy.money + sumDominos(player.hand) };
-    return updates;
+  const newGame = { ...game, ...updates };
+
+  if (newGame.roundResults.length >= 3) {
+    let winner: Player | 'DRAW' | undefined;
+
+    if (newGame.player.money > newGame.enemy.money) {
+      winner = newGame.player;
+    } else if (newGame.player.money < newGame.enemy.money) {
+      winner = newGame.enemy;
+    } else {
+      winner = 'DRAW';
+    }
+
+    return { ...newGame, winner };
   }
 
-  updates.player = { ...player, money: player.money + sumDominos(enemy.hand) };
-  return updates;
+  return newGame;
 };
 
 const startGame = (board: Board, player: Player, enemy: Player, deck: Domino[]) => {
@@ -199,14 +219,12 @@ const gameReducer = (state: Game, action: GameAction) => {
       const { playerId, connection, index } = action.payload;
       updates = makePlay(state[playerId], state.board, state.turn, index, connection);
 
-      if (updates?.player?.hand.length === 0) {
+      if (updates?.[playerId]?.hand.length === 0) {
         const newState = { ...state, ...updates };
 
         const endRoundUpdates = endRound(
           playerId === 'enemy' ? 'ENEMY_WINS' : 'PLAYER_WINS',
-          newState.roundResults,
-          newState.player,
-          newState.enemy
+          newState
         );
         return { ...newState, ...endRoundUpdates };
       }
@@ -223,7 +241,7 @@ const gameReducer = (state: Game, action: GameAction) => {
       const { playerId: playerId3 } = action.payload;
 
       if (state.deck.length === 0) {
-        updates = endRound('DRAW', state.roundResults, state.player, state.enemy);
+        updates = endRound('DRAW', state);
         return { ...state, ...updates };
       }
 
@@ -232,7 +250,9 @@ const gameReducer = (state: Game, action: GameAction) => {
       return { ...state, [playerId3]: drawUpdates.player, deck: drawUpdates.deck };
 
     case GAME_ACTIONS_TYPES.START_ROUND:
-      return state;
+      updates = startRound(state.player, state.enemy);
+
+      return { ...state, ...updates };
     default:
       throw new Error(`Unknown action: ${JSON.stringify(action)}`);
   }

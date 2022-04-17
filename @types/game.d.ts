@@ -77,6 +77,7 @@ type Game = {
   roundOver: boolean;
   aiAlgorithm: AIAlgorithm;
   roundResults: RoundResult[];
+  winner: Player | 'DRAW' | undefined | null;
   player: Player;
   enemy: Player;
   board: Board;
