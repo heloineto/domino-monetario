@@ -27,14 +27,14 @@ const useGame = () => {
         }),
       })
         .then((r) => {
-          console.log({ r });
           return r.json();
         })
-        .then((r: [number, number]) => {
+        .then((r: { piece: [number, number], side: string }) => {
+          console.log({ r })
           dispatch({
             type: GAME_ACTIONS_TYPES.TEST,
             payload: {
-              domino: [String(r[0]) as MoneyValue, String(r[1]) as MoneyValue],
+              domino: [String(r.piece[0]) as MoneyValue, String(r.piece[1]) as MoneyValue],
             },
           });
         })
