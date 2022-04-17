@@ -17,13 +17,15 @@ export enum GAME_ACTIONS_TYPES {
   ENEMY_THINKING,
   DRAW_UNTIL_FIND_PLAY,
   SET_AI_ALGORITHM,
+  DRAW,
 }
 
 type GameAction =
   | GAWithoutPayload
   | GAHandToBoard
   | GADrawUntilFindPlay
-  | GASetAiAlgorithm;
+  | GASetAiAlgorithm
+  | GADraw;
 
 type GAWithoutPayload = {
   type:
@@ -45,6 +47,11 @@ type GADrawUntilFindPlay = {
 type GASetAiAlgorithm = {
   type: GAME_ACTIONS_TYPES.SET_AI_ALGORITHM;
   payload: AIAlgorithm;
+};
+
+type GADraw = {
+  type: GAME_ACTIONS_TYPES.DRAW;
+  payload: { playerType: PlayerType };
 };
 
 const startGame = (board: Board, player: Player, enemy: Player, deck: Domino[]) => {
@@ -100,26 +107,7 @@ const makePlay = (
   return { [newPlayer.type]: newPlayer, board: newBoard, turn: newTurn };
 };
 
-const drawUntilFindPlay = (board: Board, player: Player, deck: Domino[]) => {
-  let newPlayer = player;
-  let newDeck = deck;
-
-  let hasPlays = false;
-
-  while (!hasPlays) {
-    if (newDeck.length === 0) return { player: newPlayer, deck: undefined };
-    const result = draw(newPlayer, newDeck, 1);
-
-    newPlayer = result.player;
-    newDeck = result.deck;
-
-    const [domino] = result.drawnDominos;
-
-    hasPlays = hasPlay(board, domino);
-  }
-
-  return { player: newPlayer, deck: newDeck };
-};
+const startRound = () => {};
 
 const endRound = (result: RoundResult, game: Game) => {};
 
@@ -142,6 +130,10 @@ const gameReducer = (state: Game, action: GameAction) => {
       const { playerType, connection, index } = action.payload;
       updates = makePlay(state[playerType], state.board, state.turn, index, connection);
 
+      if (updates?.player?.hand.length === 0) {
+        // player.playerType WINS
+      }
+
       if (!updates) return state;
       return { ...state, ...updates };
 
@@ -151,17 +143,17 @@ const gameReducer = (state: Game, action: GameAction) => {
       // return state;
       return { ...state, aiAlgorithm };
 
-    case GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY:
-      const { playerType: playerType2 } = action.payload;
+    case GAME_ACTIONS_TYPES.DRAW:
+      const { playerType: playerType3 } = action.payload;
 
-      updates = drawUntilFindPlay(state.board, state[playerType2], state.deck);
-
-      if (updates.deck === undefined) {
+      if (state.deck.length === 0) {
+        // ROUND END DRAW
         // updates = endRound('DRAW', state);
       }
 
-      return { ...state, ...updates };
+      const drawUpdates = draw(state[playerType3], state.deck, 1);
 
+      return { ...state, [playerType3]: drawUpdates.player, deck: drawUpdates.deck };
     default:
       throw new Error(`Unknown action: ${JSON.stringify(action)}`);
   }
