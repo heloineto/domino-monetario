@@ -54,6 +54,8 @@ type DragTarget = {
   connection: Connection;
 };
 
+type AIAlgorithm = 'GREEDY_SEARCH' | 'A_START';
+
 type Player = {
   hand: Domino[];
   money: number;
@@ -71,8 +73,9 @@ type Board = {
 type Game = {
   playing: boolean;
   turn: PlayerType;
-  round: number;
   deck: Domino[];
+  round: number;
+  aiAlgorithm: AIAlgorithm;
   player: Player;
   enemy: Player;
   board: Board;

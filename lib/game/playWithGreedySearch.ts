@@ -1,3 +1,4 @@
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
 import getConnection from './domino/getConnection';
 
 interface IGraph {
@@ -90,7 +91,11 @@ const mountGraph =
     return edges.map((edge) => mountNodeTree(edge)(player1Pieces)(player2Pieces));
   };
 
-const getPlays = (player: Player, board: Board): IPlayablePiece | undefined => {
+const playWithGreedySearch = (
+  player: Player,
+  board: Board,
+  dispatch: Dispatch<GameAction>
+): IPlayablePiece | undefined => {
   const { start, end } = board.edges;
   const { hand } = player;
 
@@ -101,9 +106,17 @@ const getPlays = (player: Player, board: Board): IPlayablePiece | undefined => {
   const pieceToPlayInStart = graph[0]?.piece;
   const pieceToPlayInEnd = graph[1]?.piece;
 
-  return piecePrice(pieceToPlayInStart?.piece) > piecePrice(pieceToPlayInEnd?.piece)
-    ? pieceToPlayInStart
-    : pieceToPlayInEnd;
+  const result =
+    piecePrice(pieceToPlayInStart?.piece) > piecePrice(pieceToPlayInEnd?.piece)
+      ? pieceToPlayInStart
+      : pieceToPlayInEnd;
+
+  if (!result) return;
+
+  dispatch({
+    type: GAME_ACTIONS_TYPES.MAKE_PLAY,
+    payload: { playerType: 'enemy', connection: result.connection, index: result.index },
+  });
 };
 
-export default getPlays;
+export default playWithGreedySearch;

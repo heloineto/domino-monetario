@@ -32,13 +32,7 @@ const GameSettingsMenu = (props: Props) => {
           >
             Reiniciar Jogo
           </PrimaryButton>
-          <PrimaryButton
-            onClick={() => {
-              setOpen(false);
-            }}
-          >
-            Continuar Jogo
-          </PrimaryButton>
+          <PrimaryButton onClick={() => setOpen(false)}>Continuar Jogo</PrimaryButton>
         </div>
       </MenuDialog>
     </>
