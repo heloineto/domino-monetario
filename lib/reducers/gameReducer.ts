@@ -200,13 +200,15 @@ const gameReducer = (state: Game, action: GameAction) => {
       updates = makePlay(state[playerId], state.board, state.turn, index, connection);
 
       if (updates?.player?.hand.length === 0) {
+        const newState = { ...state, ...updates };
+
         const endRoundUpdates = endRound(
           playerId === 'enemy' ? 'ENEMY_WINS' : 'PLAYER_WINS',
-          state.roundResults,
-          state.player,
-          state.enemy
+          newState.roundResults,
+          newState.player,
+          newState.enemy
         );
-        return { ...state, ...updates, ...endRoundUpdates };
+        return { ...newState, ...endRoundUpdates };
       }
 
       if (!updates) return state;

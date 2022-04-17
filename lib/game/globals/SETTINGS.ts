@@ -1,4 +1,4 @@
-export const STARTING_HAND_SIZE = 13;
+export const STARTING_HAND_SIZE = 2;
 
 const SETTINGS = {
   STARTING_HAND_SIZE,

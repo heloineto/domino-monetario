@@ -11,6 +11,7 @@ const useGame = () => {
 
   useEffect(() => {
     if (!game.playing) return;
+    if (game.roundOver) return;
 
     if (!hasPlays(game.board, game[game.turn])) {
       dispatch({

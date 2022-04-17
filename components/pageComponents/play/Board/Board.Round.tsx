@@ -1,16 +1,9 @@
 import { GameContext } from '@lib/context';
+import getRoundInfo from '@lib/game/getRoundInfo';
 import { useContext } from 'react';
 import twColors from 'tailwindcss/colors';
 
 interface Props {}
-
-const getInfo = (
-  result: RoundResult
-): { message: string; colorName: 'slate' | 'blue' | 'orange' } => {
-  if (result === 'DRAW') return { message: 'Empate', colorName: 'slate' };
-  if (result === 'ENEMY_WINS') return { message: 'Robô venceu!', colorName: 'blue' };
-  return { message: 'Você venceu!', colorName: 'orange' };
-};
 
 const BoardRound = (props: Props) => {
   const { game } = useContext(GameContext);
@@ -24,7 +17,7 @@ const BoardRound = (props: Props) => {
       )}
       <div className="flex flex-col">
         {game.roundResults.map((roundResult, index) => {
-          const { message, colorName } = getInfo(roundResult);
+          const { message, colorName } = getRoundInfo(roundResult);
 
           const color = twColors[colorName];
 

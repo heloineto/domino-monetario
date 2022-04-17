@@ -30,7 +30,7 @@ const PrimaryButton = ({ className, colorName = 'sky', ...muiButtonProps }: Prop
     <StyledButton
       className={classNames(
         className,
-        'border-2 border-solid py-2 text-base font-semibold transition-colors duration-500'
+        'border-2 border-solid py-2 font-display text-base font-semibold tracking-widest transition-colors duration-500'
       )}
       variant="contained"
       {...muiButtonProps}
