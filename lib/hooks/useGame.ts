@@ -10,7 +10,11 @@ const useGame = () => {
 
   useEffect(() => {
     if (game.turn === 'enemy') {
-      playWithAStar(game, dispatch);
+      if (game.aiAlgorithm === 'A_START') {
+        playWithAStar(game, dispatch);
+        return;
+      }
+
       playWithGreedySearch(game.enemy, game.board, dispatch);
     }
   }, [game]);

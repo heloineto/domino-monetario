@@ -1,27 +1,25 @@
 import { isEmpty } from 'lodash';
 
 const updateEdges = (board: Board): Board => {
-  const newBoard = { ...board };
-
-  if (!newBoard.boardDominos || isEmpty(newBoard.boardDominos)) {
-    newBoard.edges = { start: null, end: null };
-    return newBoard;
+  if (!board.boardDominos || isEmpty(board.boardDominos)) {
+    const newEdges = { start: null, end: null };
+    return { ...board, edges: newEdges };
   }
 
-  const { rotation: startRotation, domino: startDomino } = newBoard.boardDominos[0];
+  const { rotation: startRotation, domino: startDomino } = board.boardDominos[0];
   const startValue = startDomino[startRotation === 90 ? 1 : 0];
 
   const { rotation: endRotation, domino: endDomino } =
-    newBoard.boardDominos[newBoard.boardDominos.length - 1];
+    board.boardDominos[board.boardDominos.length - 1];
 
   const endValue = endDomino[endRotation === 90 ? 0 : 1];
 
-  newBoard.edges = {
-    start: { position: 'start', value: startValue },
-    end: { position: 'end', value: endValue },
+  const newEdges = {
+    start: { position: <Position>'start', value: startValue },
+    end: { position: <Position>'end', value: endValue },
   };
 
-  return newBoard;
+  return { ...board, edges: newEdges };
 };
 
 export default updateEdges;
