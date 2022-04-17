@@ -33,7 +33,7 @@ const Board = ({ className, ...divProps }: Props) => {
         <BoardRound />
         <Deck className="h-52 w-auto" />
       </div>
-      <div className="relative flex flex-grow items-center justify-center overflow-x-auto p-2.5">
+      <div className="relative flex flex-grow items-center justify-center overflow-x-auto">
         <div className="flex h-full items-center overflow-x-auto" ref={scrollRef}>
           {drag?.dragging ? (
             <BoardDragPlaceholder
@@ -63,7 +63,7 @@ const Board = ({ className, ...divProps }: Props) => {
           )}
         </div>
         {board.boardDominos.length > 5 && (
-          <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-x-5 p-2">
+          <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-x-5 p-2">
             <SecondaryIconButton
               onClick={() => {
                 const scrollElem = scrollRef.current;
@@ -72,7 +72,7 @@ const Board = ({ className, ...divProps }: Props) => {
                 scrollElem.scrollLeft = 0;
               }}
             >
-              <ArrowFatLineLeft size={32} weight="bold" />
+              <ArrowFatLineLeft className="h-5 w-5" weight="bold" />
             </SecondaryIconButton>
             <SecondaryIconButton
               onClick={() => {
@@ -82,7 +82,7 @@ const Board = ({ className, ...divProps }: Props) => {
                 scrollElem.scrollLeft = scrollElem.scrollWidth;
               }}
             >
-              <ArrowFatLineRight size={32} weight="bold" />
+              <ArrowFatLineRight className="h-5 w-5" weight="bold" />
             </SecondaryIconButton>
           </div>
         )}
