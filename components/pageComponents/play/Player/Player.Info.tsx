@@ -49,9 +49,13 @@ const PlayerInfo = ({ player }: Props) => {
         className="relative h-12 w-12 rounded-full border-2"
         style={{ borderColor: color[500], backgroundColor: color[300] }}
       >
-        {isEnemy && (
+        {isEnemy ? (
           <div className="absolute -bottom-1.5 left-px h-[3.25rem] w-[3.25rem] rounded-b-2xl">
             <Image src="/robot/normal.svg" alt="robô" layout="fill" />
+          </div>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center font-display text-2xl text-orange-900">
+            Você
           </div>
         )}
       </motion.div>
