@@ -80,3 +80,5 @@ type Game = {
   enemy: Player;
   board: Board;
 };
+
+type GameResult = 'DRAW' | 'PLAYER_WINS' | 'ENEMY_WINS';

@@ -1,12 +1,13 @@
 import INITIAL_STATE from '@lib/game/globals/INITIAL_STATE';
 import toggleTurn from '@lib/game/toggleTurn';
 import removeDomino from '@lib/game/player/removeDomino';
-import { cloneDeep, shuffle } from 'lodash';
+import { cloneDeep, isEmpty, shuffle } from 'lodash';
 import { STARTING_HAND_SIZE } from '@lib/game/globals/SETTINGS';
 import isDouble from '@lib/game/domino/isDouble';
 import addDomino from '@lib/game/board/addDomino';
 import draw from '@lib/game/player/draw';
 import findMaxDomino from '@lib/game/player/findMaxDomino';
+import hasPlay from '@lib/game/domino/hasPlay';
 
 export enum GAME_ACTIONS_TYPES {
   START,
@@ -38,7 +39,7 @@ type GAHandToBoard = {
 
 type GADrawUntilFindPlay = {
   type: GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY;
-  payload: { playerType: PlayerType; edges: (Edge | null)[] };
+  payload: { playerType: PlayerType };
 };
 
 type GASetAiAlgorithm = {
@@ -99,21 +100,28 @@ const makePlay = (
   return { [newPlayer.type]: newPlayer, board: newBoard, turn: newTurn };
 };
 
-const makeEnemyPlay = (enemy: Player, board: Board, turn: Turn) => {
-  // const play = playWithGreedySearch(enemy, board);
+const drawUntilFindPlay = (board: Board, player: Player, deck: Domino[]) => {
+  let newPlayer = player;
+  let newDeck = deck;
 
-  // if (!play) {
-  //   console.log('Draw and recheck');
+  let hasPlays = false;
 
-  //   const turn: Turn = 'player';
+  while (!hasPlays) {
+    if (newDeck.length === 0) return { player: newPlayer, deck: undefined };
+    const result = draw(newPlayer, newDeck, 1);
 
-  //   return { turn };
-  // }
+    newPlayer = result.player;
+    newDeck = result.deck;
 
-  // const updates = makePlay(enemy, board, turn, play.index, play.connection);
+    const [domino] = result.drawnDominos;
 
-  return {};
+    hasPlays = hasPlay(board, domino);
+  }
+
+  return { player: newPlayer, deck: newDeck };
 };
+
+const endRound = (result: GameResult, game: Game) => {};
 
 const gameReducer = (state: Game, action: GameAction) => {
   let updates: Partial<Game> | undefined;
@@ -137,12 +145,6 @@ const gameReducer = (state: Game, action: GameAction) => {
       if (!updates) return state;
       return { ...state, ...updates };
 
-    case GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY:
-      updates = makeEnemyPlay(state.enemy, state.board, state.turn);
-
-      if (!updates) return state;
-      return { ...state, ...updates };
-
     case GAME_ACTIONS_TYPES.SET_AI_ALGORITHM:
       const aiAlgorithm = action.payload;
 
@@ -150,7 +152,15 @@ const gameReducer = (state: Game, action: GameAction) => {
       return { ...state, aiAlgorithm };
 
     case GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY:
-      return state;
+      const { playerType: playerType2 } = action.payload;
+
+      updates = drawUntilFindPlay(state.board, state[playerType2], state.deck);
+
+      if (updates.deck === undefined) {
+        // updates = endRound('DRAW', state);
+      }
+
+      return { ...state, ...updates };
 
     default:
       throw new Error(`Unknown action: ${JSON.stringify(action)}`);
