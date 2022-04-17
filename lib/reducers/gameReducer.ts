@@ -14,10 +14,12 @@ export enum GAME_ACTIONS_TYPES {
   RESET,
   MAKE_PLAY,
   MAKE_ENEMY_PLAY,
+  ENEMY_THINKING,
   DRAW_UNTIL_FIND_PLAY,
+  TEST,
 }
 
-type GameAction = GAWithoutPayload | GAHandToBoard | GADrawUntilFindPlay;
+type GameAction = GAWithoutPayload | GAHandToBoard | GADrawUntilFindPlay | GATeste;
 
 type GAWithoutPayload = {
   type:
@@ -35,6 +37,11 @@ type GADrawUntilFindPlay = {
   type: GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY;
   payload: { playerType: PlayerType; edges: (Edge | null)[] };
 };
+
+type GATeste = {
+  type: GAME_ACTIONS_TYPES.TEST,
+  payload: { domino: Domino; };
+}
 
 const startGame = (board: Board, player: Player, enemy: Player, deck: Domino[]) => {
   const updates: Partial<Game> = { playing: true };
@@ -133,10 +140,16 @@ const gameReducer = (state: Game, action: GameAction) => {
       return { ...state, ...updates };
 
     case GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY:
-      updates = makeEnemyPlay(state.enemy, state.board, state.turn);
+      updates = makeEnemyPlay(state.enemy, state.board, state.turn)
 
       if (!updates) return state;
       return { ...state, ...updates };
+
+    case GAME_ACTIONS_TYPES.TEST:
+      const { domino } = action.payload;
+      console.log("RESPOSTA TESTE:", domino);
+
+      return state;
 
     case GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY:
       return state;
