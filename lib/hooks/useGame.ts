@@ -10,7 +10,7 @@ const useGame = () => {
   useEffect(() => {
     if (game.turn === "enemy") {
       dispatch({ type: GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY });
-      fetch("http://127.0.0.1:5000", {
+      fetch("https://peaceful-bastion-30528.herokuapp.com/", {
         method: "POST",
         body: JSON.stringify({
           player: game.enemy.hand.map((domino) =>
@@ -29,12 +29,15 @@ const useGame = () => {
         .then((r) => {
           return r.json();
         })
-        .then((r: { piece: [number, number], side: string }) => {
-          console.log({ r })
+        .then((r: { piece: [number, number]; side: string }) => {
+          console.log({ r });
           dispatch({
             type: GAME_ACTIONS_TYPES.TEST,
             payload: {
-              domino: [String(r.piece[0]) as MoneyValue, String(r.piece[1]) as MoneyValue],
+              domino: [
+                String(r.piece[0]) as MoneyValue,
+                String(r.piece[1]) as MoneyValue,
+              ],
             },
           });
         })
