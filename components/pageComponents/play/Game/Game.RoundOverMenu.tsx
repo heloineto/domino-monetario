@@ -21,7 +21,7 @@ const GameRoundOverMenu = (props: Props) => {
   const color = twColors[colorName];
 
   return (
-    <MenuDialog open={game.roundOver}>
+    <MenuDialog open={game.roundOver && !game.winner}>
       <div className="flex h-full flex-col items-center justify-center gap-y-5">
         <div className="font-display text-2xl">Fim do round! Resutado:</div>
         <div className="mb-5 font-display text-6xl" style={{ color: color[700] }}>
