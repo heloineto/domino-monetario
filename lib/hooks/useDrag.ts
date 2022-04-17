@@ -24,7 +24,7 @@ const useDrag = ({ game, dispatch }: ReturnType<typeof useGame>) => {
       dispatch({
         type: GAME_ACTIONS_TYPES.MAKE_PLAY,
         payload: {
-          playerType: 'player',
+          playerId: 'player',
           connection: target.connection,
           index: dominoIndex,
         },

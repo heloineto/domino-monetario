@@ -1,4 +1,3 @@
-const toggleTurn = (turn: PlayerType): PlayerType =>
-  turn === 'player' ? 'enemy' : 'player';
+const toggleTurn = (turn: playerId): playerId => (turn === 'player' ? 'enemy' : 'player');
 
 export default toggleTurn;

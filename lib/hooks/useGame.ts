@@ -13,11 +13,9 @@ const useGame = () => {
     if (!game.playing) return;
 
     if (!hasPlays(game.board, game[game.turn])) {
-      console.log(game.turn, game[game.turn].hand);
-
       dispatch({
         type: GAME_ACTIONS_TYPES.DRAW,
-        payload: { playerType: game.turn },
+        payload: { playerId: game.turn },
       });
     }
 

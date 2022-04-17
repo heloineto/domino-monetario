@@ -28,6 +28,7 @@ const BoardRound = (props: Props) => {
 
           return (
             <div
+              key={`${roundResult}${index}`}
               className="rounded-md px-2 py-0.5 text-xs uppercase"
               style={{ color: color[600], backgroundColor: color[200] }}
             >

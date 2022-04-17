@@ -115,7 +115,7 @@ const playWithGreedySearch = (
 
   dispatch({
     type: GAME_ACTIONS_TYPES.MAKE_PLAY,
-    payload: { playerType: 'enemy', connection: result.connection, index: result.index },
+    payload: { playerId: 'enemy', connection: result.connection, index: result.index },
   });
 };
 

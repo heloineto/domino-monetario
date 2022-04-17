@@ -1,13 +1,12 @@
 import INITIAL_STATE from '@lib/game/globals/INITIAL_STATE';
 import toggleTurn from '@lib/game/toggleTurn';
 import removeDomino from '@lib/game/player/removeDomino';
-import { cloneDeep, isEmpty, shuffle } from 'lodash';
+import { cloneDeep, shuffle } from 'lodash';
 import { STARTING_HAND_SIZE } from '@lib/game/globals/SETTINGS';
 import isDouble from '@lib/game/domino/isDouble';
 import addDomino from '@lib/game/board/addDomino';
 import draw from '@lib/game/player/draw';
 import findMaxDomino from '@lib/game/player/findMaxDomino';
-import hasPlay from '@lib/game/domino/hasPlay';
 
 export enum GAME_ACTIONS_TYPES {
   START,
@@ -36,12 +35,12 @@ type GAWithoutPayload = {
 
 type GAHandToBoard = {
   type: GAME_ACTIONS_TYPES.MAKE_PLAY;
-  payload: { playerType: PlayerType; connection: Connection; index: number };
+  payload: { playerId: playerId; connection: Connection; index: number };
 };
 
 type GADrawUntilFindPlay = {
   type: GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY;
-  payload: { playerType: PlayerType };
+  payload: { playerId: playerId };
 };
 
 type GASetAiAlgorithm = {
@@ -51,7 +50,7 @@ type GASetAiAlgorithm = {
 
 type GADraw = {
   type: GAME_ACTIONS_TYPES.DRAW;
-  payload: { playerType: PlayerType };
+  payload: { playerId: playerId };
 };
 
 const startGame = (board: Board, player: Player, enemy: Player, deck: Domino[]) => {
@@ -127,11 +126,11 @@ const gameReducer = (state: Game, action: GameAction) => {
       return resetGame();
 
     case GAME_ACTIONS_TYPES.MAKE_PLAY:
-      const { playerType, connection, index } = action.payload;
-      updates = makePlay(state[playerType], state.board, state.turn, index, connection);
+      const { playerId, connection, index } = action.payload;
+      updates = makePlay(state[playerId], state.board, state.turn, index, connection);
 
       if (updates?.player?.hand.length === 0) {
-        // player.playerType WINS
+        // player.playerId WINS
       }
 
       if (!updates) return state;
@@ -144,16 +143,16 @@ const gameReducer = (state: Game, action: GameAction) => {
       return { ...state, aiAlgorithm };
 
     case GAME_ACTIONS_TYPES.DRAW:
-      const { playerType: playerType3 } = action.payload;
+      const { playerId: playerId3 } = action.payload;
 
       if (state.deck.length === 0) {
         // ROUND END DRAW
         // updates = endRound('DRAW', state);
       }
 
-      const drawUpdates = draw(state[playerType3], state.deck, 1);
+      const drawUpdates = draw(state[playerId3], state.deck, 1);
 
-      return { ...state, [playerType3]: drawUpdates.player, deck: drawUpdates.deck };
+      return { ...state, [playerId3]: drawUpdates.player, deck: drawUpdates.deck };
     default:
       throw new Error(`Unknown action: ${JSON.stringify(action)}`);
   }

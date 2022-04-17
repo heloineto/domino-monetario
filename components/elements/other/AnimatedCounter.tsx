@@ -25,6 +25,7 @@ const AnimatedCounter = ({ type = 'div', value }: Props) => {
     setPrevValue(value);
 
     return () => controls.stop();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return createElement(type, { ref: nodeRef });

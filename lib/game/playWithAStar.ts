@@ -21,7 +21,8 @@ const playWithAStar = (game: Game, dispatch: Dispatch<GameAction>) => {
     .then((response: { piece: [number, number]; side: Position }) => {
       console.log(response);
 
-      let { piece, side } = response;
+      let { piece } = response;
+      const { side } = response;
 
       if (piece[0] < piece[1]) piece = piece.reverse() as [number, number];
 
@@ -50,7 +51,7 @@ const playWithAStar = (game: Game, dispatch: Dispatch<GameAction>) => {
       dispatch({
         type: GAME_ACTIONS_TYPES.MAKE_PLAY,
         payload: {
-          playerType: 'enemy',
+          playerId: 'enemy',
           index,
           connection,
         },
