@@ -7,6 +7,7 @@ import isDouble from '@lib/game/domino/isDouble';
 import addDomino from '@lib/game/board/addDomino';
 import draw from '@lib/game/player/draw';
 import findMaxDomino from '@lib/game/player/findMaxDomino';
+import sumDominos from '@lib/game/player/sumDominos';
 
 export enum GAME_ACTIONS_TYPES {
   START,
@@ -17,6 +18,7 @@ export enum GAME_ACTIONS_TYPES {
   DRAW_UNTIL_FIND_PLAY,
   SET_AI_ALGORITHM,
   DRAW,
+  START_ROUND,
 }
 
 type GameAction =
@@ -30,17 +32,18 @@ type GAWithoutPayload = {
   type:
     | GAME_ACTIONS_TYPES.START
     | GAME_ACTIONS_TYPES.RESET
-    | GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY;
+    | GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY
+    | GAME_ACTIONS_TYPES.START_ROUND;
 };
 
 type GAHandToBoard = {
   type: GAME_ACTIONS_TYPES.MAKE_PLAY;
-  payload: { playerId: playerId; connection: Connection; index: number };
+  payload: { playerId: PlayerId; connection: Connection; index: number };
 };
 
 type GADrawUntilFindPlay = {
   type: GAME_ACTIONS_TYPES.DRAW_UNTIL_FIND_PLAY;
-  payload: { playerId: playerId };
+  payload: { playerId: PlayerId };
 };
 
 type GASetAiAlgorithm = {
@@ -50,7 +53,78 @@ type GASetAiAlgorithm = {
 
 type GADraw = {
   type: GAME_ACTIONS_TYPES.DRAW;
-  payload: { playerId: playerId };
+  payload: { playerId: PlayerId };
+};
+
+const startRound = (player: Player, enemy: Player) => {
+  const updates: Partial<Game> = { roundOver: false };
+
+  updates.board = INITIAL_STATE.board;
+  updates.deck = shuffle(INITIAL_STATE.deck);
+  updates.enemy = { ...player, hand: [] };
+  updates.player = { ...enemy, hand: [] };
+
+  const firstDraw = draw(updates.player, updates.deck, STARTING_HAND_SIZE);
+  updates.player = firstDraw.player;
+  updates.deck = firstDraw.deck;
+
+  const secondDraw = draw(updates.enemy, updates.deck, STARTING_HAND_SIZE);
+  updates.enemy = secondDraw.player;
+  updates.deck = secondDraw.deck;
+
+  const playerMax = findMaxDomino(updates.player);
+  const enemyMax = findMaxDomino(updates.enemy);
+
+  if (playerMax.index === undefined || enemyMax.index === undefined) return;
+
+  if (playerMax.score > enemyMax.score) {
+    const playUpdates = makePlay(
+      updates.player,
+      updates.board,
+      'player',
+      playerMax.index,
+      {
+        connects: true,
+        rotation: isDouble(updates.player.hand[playerMax.index]) ? 0 : -90,
+      }
+    );
+
+    return { ...updates, ...playUpdates };
+  }
+
+  const playUpdates = makePlay(updates.enemy, updates.board, 'enemy', enemyMax.index, {
+    connects: true,
+    rotation: isDouble(updates.enemy.hand[enemyMax.index]) ? 0 : -90,
+  });
+
+  return { ...updates, ...playUpdates };
+};
+
+const endRound = (
+  result: RoundResult,
+  roundResults: RoundResult[],
+  player: Player,
+  enemy: Player
+) => {
+  const updates: Partial<Game> = {};
+
+  updates.roundOver = true;
+  updates.roundResults = [...roundResults, result];
+
+  if (result === 'DRAW') {
+    updates.player = { ...player, money: player.money + sumDominos(enemy.hand) };
+    updates.enemy = { ...enemy, money: enemy.money + sumDominos(player.hand) };
+
+    return updates;
+  }
+
+  if (result === 'ENEMY_WINS') {
+    updates.enemy = { ...enemy, money: enemy.money + sumDominos(player.hand) };
+    return updates;
+  }
+
+  updates.player = { ...player, money: player.money + sumDominos(enemy.hand) };
+  return updates;
 };
 
 const startGame = (board: Board, player: Player, enemy: Player, deck: Domino[]) => {
@@ -106,10 +180,6 @@ const makePlay = (
   return { [newPlayer.type]: newPlayer, board: newBoard, turn: newTurn };
 };
 
-const startRound = () => {};
-
-const endRound = (result: RoundResult, game: Game) => {};
-
 const gameReducer = (state: Game, action: GameAction) => {
   let updates: Partial<Game> | undefined;
 
@@ -130,7 +200,13 @@ const gameReducer = (state: Game, action: GameAction) => {
       updates = makePlay(state[playerId], state.board, state.turn, index, connection);
 
       if (updates?.player?.hand.length === 0) {
-        // player.playerId WINS
+        const endRoundUpdates = endRound(
+          playerId === 'enemy' ? 'ENEMY_WINS' : 'PLAYER_WINS',
+          state.roundResults,
+          state.player,
+          state.enemy
+        );
+        return { ...state, ...updates, ...endRoundUpdates };
       }
 
       if (!updates) return state;
@@ -139,20 +215,22 @@ const gameReducer = (state: Game, action: GameAction) => {
     case GAME_ACTIONS_TYPES.SET_AI_ALGORITHM:
       const aiAlgorithm = action.payload;
 
-      // return state;
       return { ...state, aiAlgorithm };
 
     case GAME_ACTIONS_TYPES.DRAW:
       const { playerId: playerId3 } = action.payload;
 
       if (state.deck.length === 0) {
-        // ROUND END DRAW
-        // updates = endRound('DRAW', state);
+        updates = endRound('DRAW', state.roundResults, state.player, state.enemy);
+        return { ...state, ...updates };
       }
 
       const drawUpdates = draw(state[playerId3], state.deck, 1);
 
       return { ...state, [playerId3]: drawUpdates.player, deck: drawUpdates.deck };
+
+    case GAME_ACTIONS_TYPES.START_ROUND:
+      return state;
     default:
       throw new Error(`Unknown action: ${JSON.stringify(action)}`);
   }

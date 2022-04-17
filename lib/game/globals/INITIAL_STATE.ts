@@ -21,7 +21,7 @@ const INITIAL_STATE: Game = {
       end: null,
     },
   },
-  round: 1,
+  roundOver: false,
   aiAlgorithm: 'GREEDY_SEARCH',
   roundResults: [],
 };

@@ -46,8 +46,8 @@ type Connection = {
   edge?: Edge | null;
 };
 
-type playerId = 'player' | 'enemy';
-type Turn = playerId;
+type PlayerId = 'player' | 'enemy';
+type Turn = PlayerId;
 
 type DragTarget = {
   id: string;
@@ -59,7 +59,7 @@ type AIAlgorithm = 'GREEDY_SEARCH' | 'A_START';
 type Player = {
   hand: Domino[];
   money: number;
-  type: playerId;
+  type: PlayerId;
 };
 
 type Board = {
@@ -72,9 +72,9 @@ type Board = {
 
 type Game = {
   playing: boolean;
-  turn: playerId;
+  turn: PlayerId;
   deck: Domino[];
-  round: number;
+  roundOver: boolean;
   aiAlgorithm: AIAlgorithm;
   roundResults: RoundResult[];
   player: Player;
