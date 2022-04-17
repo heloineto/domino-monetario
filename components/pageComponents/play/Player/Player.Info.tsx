@@ -7,6 +7,7 @@ import Image from 'next/image';
 import twColors from 'tailwindcss/colors';
 import sumDominos from '@lib/game/player/sumDominos';
 import { round } from 'lodash';
+import AnimatedCounter from '@components/elements/other/AnimatedCounter';
 
 interface Props {
   player: Player;
@@ -33,12 +34,13 @@ const PlayerInfo = ({ player }: Props) => {
       }}
     >
       <div className="mx-2.5 flex">
-        <div className="flex items-center font-display text-xl">
+        <div className="flex items-center gap-x-1.5 font-display text-xl">
           <Money className="h-5 w-5 text-slate-900" weight="bold" />
-          {round(dominosSum, 2).toFixed(2)} R$
+          <AnimatedCounter value={Number(round(dominosSum, 2).toFixed(2))} />
+          R$
         </div>
-        <div className="h-full w-px bg-slate-500"></div>
-        <div className=" flex items-center font-display text-xl">
+        <div className="mx-2.5 w-px flex-grow bg-slate-900"></div>
+        <div className="flex items-center gap-x-1.5 font-display text-xl">
           <Hand className="h-5 w-5 text-slate-900" weight="bold" />
           {player.hand.length}
         </div>

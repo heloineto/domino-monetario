@@ -35,6 +35,9 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
   return (
     <HandBaseDomino
       wheelConfig={wheelConfig}
+      style={{
+        boxShadow: '0px 0px 10px 2px rgba(255, 255, 255, 0)',
+      }}
       index={index}
       whileTap={{ scale: 1.1, cursor: 'grabbing' }}
       whileHover={{

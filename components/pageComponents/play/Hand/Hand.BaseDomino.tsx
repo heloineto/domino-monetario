@@ -13,6 +13,7 @@ const HandBaseDomino = ({
   index,
   variants,
   animation,
+  style,
   ...motionDivProps
 }: Props) => {
   const {
@@ -40,7 +41,7 @@ const HandBaseDomino = ({
   return (
     <motion.div
       className="absolute rounded-lg"
-      style={{ height: rectHeight, width: rectWidth }}
+      style={{ height: rectHeight, width: rectWidth, ...style }}
       animate={{ ...defaultAnimation, ...animation }}
       {...motionDivProps}
     />
