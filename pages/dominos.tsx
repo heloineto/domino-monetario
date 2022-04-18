@@ -1,6 +1,7 @@
+import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import DominoGrid from '@components/pageComponents/dominos/DominoGrid';
 import DominoWheel from '@components/pageComponents/dominos/DominoWheel';
-import { Button, ButtonGroup } from '@mui/material';
+import { ButtonGroup } from '@mui/material';
 import Head from 'next/head';
 import { useState } from 'react';
 
@@ -17,20 +18,20 @@ const PiecesPage = (props: Props) => {
       <div>
         <div className="my-5 flex items-center justify-center">
           <ButtonGroup size="large">
-            <Button
+            <PrimaryButton
               className="w-24"
               variant={view === 'grid' ? 'contained' : 'outlined'}
               onClick={() => setView('grid')}
             >
               GRID
-            </Button>
-            <Button
+            </PrimaryButton>
+            <PrimaryButton
               className="w-24"
               variant={view === 'wheel' ? 'contained' : 'outlined'}
               onClick={() => setView('wheel')}
             >
               WHEEL
-            </Button>
+            </PrimaryButton>
           </ButtonGroup>
         </div>
         {view === 'grid' ? <DominoGrid /> : <DominoWheel />}

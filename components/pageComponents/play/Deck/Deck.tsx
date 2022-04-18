@@ -9,7 +9,11 @@ const Deck = ({ className, ...motionDivProps }: Props) => {
   const { game } = useContext(GameContext);
 
   return (
-    <motion.div className={classNames(className, 'relative')} {...motionDivProps}>
+    <motion.div
+      className={classNames(className, 'relative')}
+      whileHover={{ scale: 1.2, zIndex: 100 }}
+      {...motionDivProps}
+    >
       <svg
         width={538}
         height={809}

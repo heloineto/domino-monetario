@@ -14,7 +14,7 @@ const MenuDialog = ({ onClose, children, ...muiDialogProps }: Props) => {
       {...muiDialogProps}
     >
       {onClose && (
-        <XButton className="absolute top-5 right-5 h-14 w-14" onClick={onClose} />
+        <XButton className="absolute top-2 right-5 h-12 w-12" onClick={onClose} />
       )}
       <div className="grid h-full place-items-center">
         <div className="rounded-2xl border-2 border-white bg-white/50 py-10 px-20">
