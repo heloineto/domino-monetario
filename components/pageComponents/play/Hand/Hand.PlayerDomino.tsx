@@ -8,9 +8,16 @@ interface Props extends ComponentProps<typeof motion.div> {
   domino: [MoneyValue, MoneyValue];
   index: number;
   wheelConfig: WheelConfig;
+  hidden: boolean;
 }
 
-const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) => {
+const PlayerDomino = ({
+  domino,
+  index,
+  wheelConfig,
+  hidden,
+  ...motionDivProps
+}: Props) => {
   const drag = useContext(DragContext);
   const { game } = useContext(GameContext);
 
@@ -62,7 +69,7 @@ const PlayerDomino = ({ domino, index, wheelConfig, ...motionDivProps }: Props) 
       }}
       {...motionDivProps}
     >
-      <Domino className="h-full w-full" domino={domino} />
+      <Domino className="h-full w-full" domino={domino} hidden={hidden} />
     </HandBaseDomino>
   );
 };

@@ -5,11 +5,11 @@ import HandPlayerDomino from './Hand.PlayerDomino';
 
 type Props = {
   player: Player;
+  isEnemy: boolean;
+  hidden: boolean;
 };
 
-const Hand = ({ player }: Props) => {
-  const isEnemy = useMemo(() => player.type === 'enemy', [player.type]);
-
+const Hand = ({ player, isEnemy, hidden }: Props) => {
   const wheelConfig = useMemo(() => {
     const length = player.hand.length;
     const rectHeight = isEnemy ? 224 * 0.6 : 224;
@@ -45,6 +45,7 @@ const Hand = ({ player }: Props) => {
             domino={domino}
             index={index}
             wheelConfig={wheelConfig}
+            hidden={hidden}
           />
         ))}
       </div>
