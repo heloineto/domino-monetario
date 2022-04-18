@@ -8,6 +8,7 @@ import Deck from '../Deck';
 import BoardDomino from './Board.Domino';
 import BoardDragPlaceholder from './Board.DragPlaceholder';
 import BoardRound from './Board.Round';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 interface Props extends ComponentProps<'div'> {}
 
@@ -18,6 +19,20 @@ const Board = ({ className, ...divProps }: Props) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const board = game?.board;
+
+  useHotkeys('right,d', () => {
+    const scrollElem = scrollRef.current;
+    if (!scrollElem) return;
+
+    scrollElem.scrollLeft = scrollElem.scrollWidth;
+  });
+
+  useHotkeys('left,a', () => {
+    const scrollElem = scrollRef.current;
+    if (!scrollElem) return;
+
+    scrollElem.scrollLeft = 0;
+  });
 
   if (!board) return null;
 
