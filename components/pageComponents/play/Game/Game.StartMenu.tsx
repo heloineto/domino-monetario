@@ -2,8 +2,8 @@ import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import { GameContext } from '@lib/context';
 import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
-import { Button, ButtonGroup } from '@mui/material';
 import { useContext } from 'react';
+import GameAiAlgorithmPicker from './Game.AiAlgorithmPicker';
 
 interface Props {}
 
@@ -19,32 +19,7 @@ const GameStartMenu = (props: Props) => {
         >
           Jogar
         </PrimaryButton>
-        <ButtonGroup>
-          <Button
-            className="w-40"
-            variant={game?.aiAlgorithm === 'GREEDY_SEARCH' ? 'contained' : 'outlined'}
-            onClick={() =>
-              dispatch?.({
-                type: GAME_ACTIONS_TYPES.SET_AI_ALGORITHM,
-                payload: 'GREEDY_SEARCH',
-              })
-            }
-          >
-            Busca Gulosa
-          </Button>
-          <Button
-            className="w-40"
-            variant={game?.aiAlgorithm === 'A_START' ? 'contained' : 'outlined'}
-            onClick={() =>
-              dispatch?.({
-                type: GAME_ACTIONS_TYPES.SET_AI_ALGORITHM,
-                payload: 'A_START',
-              })
-            }
-          >
-            A* (A Star)
-          </Button>
-        </ButtonGroup>
+        <GameAiAlgorithmPicker />
       </div>
     </MenuDialog>
   );

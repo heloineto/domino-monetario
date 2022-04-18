@@ -4,8 +4,8 @@ import MenuDialog from '@components/elements/dialog/MenuDialog';
 import Cog from '@components/elements/icons/Cog';
 import { GameContext } from '@lib/context';
 import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
-import { Button, ButtonGroup } from '@mui/material';
 import { useContext, useState } from 'react';
+import GameAiAlgorithmPicker from './Game.AiAlgorithmPicker';
 
 interface Props {}
 
@@ -26,6 +26,7 @@ const GameSettingsMenu = (props: Props) => {
       <MenuDialog open={open} onClose={() => setOpen(false)}>
         <div className="flex flex-col gap-y-5">
           <PrimaryButton
+            colorName="orange"
             onClick={() => {
               dispatch?.({ type: GAME_ACTIONS_TYPES.RESET });
               setOpen(false);
@@ -33,32 +34,7 @@ const GameSettingsMenu = (props: Props) => {
           >
             Reiniciar Jogo
           </PrimaryButton>
-          <ButtonGroup>
-            <Button
-              className="w-40"
-              variant={game?.aiAlgorithm === 'GREEDY_SEARCH' ? 'contained' : 'outlined'}
-              onClick={() =>
-                dispatch?.({
-                  type: GAME_ACTIONS_TYPES.SET_AI_ALGORITHM,
-                  payload: 'GREEDY_SEARCH',
-                })
-              }
-            >
-              Busca Gulosa
-            </Button>
-            <Button
-              className="w-40"
-              variant={game?.aiAlgorithm === 'A_START' ? 'contained' : 'outlined'}
-              onClick={() =>
-                dispatch?.({
-                  type: GAME_ACTIONS_TYPES.SET_AI_ALGORITHM,
-                  payload: 'A_START',
-                })
-              }
-            >
-              A* (A Star)
-            </Button>
-          </ButtonGroup>
+          <GameAiAlgorithmPicker />
           <PrimaryButton onClick={() => setOpen(false)}>Continuar Jogo</PrimaryButton>
         </div>
       </MenuDialog>
