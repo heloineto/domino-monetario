@@ -1,6 +1,7 @@
 import DOMINOS from '@lib/game/globals/DOMINOS';
+import useWindowSize from '@lib/hooks/useWindowSize';
 import { debounce } from 'lodash';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import DominoWheelDomino from './DominoWheel.Domino';
 import DominoWheelSlider from './DominoWheel.Slider';
 
@@ -9,10 +10,7 @@ interface Props {}
 const DominoWheel = (props: Props) => {
   const [dominos, setDominos] = useState(DOMINOS);
 
-  const [windowSize, setWindowSize] = useState<{ width?: number; height?: number }>({
-    width: undefined,
-    height: undefined,
-  });
+  const windowSize = useWindowSize();
 
   const wheelConfig: WheelConfig = useMemo(() => {
     const length = dominos.length;
@@ -35,23 +33,6 @@ const DominoWheel = (props: Props) => {
       middleIndex,
     };
   }, [windowSize, dominos]);
-
-  useEffect(() => {
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-    // Add event listener
-    window.addEventListener('resize', handleResize);
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-    // Remove event listener on cleanup
-    return () => window.removeEventListener('resize', handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
 
   console.log('RENDER');
 

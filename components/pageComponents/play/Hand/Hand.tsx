@@ -1,3 +1,4 @@
+import useWindowSize from '@lib/hooks/useWindowSize';
 import { range } from '@lib/utils/math';
 import { useMemo } from 'react';
 import HandEnemyDomino from './Hand.EnemyDomino';
@@ -10,7 +11,11 @@ type Props = {
 };
 
 const Hand = ({ player, isEnemy, hidden }: Props) => {
+  const windowSize = useWindowSize();
+
   const wheelConfig = useMemo(() => {
+    const windowWidth = windowSize.width ?? 1920;
+
     const length = player.hand.length;
     const rectHeight = isEnemy ? 224 * 0.6 : 224;
     const rectWidth = isEnemy ? 121.441322 * 0.6 : 121.441322;
@@ -18,8 +23,12 @@ const Hand = ({ player, isEnemy, hidden }: Props) => {
     const divider = isEnemy
       ? range(2, 10, 64, 8 * 2, length)
       : range(2, 10, 32, 8, length);
+
+    const arcLength = Math.min(windowWidth, rectWidth * length);
+    const arcAngle = arcLength / ((Math.PI / 180) * radius);
+
     const middleIndex = (length - 1) / 2;
-    const angleStep = 360 / divider / length;
+    const angleStep = arcAngle / length;
     const rectRadius = radius - rectHeight / 2;
 
     return {
@@ -32,7 +41,7 @@ const Hand = ({ player, isEnemy, hidden }: Props) => {
       rectRadius,
       middleIndex,
     };
-  }, [player.hand.length, isEnemy]);
+  }, [player.hand.length, isEnemy, windowSize]);
 
   const Domino = useMemo(() => (isEnemy ? HandEnemyDomino : HandPlayerDomino), [isEnemy]);
 

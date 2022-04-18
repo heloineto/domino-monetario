@@ -25,7 +25,7 @@ const Player = ({ player, className, ...divProps }: Props) => {
       {isEnemy && (
         <div>
           <SecondaryIconButton
-            colorName="yellow"
+            colorName="green"
             className="absolute top-3 right-20 z-50 h-10 w-10"
             onClick={() => setHidden((value) => !value)}
           >
