@@ -13,7 +13,7 @@ const playWithAStar = (game: Game, dispatch: Dispatch<GameAction>) => {
     ),
   });
 
-  console.log(requestBody);
+  console.log('SENDING: ', requestBody);
 
   fetch('https://peaceful-bastion-30528.herokuapp.com/', {
     method: 'POST',
@@ -23,7 +23,11 @@ const playWithAStar = (game: Game, dispatch: Dispatch<GameAction>) => {
       return r.json();
     })
     .then((response: { piece: [number, number]; side: Position }) => {
-      console.log(response);
+      console.log('python response: ', response);
+
+      if (Array.isArray(response)) {
+        console.log('RESPOSE IS AN ARRAY, WEIRD');
+      }
 
       let { piece } = response;
       const { side } = response;
@@ -47,8 +51,8 @@ const playWithAStar = (game: Game, dispatch: Dispatch<GameAction>) => {
 
       const connection = getConnection(domino, game.board.edges[side]);
 
-      if (!index || !connection.connects) {
-        console.log(game.enemy.hand, connection, domino);
+      if (index === undefined || !connection.connects) {
+        console.log("DOESN'T CONNECT", { hand: game.enemy.hand, connection, domino });
         return;
       }
 

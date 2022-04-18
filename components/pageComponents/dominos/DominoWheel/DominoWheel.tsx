@@ -34,8 +34,6 @@ const DominoWheel = (props: Props) => {
     };
   }, [windowSize, dominos]);
 
-  console.log('RENDER');
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onChange = useCallback(
     debounce(
