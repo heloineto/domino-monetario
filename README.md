@@ -1,5 +1,7 @@
 # Domino Monetário
 
+Variação do jogo de dominó utilizando o sistema monetário brasileiro. Esse é um projeto desenvolvido para a matéria de Inteligência Artificial da UTFPR
+
 Para rodar o programa no navegador:
 
 1. No navegador, acesse http://domino-monetario.vercel.app/
