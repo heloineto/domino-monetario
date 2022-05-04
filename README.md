@@ -1,3 +1,5 @@
+# Dominó Monetário
+
 <p align="center">
   <img height="200" width="200" src="https://i.imgur.com/0jyt2oz.png" alt="Dominó monetário's logo"/>
 </p>
