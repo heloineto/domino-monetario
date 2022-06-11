@@ -16,16 +16,8 @@ const HandBaseDomino = ({
   style,
   ...motionDivProps
 }: Props) => {
-  const {
-    radius,
-    divider,
-    angleStep,
-    rectHeight,
-    rectWidth,
-    rectRadius,
-    middleIndex,
-    length,
-  } = wheelConfig;
+  const { radius, angleStep, rectHeight, rectWidth, rectRadius, middleIndex, length } =
+    wheelConfig;
 
   const defaultAnimation: TargetAndTransition = useMemo(() => {
     const angle = angleStep * (middleIndex - index) - 90 + range(1, 20, 0, -2, length);

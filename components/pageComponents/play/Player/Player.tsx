@@ -1,7 +1,7 @@
 import SecondaryIconButton from '@components/elements/buttons/SecondaryIconButton';
 import classNames from 'clsx';
 import { Eye, EyeClosed } from 'phosphor-react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import Hand from '../Hand';
 import PlayerBank from './Player.Bank';
 import PlayerInfo from './Player.Info';
@@ -11,8 +11,8 @@ interface Props extends ComponentProps<'div'> {
 }
 
 const Player = ({ player, className, ...divProps }: Props) => {
-  const isEnemy = useMemo(() => player.type === 'enemy', [player.type]);
-  const [hidden, setHidden] = useState(false);
+  const isEnemy = player.type === 'enemy';
+  const [hidden, setHidden] = useState(isEnemy);
 
   return (
     <div
