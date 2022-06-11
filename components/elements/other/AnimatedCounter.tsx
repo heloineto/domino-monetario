@@ -4,9 +4,10 @@ import { createElement, useEffect, useRef, useState } from 'react';
 interface Props {
   value: number;
   type?: string;
+  parse?: (value: number) => string;
 }
 
-const AnimatedCounter = ({ type = 'div', value }: Props) => {
+const AnimatedCounter = ({ type = 'div', value, parse }: Props) => {
   const [prevValue, setPrevValue] = useState(value);
   const nodeRef = useRef<HTMLElement>();
 
@@ -18,7 +19,7 @@ const AnimatedCounter = ({ type = 'div', value }: Props) => {
     const controls = animate(prevValue, value, {
       duration: 0.5,
       onUpdate(value) {
-        node.textContent = value.toFixed(2);
+        node.textContent = parse?.(value) ?? value.toFixed(2);
       },
     });
 

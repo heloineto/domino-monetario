@@ -8,6 +8,7 @@ import twColors from 'tailwindcss/colors';
 import sumDominos from '@lib/game/player/sumDominos';
 import { round } from 'lodash';
 import AnimatedCounter from '@components/elements/other/AnimatedCounter';
+import { Tooltip } from '@mui/material';
 
 interface Props {
   player: Player;
@@ -22,6 +23,12 @@ const PlayerInfo = ({ player }: Props) => {
 
   const color = twColors[isEnemy ? 'blue' : 'orange'];
 
+  const moneyNumber = Number(round(dominosSum, 2).toFixed(2));
+  const moneyString = moneyNumber.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+
   return (
     <motion.div
       className={classNames(
@@ -34,16 +41,37 @@ const PlayerInfo = ({ player }: Props) => {
       }}
     >
       <div className="mx-2.5 flex">
-        <div className="flex items-center gap-x-1.5 font-display text-xl">
-          <Money className="h-5 w-5 text-slate-900" weight="bold" />
-          <AnimatedCounter value={Number(round(dominosSum, 2).toFixed(2))} />
-          R$
-        </div>
+        <Tooltip
+          title={`${isEnemy ? 'O robô' : 'Você'} tem ${moneyString} na mão`}
+          arrow
+          placement={isEnemy ? 'bottom' : 'top'}
+        >
+          <div className="flex items-center gap-x-1.5 font-display text-xl">
+            <Money className="h-5 w-5 text-slate-900" weight="bold" />
+            <AnimatedCounter
+              value={moneyNumber}
+              parse={(value) =>
+                value.toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })
+              }
+            />
+          </div>
+        </Tooltip>
         <div className="mx-2.5 w-px flex-grow bg-slate-900"></div>
-        <div className="flex items-center gap-x-1.5 font-display text-xl">
-          <Hand className="h-5 w-5 text-slate-900" weight="bold" />
-          {player.hand.length}
-        </div>
+        <Tooltip
+          title={`${isEnemy ? 'O robô' : 'Você'} tem ${
+            player.hand.length
+          } dominos na mão`}
+          arrow
+          placement={isEnemy ? 'bottom' : 'top'}
+        >
+          <div className="flex items-center gap-x-1.5 font-display text-xl">
+            <Hand className="h-5 w-5 text-slate-900" weight="bold" />
+            {player.hand.length}
+          </div>
+        </Tooltip>
       </div>
       <motion.div
         className="relative h-12 w-12 rounded-full border-2"
