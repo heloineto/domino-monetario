@@ -1,6 +1,6 @@
 import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import { GameContext } from '@lib/context';
-import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
 import { ButtonGroup } from '@mui/material';
 import { useContext } from 'react';
 

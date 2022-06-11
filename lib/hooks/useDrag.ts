@@ -1,4 +1,4 @@
-import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
 import { useCallback, useState } from 'react';
 import useGame from './useGame';
 
