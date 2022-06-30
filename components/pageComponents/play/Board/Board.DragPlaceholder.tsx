@@ -37,7 +37,7 @@ const BoardDragPlaceholder = ({ className, id, edge }: Props) => {
     const divElem = divRef.current;
     const boundingClientRect = divElem?.getBoundingClientRect();
 
-    const check = (e: MouseEvent) => {
+    const check = (e: PointerEvent) => {
       if (!boundingClientRect) return;
 
       const { pageX, pageY } = e;
@@ -51,10 +51,10 @@ const BoardDragPlaceholder = ({ className, id, edge }: Props) => {
       setHover(false);
     };
 
-    document.addEventListener('mousemove', check);
+    document.addEventListener('pointermove', check);
 
     return () => {
-      document.removeEventListener('mousemove', check);
+      document.removeEventListener('pointermove', check);
     };
   }, []);
 

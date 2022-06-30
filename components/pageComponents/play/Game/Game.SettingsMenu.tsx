@@ -3,7 +3,7 @@ import PrimaryIconButton from '@components/elements/buttons/PrimaryIconButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import Cog from '@components/elements/icons/Cog';
 import { GameContext } from '@lib/context';
-import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
 import { useContext, useState } from 'react';
 import GameAiAlgorithmPicker from './Game.AiAlgorithmPicker';
 

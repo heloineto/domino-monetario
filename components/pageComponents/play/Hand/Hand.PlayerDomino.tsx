@@ -46,7 +46,13 @@ const PlayerDomino = ({
         boxShadow: '0px 0px 10px 2px rgba(255, 255, 255, 0)',
       }}
       index={index}
-      whileTap={{ scale: 1.1, cursor: 'grabbing' }}
+      whileTap={{
+        rotate: 0,
+        top: -2.5,
+        zIndex: 50,
+        scale: 1.1,
+        cursor: 'grabbing',
+      }}
       whileHover={{
         rotate: 0,
         cursor: 'grab',

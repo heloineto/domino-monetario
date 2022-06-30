@@ -1,7 +1,7 @@
 import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import { GameContext } from '@lib/context';
-import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer';
+import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
 import { useContext } from 'react';
 import GameAiAlgorithmPicker from './Game.AiAlgorithmPicker';
 
