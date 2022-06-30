@@ -44,9 +44,9 @@ const Board = ({ className, ...divProps }: Props) => {
       )}
       {...divProps}
     >
-      <div className="flex h-full w-40 flex-col items-center justify-center">
+      <div className="flex h-full w-24 flex-shrink-0 flex-col items-center justify-center sm:w-28 md:w-32 lg:w-36 xl:w-40">
         <BoardRound />
-        <Deck className="h-52 w-auto" />
+        <Deck className="w-full" />
       </div>
       <div className="relative flex flex-grow items-center justify-center overflow-x-auto">
         <div className="flex h-full items-center overflow-x-auto" ref={scrollRef}>

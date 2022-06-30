@@ -10,6 +10,8 @@ type Props = {
   hidden: boolean;
 };
 
+const getDominoRect = (isEnemy: boolean) => {};
+
 const Hand = ({ player, isEnemy, hidden }: Props) => {
   const windowSize = useWindowSize();
 
@@ -17,12 +19,16 @@ const Hand = ({ player, isEnemy, hidden }: Props) => {
     const windowWidth = windowSize.width ?? 1920;
 
     const length = player.hand.length;
-    const rectHeight = isEnemy ? 224 * 0.6 : 224;
-    const rectWidth = isEnemy ? 121.441322 * 0.6 : 121.441322;
-    const radius = isEnemy ? -2000 : 2000;
-    const divider = isEnemy
-      ? range(2, 10, 64, 8 * 2, length)
-      : range(2, 10, 32, 8, length);
+    let rectWidth = range(0, 1920, 62, 124, windowWidth);
+    let rectHeight = rectWidth * 2;
+    let radius = 2000;
+    const divider = isEnemy ? range(2, 10, 64, 16, length) : range(2, 10, 32, 8, length);
+
+    if (isEnemy) {
+      rectHeight *= 0.6;
+      rectWidth *= 0.6;
+      radius *= -1;
+    }
 
     const arcLength = Math.min(windowWidth, rectWidth * length);
     const arcAngle = arcLength / ((Math.PI / 180) * radius);
@@ -43,13 +49,13 @@ const Hand = ({ player, isEnemy, hidden }: Props) => {
     };
   }, [player.hand.length, isEnemy, windowSize]);
 
-  const Domino = useMemo(() => (isEnemy ? HandEnemyDomino : HandPlayerDomino), [isEnemy]);
+  const HandDomino = isEnemy ? HandEnemyDomino : HandPlayerDomino;
 
   return (
     <>
       <div className="absolute top-0 left-1/2 h-full w-full">
         {player.hand.map((domino, index) => (
-          <Domino
+          <HandDomino
             key={`${domino[0]}-${domino[1]}`}
             domino={domino}
             index={index}

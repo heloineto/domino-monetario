@@ -20,9 +20,15 @@ const Game = (props: Props) => {
           className="flex h-screen max-h-screen w-full flex-col overflow-hidden  bg-green-200"
           style={{ boxShadow: 'inset 0 0 300px rgba(0,0,0,0.5)' }}
         >
-          <Player className="h-[128px] flex-shrink-0" player={game.enemy} />
+          <Player
+            className="h-[5rem] flex-shrink-0 sm:h-[6rem] md:h-[6rem] lg:h-[7rem] xl:h-[8rem]"
+            player={game.enemy}
+          />
           <Board className="my-4 flex-grow" />
-          <Player className="h-[256px] flex-shrink-0" player={game.player} />
+          <Player
+            className="h-[9rem] flex-shrink-0 sm:h-[10rem] md:h-[12rem] lg:h-[14rem] xl:h-[16rem]"
+            player={game.player}
+          />
         </main>
 
         <GameSettingsMenu />

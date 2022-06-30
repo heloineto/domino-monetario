@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import Domino from '../Domino';
 import HandBaseDomino from './Hand.BaseDomino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -22,10 +21,10 @@ const HandEnemyDomino = ({
       whileTap={{ scale: 1.1 }}
       wheelConfig={wheelConfig}
       index={index}
+      domino={domino}
+      hidden={hidden}
       {...motionDivProps}
-    >
-      <Domino className="h-full w-full" domino={domino} hidden={hidden} />
-    </HandBaseDomino>
+    />
   );
 };
 

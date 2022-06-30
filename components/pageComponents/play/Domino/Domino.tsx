@@ -9,26 +9,34 @@ interface Props extends ComponentProps<typeof motion.svg> {
 }
 
 const Domino = ({ hidden, domino, className, ...motionSvgProps }: Props) => {
+  // 0.93902439
+
   return (
-    <div className={classNames(className, 'relative aspect-[656/1232]')}>
+    <div
+      className={classNames(
+        className,
+        'relative flex aspect-[1/2] items-center justify-center'
+      )}
+    >
       <motion.svg
-        width={656}
-        height={1232}
-        viewBox="0 0 656 1232"
+        className="absolute top-0 left-0 h-full w-full rounded-lg border-2 border-slate-400 bg-white shadow-md hover:shadow-2xl"
+        width={512}
+        height={1024}
+        viewBox="0 0 512 1024"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-full rounded-lg border-2 border-slate-400 bg-white shadow-md hover:shadow-2xl"
         {...motionSvgProps}
       >
         <path
           fillRule="evenodd"
           clipRule="evenodd"
-          d="M35 1220C22.2975 1220 12 1209.7 12 1197V35C12 22.2975 22.2974 12.0001 35 12.0001L621 12C633.703 12 644 22.2594 644 34.9619C644.002 405.206 644 826.794 644 1197.04C644 1209.74 633.703 1220 621 1220H35ZM620 80.0001C596.745 80 576 59.2549 576 36H79.9999C79.9999 59.2549 59.2548 80 36 80.0001V1152C59.2548 1152 80 1172.75 80 1196H576C576 1172.75 596.745 1152 620 1152V80.0001Z"
-          fill="#94a3b8"
+          d="M26.8483 1015C16.9193 1015 8.87024 1006.95 8.87024 997.022L8.87012 26.9781C8.87012 17.0491 16.9192 9 26.8482 9H485.892C495.821 9 503.87 16.9787 503.869 26.9077C503.833 318.676 502.915 705.324 502.878 997.092C502.877 1007.02 494.828 1015 484.899 1015H26.8483ZM484.627 62.5325C466.449 62.5325 450.234 46.317 450.234 28.1397H62.5324C62.5324 46.317 46.3169 62.5325 28.1396 62.5325L27.63 961.847C45.8073 961.847 62.0228 978.063 62.0228 996.24H449.724C449.724 978.063 465.94 961.847 484.117 961.847L484.627 62.5325Z"
+          fill="#C8D2DC"
         />
       </motion.svg>
+
       {!hidden && (
-        <div className="absolute top-0 left-0 flex h-full w-full flex-col p-[12%]">
+        <div className="relative z-10 flex flex-col p-[10%]">
           <Money value={domino[0]} />
           <DominoDivider />
           <Money value={domino[1]} style={{ rotate: 180 }} />

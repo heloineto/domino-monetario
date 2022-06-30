@@ -15,12 +15,12 @@ const Deck = ({ className, ...motionDivProps }: Props) => {
       {...motionDivProps}
     >
       <svg
+        className="h-full w-full"
         width={538}
         height={809}
         viewBox="0 0 538 809"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-auto"
       >
         <g filter="url(#filter0_d_62_237)">
           <rect

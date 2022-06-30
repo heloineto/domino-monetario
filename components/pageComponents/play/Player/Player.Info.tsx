@@ -32,22 +32,22 @@ const PlayerInfo = ({ player }: Props) => {
   return (
     <motion.div
       className={classNames(
-        isEnemy ? 'bottom-0' : 'top-0',
-        'absolute right-5 z-[40] flex h-16 select-none items-center justify-center rounded-full bg-white/50 p-2'
+        isEnemy ? '-bottom-2.5 xl:bottom-0' : '-top-2.5 xl:top-0',
+        'absolute right-5 z-[40] flex h-14 select-none items-center justify-center rounded-full bg-white/50 p-2 xl:h-16'
       )}
       animate={{
         boxShadow: isPlayerTurn ? `0px 0px 10px 5px ${color[500]}` : undefined,
         border: isPlayerTurn ? '2px solid white' : undefined,
       }}
     >
-      <div className="mx-2.5 flex">
+      <div className="mx-1.5 flex text-base lg:text-lg xl:mx-2.5 xl:text-xl">
         <Tooltip
           title={`${isEnemy ? 'O robô' : 'Você'} tem ${moneyString} na mão`}
           arrow
           placement={isEnemy ? 'bottom' : 'top'}
         >
-          <div className="flex items-center gap-x-1.5 font-display text-xl">
-            <Money className="h-5 w-5 text-slate-900" weight="bold" />
+          <div className="flex items-center gap-x-1.5 font-display">
+            <Money className="h-4 w-4 text-slate-900 xl:h-5 xl:w-5" weight="bold" />
             <AnimatedCounter
               value={moneyNumber}
               parse={(value) =>
@@ -67,22 +67,22 @@ const PlayerInfo = ({ player }: Props) => {
           arrow
           placement={isEnemy ? 'bottom' : 'top'}
         >
-          <div className="flex items-center gap-x-1.5 font-display text-xl">
-            <Hand className="h-5 w-5 text-slate-900" weight="bold" />
+          <div className="flex items-center gap-x-1.5 font-display">
+            <Hand className="h-4 w-4 text-slate-900 xl:h-5 xl:w-5" weight="bold" />
             {player.hand.length}
           </div>
         </Tooltip>
       </div>
       <motion.div
-        className="relative h-12 w-12 rounded-full border-2"
+        className="relative h-10 w-10 rounded-full border-2 xl:h-12 xl:w-12"
         style={{ borderColor: color[500], backgroundColor: color[300] }}
       >
         {isEnemy ? (
-          <div className="absolute -bottom-1.5 left-px h-[3.25rem] w-[3.25rem] rounded-b-2xl">
+          <div className="absolute -bottom-2 h-12 w-12 rounded-b-2xl xl:-bottom-1.5 xl:left-px xl:h-[3.25rem] xl:w-[3.25rem]">
             <Image src="/robot/normal.svg" alt="robô" layout="fill" />
           </div>
         ) : (
-          <div className="flex h-full w-full items-center justify-center font-display text-2xl text-orange-900">
+          <div className="flex h-full w-full items-center justify-center font-display text-xl text-orange-900 xl:text-2xl">
             Você
           </div>
         )}

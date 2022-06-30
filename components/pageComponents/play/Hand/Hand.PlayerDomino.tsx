@@ -1,7 +1,6 @@
 import { DragContext, GameContext } from '@lib/context';
 import { TargetAndTransition, motion } from 'framer-motion';
 import { useContext, useMemo } from 'react';
-import Domino from '../Domino';
 import HandBaseDomino from './Hand.BaseDomino';
 
 interface Props extends ComponentProps<typeof motion.div> {
@@ -73,10 +72,10 @@ const PlayerDomino = ({
             ? '0px 0px 10px 2px rgba(255, 255, 255, 0.5)'
             : undefined,
       }}
+      domino={domino}
+      hidden={hidden}
       {...motionDivProps}
-    >
-      <Domino className="h-full w-full" domino={domino} hidden={hidden} />
-    </HandBaseDomino>
+    />
   );
 };
 
