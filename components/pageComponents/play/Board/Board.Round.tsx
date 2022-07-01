@@ -13,7 +13,9 @@ const BoardRound = (props: Props) => {
   return (
     <div>
       {!game.roundOver && (
-        <div className="font-display text-xl">Rodada: {game.roundResults.length + 1}</div>
+        <div className="font-display text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl">
+          Rodada: {game.roundResults.length + 1}
+        </div>
       )}
       {/* <div className="flex flex-col">
         {game.roundResults.map((roundResult, index) => {

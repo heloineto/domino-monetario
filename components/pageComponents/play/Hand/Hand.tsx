@@ -19,7 +19,7 @@ const Hand = ({ player, isEnemy, hidden }: Props) => {
     const windowWidth = windowSize.width ?? 1920;
 
     const length = player.hand.length;
-    let rectWidth = range(0, 1920, 62, 124, windowWidth);
+    let rectWidth = range(0, 1920, 50, 100, windowWidth);
     let rectHeight = rectWidth * 2;
     let radius = 2000;
     const divider = isEnemy ? range(2, 10, 64, 16, length) : range(2, 10, 32, 8, length);
