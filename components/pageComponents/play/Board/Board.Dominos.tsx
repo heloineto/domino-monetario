@@ -62,14 +62,21 @@ const BoardDominos = ({}: Props) => {
           />
         )}
         {board.boardDominos?.map(({ rotation, domino }) => (
-          <BoardDomino
-            className="flex-shrink-0"
+          <div
             key={`${domino[0]}-${domino[1]}`}
-            height={dominoHeight}
-            width={rotation ? dominoHeight : dominoHeight / 2}
-            domino={domino}
-            rotation={rotation}
-          />
+            className="flex flex-shrink-0 items-center justify-center"
+            style={{
+              height: dominoHeight,
+              width: rotation ? dominoHeight : dominoHeight / 2,
+            }}
+          >
+            <BoardDomino
+              height={dominoHeight}
+              width={dominoHeight / 2}
+              domino={domino}
+              rotation={rotation}
+            />
+          </div>
         ))}
         {board.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging ? (
           <BoardDragPlaceholder

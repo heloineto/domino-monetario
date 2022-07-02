@@ -9,8 +9,6 @@ interface Props extends ComponentProps<typeof motion.svg> {
 }
 
 const Domino = ({ hidden, domino, className, ...motionSvgProps }: Props) => {
-  // 0.93902439
-
   return (
     <div
       className={classNames(

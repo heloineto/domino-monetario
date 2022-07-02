@@ -52,6 +52,13 @@ const PlayerDomino = ({
         scale: 1.1,
         cursor: 'grabbing',
       }}
+      whileFocus={{
+        rotate: 0,
+        top: -2.5,
+        zIndex: 50,
+        scale: 1.1,
+        cursor: 'grabbing',
+      }}
       whileHover={{
         rotate: 0,
         cursor: 'grab',
