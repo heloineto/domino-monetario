@@ -42,13 +42,29 @@ const BoardDominos = ({}: Props) => {
 
   console.log(dominoHeight, boardSize.width);
 
+  const colCount = Math.floor(boardSize.width / dominoWidth);
+  const rowCount = Math.floor(boardSize.height / dominoWidth);
+
   if (!board) return null;
 
   return (
     <div
-      className="relative flex flex-grow items-center justify-center overflow-x-auto"
+      className="relative flex flex-grow items-center justify-center overflow-hidden overflow-x-auto"
       ref={setBoardRef}
     >
+      <div className="absolute top-0 left-0 h-full w-full">
+        {Array.from({ length: rowCount }).map((_, rowIndex) => (
+          <div key={rowIndex} className="flex" style={{ height: dominoWidth }}>
+            {Array.from({ length: colCount }).map((_, colIndex) => (
+              <div
+                key={colIndex}
+                className="border border-red-500"
+                style={{ width: dominoWidth, height: dominoWidth }}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
       <div className="flex h-full items-center overflow-x-auto" ref={scrollRef}>
         <BoardDragPlaceholder
           className="flex-shrink-0"
