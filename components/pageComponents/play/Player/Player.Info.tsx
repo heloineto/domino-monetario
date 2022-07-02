@@ -32,7 +32,7 @@ const PlayerInfo = ({ player, className, ...restProps }: Props) => {
   return (
     <motion.div
       className={classNames(
-        'flex select-none items-center justify-center gap-2.5 rounded-xl bg-white/50 p-2',
+        'flex select-none items-center justify-center gap-2 rounded-xl bg-white/50 p-2',
         isEnemy ? 'flex-col' : 'flex-col-reverse',
         className
       )}
@@ -42,7 +42,7 @@ const PlayerInfo = ({ player, className, ...restProps }: Props) => {
       }}
       {...restProps}
     >
-      <div className="mx-1.5 flex flex-col items-center gap-2.5 text-sm lg:text-base xl:mx-2.5 xl:text-lg">
+      <div className="mx-1.5 flex flex-col items-center gap-1 text-sm lg:text-base xl:mx-2.5 xl:text-lg">
         <Tooltip
           title={`${isEnemy ? 'O robô' : 'Você'} tem ${moneyString} na mão`}
           arrow

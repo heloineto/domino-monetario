@@ -3,7 +3,6 @@ import classNames from 'clsx';
 import { Eye, EyeClosed } from 'phosphor-react';
 import { useState } from 'react';
 import Hand from '../Hand';
-import PlayerBank from './Player.Bank';
 
 interface Props extends ComponentProps<'div'> {
   player: Player;
@@ -33,7 +32,6 @@ const Player = ({ player, className, ...divProps }: Props) => {
         </div>
       )}
       <Hand player={player} isEnemy={isEnemy} hidden={hidden} />
-      <PlayerBank player={player} />
     </div>
   );
 };

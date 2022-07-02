@@ -8,7 +8,7 @@ const SidebarDesktop = (props: Props) => {
     <div className="w-32">
       <Drawer
         classes={{
-          paper: 'w-32 bg-transparent border-none overflow-visible pl-2.5',
+          paper: 'w-32 bg-transparent border-none overflow-visible',
         }}
         variant="permanent"
         open

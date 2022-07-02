@@ -25,12 +25,12 @@ const SidebarMobile = (props: Props) => {
       <SwipeableDrawer
         container={typeof window !== 'undefined' ? () => document.body : undefined}
         variant="temporary"
-        anchor={'left'}
+        anchor="left"
         open={open}
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         classes={{
-          paper: 'w-[6.5rem]',
+          paper: 'w-36 pr-2.5 bg-white/70 overflow-visible',
         }}
         ModalProps={{ keepMounted: true }}
       >

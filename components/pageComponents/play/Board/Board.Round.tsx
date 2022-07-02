@@ -1,39 +1,24 @@
 import { GameContext } from '@lib/context';
 import { useContext } from 'react';
-// import getRoundInfo from '@lib/game/getRoundInfo';
-// import twColors from 'tailwindcss/colors';
+import classNames from 'clsx';
 
-interface Props {}
+interface Props extends ComponentProps<'div'> {}
 
-const BoardRound = (props: Props) => {
+const BoardRound = ({ className, ...restProps }: Props) => {
   const { game } = useContext(GameContext);
 
   if (!game) return null;
 
+  if (game.roundOver) return null;
+
   return (
-    <div>
-      {!game.roundOver && (
-        <div className="font-display text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl">
-          Rodada: {game.roundResults.length + 1}
-        </div>
+    <div
+      className={classNames(
+        'fles h-7 items-center justify-center rounded-full border-2 border-white bg-white/50 text-center font-display text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg',
+        className
       )}
-      {/* <div className="flex flex-col">
-        {game.roundResults.map((roundResult, index) => {
-          const { message, colorName } = getRoundInfo(roundResult);
-
-          const color = twColors[colorName];
-
-          return (
-            <div
-              key={`${roundResult}${index}`}
-              className="rounded-md px-2 py-0.5 text-xs uppercase"
-              style={{ color: color[600], backgroundColor: color[200] }}
-            >
-              {`${index}: ${message}`}
-            </div>
-          );
-        })}
-      </div> */}
+    >
+      <div className="-mt-0.5">{game.roundResults.length + 1}ª Rodada</div>
     </div>
   );
 };
