@@ -8,9 +8,17 @@ import getConnection from '@lib/game/domino/getConnection';
 interface Props extends ComponentProps<'div'> {
   id: string;
   edge: Edge | null;
+  dominoHeight: number;
+  dominoWidth: number;
 }
 
-const BoardDragPlaceholder = ({ className, id, edge }: Props) => {
+const BoardDragPlaceholderBase = ({
+  dominoHeight,
+  dominoWidth,
+  className,
+  id,
+  edge,
+}: Props) => {
   const drag = useContext(DragContext);
 
   const connection = useMemo(
@@ -68,14 +76,17 @@ const BoardDragPlaceholder = ({ className, id, edge }: Props) => {
     <div
       className={classNames(className, 'flex items-center justify-center')}
       id={id}
-      style={{ height: 160, width: connection?.rotation === 0 ? 86.73 : 160 }}
+      style={{
+        height: dominoHeight,
+        width: connection?.rotation === 0 ? dominoWidth : dominoHeight,
+      }}
       ref={divRef}
     >
       <motion.div
-        className={classNames('rounded border-2 border-dashed bg-opacity-25')}
+        className="rounded border-2 border-dashed bg-opacity-25"
         style={{
-          height: 160,
-          width: 86.73,
+          height: dominoHeight,
+          width: dominoWidth,
           rotate: connection?.rotation,
           borderColor: color[500],
           background: hover
@@ -85,6 +96,22 @@ const BoardDragPlaceholder = ({ className, id, edge }: Props) => {
       />
     </div>
   );
+};
+
+const BoardDragPlaceholder = ({
+  visible,
+  ...props
+}: Props & { visible: boolean | undefined }) => {
+  if (!visible) {
+    return (
+      <div
+        className="flex-shrink-0"
+        style={{ height: props.dominoHeight, width: props.dominoHeight }}
+      />
+    );
+  }
+
+  return <BoardDragPlaceholderBase {...props} />;
 };
 
 export default BoardDragPlaceholder;

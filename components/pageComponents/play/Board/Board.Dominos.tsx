@@ -37,7 +37,8 @@ const BoardDominos = ({}: Props) => {
 
   console.log({ boardSize });
 
-  const dominoHeight = range(0, 1280, 0, 160, boardSize.width);
+  const dominoHeight = range(320, 1920, 80, 160, boardSize.width);
+  const dominoWidth = dominoHeight / 2;
 
   console.log(dominoHeight, boardSize.width);
 
@@ -49,18 +50,14 @@ const BoardDominos = ({}: Props) => {
       ref={setBoardRef}
     >
       <div className="flex h-full items-center overflow-x-auto" ref={scrollRef}>
-        {drag?.dragging ? (
-          <BoardDragPlaceholder
-            className="flex-shrink-0"
-            id="start"
-            edge={board.edges.start}
-          />
-        ) : (
-          <div
-            className="flex-shrink-0"
-            style={{ width: dominoHeight, height: dominoHeight }}
-          />
-        )}
+        <BoardDragPlaceholder
+          className="flex-shrink-0"
+          visible={drag?.dragging}
+          id="start"
+          edge={board.edges.start}
+          dominoHeight={dominoHeight}
+          dominoWidth={dominoWidth}
+        />
         {board.boardDominos?.map(({ rotation, domino }) => (
           <div
             key={`${domino[0]}-${domino[1]}`}
@@ -78,15 +75,14 @@ const BoardDominos = ({}: Props) => {
             />
           </div>
         ))}
-        {board.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging ? (
-          <BoardDragPlaceholder
-            className="flex-shrink-0"
-            id="end"
-            edge={board.edges.end}
-          />
-        ) : (
-          <div className="flex-shrink-0" style={{ width: 160, height: 160 }} />
-        )}
+        <BoardDragPlaceholder
+          visible={board.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging}
+          className="flex-shrink-0"
+          id="end"
+          edge={board.edges.end}
+          dominoHeight={dominoHeight}
+          dominoWidth={dominoWidth}
+        />
       </div>
       {board.boardDominos.length > 5 && (
         <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-x-5 p-2">
