@@ -1,28 +1,26 @@
-import { motion } from 'framer-motion';
 import HandBaseDomino from './Hand.BaseDomino';
 
-interface Props extends ComponentProps<typeof motion.div> {
-  domino: [MoneyValue, MoneyValue];
-  index: number;
-  wheelConfig: WheelConfig;
-  hidden: boolean;
-}
+interface Props extends ComponentProps<typeof HandBaseDomino> {}
 
-const HandEnemyDomino = ({
-  domino,
-  index,
-  wheelConfig,
-  hidden,
-  ...motionDivProps
-}: Props) => {
+const HandEnemyDomino = ({ dominoHeight, ...motionDivProps }: Props) => {
   return (
     <HandBaseDomino
-      whileHover={{ scale: 1.3, zIndex: 50 }}
-      whileTap={{ scale: 1.1 }}
-      wheelConfig={wheelConfig}
-      index={index}
-      domino={domino}
-      hidden={hidden}
+      whileTap={{
+        translateY: 25 * 0.6,
+        zIndex: 50,
+        scale: 1.1,
+      }}
+      whileFocus={{
+        translateY: 25 * 0.6,
+        zIndex: 50,
+        scale: 1.1,
+      }}
+      whileHover={{
+        translateY: 25 * 0.6,
+        scale: 1.3,
+        zIndex: 50,
+      }}
+      dominoHeight={dominoHeight}
       {...motionDivProps}
     />
   );

@@ -1,8 +1,10 @@
 import SecondaryIconButton from '@components/elements/buttons/SecondaryIconButton';
+import useWindowSize from '@lib/hooks/useWindowSize';
+import { range } from '@lib/utils/math';
 import { Portal } from '@mui/material';
 import classNames from 'clsx';
 import { Eye, EyeClosed } from 'phosphor-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Hand from '../Hand';
 
 interface Props extends ComponentProps<'div'> {
@@ -13,12 +15,21 @@ const Player = ({ player, className, ...divProps }: Props) => {
   const isEnemy = player.type === 'enemy';
   const [hidden, setHidden] = useState(isEnemy);
 
+  const windowSize = useWindowSize();
+  const dominoHeight = useMemo(
+    () => range(0, 1920, 100, 200, windowSize.width ?? 1920) * (isEnemy ? 0.6 : 1),
+    [isEnemy, windowSize.width]
+  );
+
   return (
     <div
       className={classNames(
         className,
-        'relative flex w-full flex-shrink-0 items-start justify-start space-x-0'
+        'relative flex w-full flex-shrink-0 items-start justify-center space-x-0'
       )}
+      style={{
+        height: dominoHeight,
+      }}
       {...divProps}
     >
       {isEnemy && typeof document !== 'undefined' ? (
@@ -32,7 +43,12 @@ const Player = ({ player, className, ...divProps }: Props) => {
           </SecondaryIconButton>
         </Portal>
       ) : null}
-      <Hand player={player} isEnemy={isEnemy} hidden={hidden} />
+      <Hand
+        player={player}
+        isEnemy={isEnemy}
+        hidden={hidden}
+        dominoHeight={dominoHeight}
+      />
     </div>
   );
 };

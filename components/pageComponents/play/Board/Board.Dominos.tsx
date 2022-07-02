@@ -1,9 +1,7 @@
-import SecondaryIconButton from '@components/elements/buttons/SecondaryIconButton';
 import { DragContext, GameContext } from '@lib/context';
 import { useElementSize } from '@lib/hooks';
 import { range } from '@lib/utils/math';
 import { isEmpty } from 'lodash';
-import { ArrowFatLineLeft, ArrowFatLineRight } from 'phosphor-react';
 import { useContext, useRef } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import BoardDomino from './Board.Domino';
@@ -45,6 +43,9 @@ const BoardDominos = ({}: Props) => {
   const colCount = Math.floor(boardSize.width / dominoWidth);
   const rowCount = Math.floor(boardSize.height / dominoWidth);
 
+  const distanceTop = (boardSize.height - rowCount * dominoWidth) / 2;
+  const distanceLeft = (boardSize.width - colCount * dominoWidth) / 2;
+
   if (!board) return null;
 
   return (
@@ -52,7 +53,13 @@ const BoardDominos = ({}: Props) => {
       className="relative flex flex-grow items-center justify-center overflow-hidden overflow-x-auto"
       ref={setBoardRef}
     >
-      <div className="absolute top-0 left-0 h-full w-full">
+      <div
+        className="absolute"
+        style={{
+          top: distanceTop,
+          left: distanceLeft,
+        }}
+      >
         {Array.from({ length: rowCount }).map((_, rowIndex) => (
           <div key={rowIndex} className="flex" style={{ height: dominoWidth }}>
             {Array.from({ length: colCount }).map((_, colIndex) => (
@@ -100,30 +107,6 @@ const BoardDominos = ({}: Props) => {
           dominoWidth={dominoWidth}
         />
       </div>
-      {board.boardDominos.length > 5 && (
-        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-x-5 p-2">
-          <SecondaryIconButton
-            onClick={() => {
-              const scrollElem = scrollRef.current;
-              if (!scrollElem) return;
-
-              scrollElem.scrollLeft = 0;
-            }}
-          >
-            <ArrowFatLineLeft className="h-5 w-5" weight="bold" />
-          </SecondaryIconButton>
-          <SecondaryIconButton
-            onClick={() => {
-              const scrollElem = scrollRef.current;
-              if (!scrollElem) return;
-
-              scrollElem.scrollLeft = scrollElem.scrollWidth;
-            }}
-          >
-            <ArrowFatLineRight className="h-5 w-5" weight="bold" />
-          </SecondaryIconButton>
-        </div>
-      )}
     </div>
   );
 };

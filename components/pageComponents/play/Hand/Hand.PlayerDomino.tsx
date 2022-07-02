@@ -1,22 +1,11 @@
 import { DragContext, GameContext } from '@lib/context';
-import { TargetAndTransition, motion } from 'framer-motion';
+import { TargetAndTransition } from 'framer-motion';
 import { useContext, useMemo } from 'react';
 import HandBaseDomino from './Hand.BaseDomino';
 
-interface Props extends ComponentProps<typeof motion.div> {
-  domino: [MoneyValue, MoneyValue];
-  index: number;
-  wheelConfig: WheelConfig;
-  hidden: boolean;
-}
+interface Props extends ComponentProps<typeof HandBaseDomino> {}
 
-const PlayerDomino = ({
-  domino,
-  index,
-  wheelConfig,
-  hidden,
-  ...motionDivProps
-}: Props) => {
+const PlayerDomino = ({ domino, index, ...motionDivProps }: Props) => {
   const drag = useContext(DragContext);
   const { game } = useContext(GameContext);
 
@@ -40,29 +29,25 @@ const PlayerDomino = ({
 
   return (
     <HandBaseDomino
-      wheelConfig={wheelConfig}
       style={{
         boxShadow: '0px 0px 10px 2px rgba(255, 255, 255, 0)',
       }}
       index={index}
       whileTap={{
-        rotate: 0,
-        top: -2.5,
+        translateY: -25,
         zIndex: 50,
         scale: 1.1,
         cursor: 'grabbing',
       }}
       whileFocus={{
-        rotate: 0,
-        top: -2.5,
+        translateY: -25,
         zIndex: 50,
         scale: 1.1,
         cursor: 'grabbing',
       }}
       whileHover={{
-        rotate: 0,
         cursor: 'grab',
-        top: -2.5,
+        translateY: -25,
         scale: 1.3,
         zIndex: 50,
       }}
@@ -80,7 +65,6 @@ const PlayerDomino = ({
             : undefined,
       }}
       domino={domino}
-      hidden={hidden}
       {...motionDivProps}
     />
   );

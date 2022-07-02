@@ -4,7 +4,6 @@ import PlayerBank from '../Player/Player.Bank';
 import classNames from 'clsx';
 import PlayerInfo from '../Player/Player.Info';
 import Deck from '../Deck';
-import BoardRound from '../Board/Board.Round';
 
 interface Props extends ComponentProps<'div'> {}
 
@@ -30,8 +29,8 @@ const SidebarBase = ({ className, ...restProps }: Props) => {
       </div>
 
       <div className="relative flex flex-col">
-        <BoardRound className="absolute w-full -translate-y-full" />
-        <Deck className="mt-2 w-24" />
+        {/* <BoardRound className="absolute w-full -translate-y-full" /> */}
+        <Deck className="w-24" />
       </div>
 
       <div className="flex w-full flex-col gap-2">
