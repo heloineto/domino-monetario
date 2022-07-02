@@ -13,9 +13,9 @@ const SidebarBase = ({ ...restProps }: Props) => {
   }
 
   return (
-    <div>
-      <PlayerInfo player={game?.player} />
+    <div className="flex h-full flex-col">
       <PlayerInfo player={game?.enemy} />
+      <PlayerInfo player={game?.player} />
     </div>
   );
 };

@@ -11,14 +11,12 @@ const SidebarMobile = (props: Props) => {
 
   if (!open) {
     return (
-      <div className="">
-        <SecondaryIconButton
-          className="absolute top-2.5 left-2.5 z-50"
-          onClick={() => setOpen(true)}
-        >
-          <List className="h-4 w-4" />
-        </SecondaryIconButton>
-      </div>
+      <SecondaryIconButton
+        className="absolute top-2.5 left-2.5 z-50"
+        onClick={() => setOpen(true)}
+      >
+        <List className="h-4 w-4" />
+      </SecondaryIconButton>
     );
   }
 
