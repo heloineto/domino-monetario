@@ -39,8 +39,8 @@ const SecondaryIconButton = ({
   return (
     <StyledIconButton
       className={classNames(
-        className,
-        'font-medium ring-1 hover:shadow-[0_0_8px_0.5px_rgba(0,0,0,1)] focus:outline-none focus:ring-2'
+        'font-medium ring-1 hover:shadow-[0_0_8px_0.5px_rgba(0,0,0,1)] focus:outline-none focus:ring-2',
+        className
       )}
       {...muiButtonProps}
     />
