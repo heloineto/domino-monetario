@@ -9,19 +9,16 @@ interface Props {}
 const SidebarMobile = (props: Props) => {
   const [open, setOpen] = useState(false);
 
-  if (!open) {
-    return (
-      <SecondaryIconButton
-        className="absolute top-2.5 left-2.5 z-50"
-        onClick={() => setOpen(true)}
-      >
-        <List className="h-4 w-4" />
-      </SecondaryIconButton>
-    );
-  }
-
   return (
     <div>
+      {!open ? (
+        <SecondaryIconButton
+          className="absolute top-2.5 left-2.5 z-50"
+          onClick={() => setOpen(true)}
+        >
+          <List className="h-4 w-4" />
+        </SecondaryIconButton>
+      ) : null}
       <SwipeableDrawer
         container={typeof window !== 'undefined' ? () => document.body : undefined}
         variant="temporary"

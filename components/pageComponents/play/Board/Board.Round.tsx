@@ -14,11 +14,11 @@ const BoardRound = ({ className, ...restProps }: Props) => {
   return (
     <div
       className={classNames(
-        'fles h-7 items-center justify-center rounded-full border-2 border-white bg-white/50 text-center font-display text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg',
+        'fles items-center justify-center rounded-full border-2 border-white bg-white/50 text-center font-display text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg',
         className
       )}
     >
-      <div className="-mt-0.5">{game.roundResults.length + 1}ª Rodada</div>
+      <div>{game.roundResults.length + 1}ª Rodada</div>
     </div>
   );
 };

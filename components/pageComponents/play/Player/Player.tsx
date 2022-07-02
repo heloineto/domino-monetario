@@ -1,4 +1,5 @@
 import SecondaryIconButton from '@components/elements/buttons/SecondaryIconButton';
+import { Portal } from '@mui/material';
 import classNames from 'clsx';
 import { Eye, EyeClosed } from 'phosphor-react';
 import { useState } from 'react';
@@ -20,17 +21,17 @@ const Player = ({ player, className, ...divProps }: Props) => {
       )}
       {...divProps}
     >
-      {isEnemy && (
-        <div>
+      {isEnemy && typeof document !== 'undefined' ? (
+        <Portal container={document.getElementById('right-buttons')}>
           <SecondaryIconButton
             colorName="green"
-            className="absolute top-3 right-20 z-50 h-10 w-10"
+            className="order-2 h-10 w-10"
             onClick={() => setHidden((value) => !value)}
           >
             {hidden ? <EyeClosed className="h-10 w-10" /> : <Eye className="h-10 w-10" />}
           </SecondaryIconButton>
-        </div>
-      )}
+        </Portal>
+      ) : null}
       <Hand player={player} isEnemy={isEnemy} hidden={hidden} />
     </div>
   );

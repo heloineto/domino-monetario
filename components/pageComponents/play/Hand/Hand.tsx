@@ -52,19 +52,17 @@ const Hand = ({ player, isEnemy, hidden }: Props) => {
   const HandDomino = isEnemy ? HandEnemyDomino : HandPlayerDomino;
 
   return (
-    <>
-      <div className="absolute top-0 left-1/2 h-full w-full">
-        {player.hand.map((domino, index) => (
-          <HandDomino
-            key={`${domino[0]}-${domino[1]}`}
-            domino={domino}
-            index={index}
-            wheelConfig={wheelConfig}
-            hidden={hidden}
-          />
-        ))}
-      </div>
-    </>
+    <div className="absolute top-0 left-1/2 h-full w-full">
+      {player.hand.map((domino, index) => (
+        <HandDomino
+          key={`${domino[0]}-${domino[1]}`}
+          domino={domino}
+          index={index}
+          wheelConfig={wheelConfig}
+          hidden={hidden}
+        />
+      ))}
+    </div>
   );
 };
 

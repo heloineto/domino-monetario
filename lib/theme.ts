@@ -95,6 +95,13 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backdropFilter: 'blur(2px)',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         contained: {

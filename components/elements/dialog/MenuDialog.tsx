@@ -1,5 +1,6 @@
 import { Dialog, DialogProps } from '@mui/material';
-import XButton from '../buttons/XButton';
+import { X } from 'phosphor-react';
+import SecondaryIconButton from '../buttons/SecondaryIconButton';
 
 interface Props extends Omit<DialogProps, 'onClose'> {
   onClose?: () => void;
@@ -14,7 +15,13 @@ const MenuDialog = ({ onClose, children, ...muiDialogProps }: Props) => {
       {...muiDialogProps}
     >
       {onClose && (
-        <XButton className="absolute top-2 right-5 h-12 w-12" onClick={onClose} />
+        <SecondaryIconButton
+          className="absolute top-2 right-5 h-12 w-12"
+          onClick={onClose}
+          colorName="red"
+        >
+          <X className="h-7 w-7" />
+        </SecondaryIconButton>
       )}
       <div className="grid h-full place-items-center">
         <div className="rounded-2xl border-2 border-white bg-white/50 py-10 px-20">
