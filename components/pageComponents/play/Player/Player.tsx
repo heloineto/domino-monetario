@@ -25,10 +25,11 @@ const Player = ({ player, className, ...divProps }: Props) => {
     <div
       className={classNames(
         className,
-        'relative flex w-full flex-shrink-0 items-start justify-center space-x-0'
+        'relative flex w-full flex-shrink-0 items-start justify-center space-x-0 px-10'
       )}
       style={{
-        height: dominoHeight,
+        height: isEnemy ? dominoHeight / 2 : dominoHeight,
+        transform: isEnemy ? `translateY(${-dominoHeight / 2}px)` : undefined,
       }}
       {...divProps}
     >
@@ -36,7 +37,7 @@ const Player = ({ player, className, ...divProps }: Props) => {
         <Portal container={document.getElementById('right-buttons')}>
           <SecondaryIconButton
             colorName="green"
-            className="order-2 h-10 w-10"
+            className="order-2 hidden h-10 w-10"
             onClick={() => setHidden((value) => !value)}
           >
             {hidden ? <EyeClosed className="h-10 w-10" /> : <Eye className="h-10 w-10" />}

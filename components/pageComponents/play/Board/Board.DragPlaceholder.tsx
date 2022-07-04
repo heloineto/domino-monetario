@@ -18,6 +18,7 @@ const BoardDragPlaceholderBase = ({
   className,
   id,
   edge,
+  style,
 }: Props) => {
   const drag = useContext(DragContext);
 
@@ -92,6 +93,7 @@ const BoardDragPlaceholderBase = ({
           background: hover
             ? `repeating-linear-gradient(45deg, ${color[200]}, ${color[200]} 0.25rem, ${color[300]} 0.25rem, ${color[300]} 0.5rem)`
             : undefined,
+          ...style,
         }}
       />
     </div>
@@ -105,8 +107,8 @@ const BoardDragPlaceholder = ({
   if (!visible) {
     return (
       <div
-        className="flex-shrink-0"
-        style={{ height: props.dominoHeight, width: props.dominoHeight }}
+        className={props.className}
+        style={{ height: props.dominoHeight, width: props.dominoHeight, ...props.style }}
       />
     );
   }

@@ -5,7 +5,7 @@ import getConnection from './domino/getConnection';
 const playWithAStar = (game: Game, dispatch: Dispatch<GameAction>) => {
   const requestBody = JSON.stringify({
     player: game.enemy.hand.map((domino) => domino.map((value) => Number(value))),
-    table: game.board.boardDominos
+    table: Object.values(game.board.boardDominos)
       .map(({ domino, rotation }) => (rotation === 90 ? [...domino].reverse() : domino))
       .map((domino) => domino.map((value) => Number(value))),
     pieces: [...game.deck, ...game.player.hand].map((domino) =>

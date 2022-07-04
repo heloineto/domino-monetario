@@ -1,40 +1,27 @@
 import { useCallback, useState } from 'react';
 
-import useEventListener from './useEventListener';
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
+import useResizeObserver from './useResizeObserver';
 
-interface Size {
-  width: number;
-  height: number;
-}
-
-function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
+const useElementSize = <T extends HTMLElement = HTMLDivElement>(): [
   (node: T | null) => void,
-  Size
-] {
-  // Mutable values like 'ref.current' aren't valid dependencies
-  // because mutating them doesn't re-render the component.
-  // Instead, we use a state as a ref to be reactive.
+  {
+    width: number;
+    height: number;
+  }
+] => {
   const [ref, setRef] = useState<T | null>(null);
-  const [size, setSize] = useState<Size>({
-    width: 0,
-    height: 0,
-  });
+
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
 
   const handleSize = useCallback(() => {
-    setSize({
-      width: ref?.offsetWidth || 0,
-      height: ref?.offsetHeight || 0,
-    });
+    setWidth(ref?.offsetWidth || 0);
+    setHeight(ref?.offsetHeight || 0);
   }, [ref?.offsetHeight, ref?.offsetWidth]);
 
-  useEventListener('resize', handleSize);
+  useResizeObserver(ref, handleSize);
 
-  useIsomorphicLayoutEffect(() => {
-    handleSize();
-  }, [ref?.offsetHeight, ref?.offsetWidth]);
-
-  return [setRef, size];
-}
+  return [setRef, { width, height }];
+};
 
 export default useElementSize;
