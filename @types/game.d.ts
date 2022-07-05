@@ -92,6 +92,7 @@ type Tile = {
   width: number;
   double: boolean;
   rotation?: number;
+  fakeDouble?: boolean;
 };
 
 type Rect = {
