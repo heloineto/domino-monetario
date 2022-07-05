@@ -40,13 +40,7 @@ const BoardDominos = ({}: Props) => {
 
   return (
     <div className="flex flex-grow items-center justify-center" ref={setBoardRef}>
-      <div
-        className="absolute bg-red-500/50"
-        style={{
-          width,
-          height,
-        }}
-      >
+      <div className="absolute bg-red-500/50" style={{ width, height }}>
         <BoardDragPlaceholder
           className="flex-shrink-0"
           visible={drag?.dragging}
