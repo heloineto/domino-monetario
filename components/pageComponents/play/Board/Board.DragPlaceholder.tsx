@@ -8,18 +8,10 @@ import getConnection from '@lib/game/domino/getConnection';
 interface Props extends ComponentProps<'div'> {
   id: string;
   edge: Edge | null;
-  dominoHeight: number;
-  dominoWidth: number;
+  dominoRect: Rect;
 }
 
-const BoardDragPlaceholderBase = ({
-  dominoHeight,
-  dominoWidth,
-  className,
-  id,
-  edge,
-  style,
-}: Props) => {
+const BoardDragPlaceholderBase = ({ dominoRect, className, id, edge, style }: Props) => {
   const drag = useContext(DragContext);
 
   const connection = useMemo(
@@ -78,16 +70,16 @@ const BoardDragPlaceholderBase = ({
       className={classNames(className, 'flex items-center justify-center')}
       id={id}
       style={{
-        height: dominoHeight,
-        width: connection?.rotation === 0 ? dominoWidth : dominoHeight,
+        height: dominoRect.height,
+        width: connection?.rotation === 0 ? dominoRect.width : dominoRect.height,
       }}
       ref={divRef}
     >
       <motion.div
         className="rounded border-2 border-dashed bg-opacity-25"
         style={{
-          height: dominoHeight,
-          width: dominoWidth,
+          height: dominoRect.height,
+          width: dominoRect.width,
           rotate: connection?.rotation,
           borderColor: color[500],
           background: hover
@@ -108,7 +100,11 @@ const BoardDragPlaceholder = ({
     return (
       <div
         className={props.className}
-        style={{ height: props.dominoHeight, width: props.dominoHeight, ...props.style }}
+        style={{
+          height: props.dominoRect.height,
+          width: props.dominoRect.height,
+          ...props.style,
+        }}
       />
     );
   }

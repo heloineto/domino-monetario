@@ -84,3 +84,17 @@ type Game = {
 };
 
 type RoundResult = 'DRAW' | 'PLAYER_WINS' | 'ENEMY_WINS';
+
+type Tile = {
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+  double: boolean;
+  rotation?: number;
+};
+
+type Rect = {
+  width: number;
+  height: number;
+};
