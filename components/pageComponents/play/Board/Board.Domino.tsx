@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import classNames from 'clsx';
 
 interface Props extends ComponentProps<typeof motion.div> {
-  rotation: Rotation;
+  rotation: number;
   width: number;
   height: number;
   domino: [MoneyValue, MoneyValue];
