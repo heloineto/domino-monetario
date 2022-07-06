@@ -1,4 +1,5 @@
-import { GameContext } from '@lib/context';
+import { DragContext, GameContext } from '@lib/context';
+import Direction from '@lib/enums/direction';
 import { useContext, useMemo } from 'react';
 
 const getTileRect = (double: boolean, dominoRect: Rect) => {
@@ -19,14 +20,10 @@ const getWrapperRect = (rect: Rect, tile: Tile): Rect => {
   return newRect;
 };
 
-// const handleOverflow = (direction: boolean) => {
-//   if (direction) {
-//     if (curr.x + curr.width > boardRect.width) return;
-//   }
-// };
-
 const useTiles = (dominoRect: Rect, boardRect: Rect) => {
   const { game } = useContext(GameContext);
+  const drag = useContext(DragContext);
+
   const board = game?.board;
 
   const { tiles, wrapperRect } = useMemo(() => {
@@ -41,7 +38,11 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
       wrapperRect = getWrapperRect(wrapperRect, tile);
     };
 
-    const { boardDominos } = board;
+    const lastPlaceholder = drag.domino
+      ? { rotation: drag.domino[0] === drag.domino[1] ? 0 : 90, domino: drag.domino }
+      : { rotation: 90, domino: [0, 1] };
+
+    const boardDominos = [...board.boardDominos, lastPlaceholder];
 
     const firstTile = {
       double: false,
@@ -53,7 +54,7 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
     addTile(firstTile);
 
-    let direction = true;
+    let direction: Direction = Direction.RIGHT;
 
     for (let index = 0; index < boardDominos.length; index += 1) {
       const domino = boardDominos[index];
@@ -66,7 +67,7 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
       curr.height = height;
       curr.width = width;
 
-      if (direction) {
+      if (direction === Direction.RIGHT) {
         // Token 3
         curr.x = prev.x + prev.width;
         curr.y = prev.y;
@@ -106,7 +107,7 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
           addTile(next as Tile);
 
-          direction = !direction;
+          direction = Direction.LEFT;
           continue;
         }
 
@@ -135,9 +136,10 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
         addTile(next as Tile);
 
-        direction = !direction;
+        direction = Direction.LEFT;
         continue;
       }
+
       curr.rotation = 180;
       // Token 3
       curr.x = prev.x - curr.width;
@@ -174,7 +176,7 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
         addTile(next as Tile);
 
-        direction = !direction;
+        direction = Direction.RIGHT;
         continue;
       }
 
@@ -203,24 +205,24 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
       addTile(next as Tile);
 
-      direction = !direction;
+      direction = Direction.RIGHT;
       continue;
     }
 
-    const prev = tiles.at(-1) as Tile;
-    const lastTile: Partial<Tile> = {};
+    // const prev = tiles.at(-1) as Tile;
+    // const lastTile: Partial<Tile> = {};
 
-    lastTile.double = false;
-    lastTile.height = dominoRect.height;
-    lastTile.width = dominoRect.height;
-    lastTile.x = prev.x;
-    lastTile.y = prev.y;
+    // lastTile.double = false;
+    // lastTile.height = dominoRect.height;
+    // lastTile.width = dominoRect.height;
+    // lastTile.x = prev.x;
+    // lastTile.y = prev.y;
 
-    tiles.push(lastTile as Tile);
-    wrapperRect = getWrapperRect(wrapperRect, lastTile as Tile);
+    // tiles.push(lastTile as Tile);
 
     return { tiles, wrapperRect };
-  }, [board, boardRect.width, dominoRect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [board?.boardDominos, boardRect.width, dominoRect]);
 
   return { tiles, wrapperRect };
 };

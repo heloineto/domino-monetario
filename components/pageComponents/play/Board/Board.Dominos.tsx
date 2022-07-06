@@ -30,73 +30,82 @@ const BoardDominos = ({}: Props) => {
   const firstTile = tiles.at(0);
   const lastTile = tiles.at(-1);
 
+  console.log({ lastTile });
+
   if (!board) return null;
 
   return (
     <div
-      className="relative flex flex-grow items-center justify-center"
+      className="relative flex flex-grow items-center justify-center overflow-y-auto overflow-x-hidden"
       ref={setBoardRef}
     >
-      {/* <div
-        className="absolute"
-        style={{ width: wrapperRect.width, height: wrapperRect.height }}
-      > */}
       <div
-        className="absolute flex justify-end bg-green-500/50"
+        className="absolute bg-red-500/50"
         style={{
-          height: firstTile?.height,
-          width: firstTile?.height,
-          top: firstTile?.y,
-          left: firstTile?.x,
+          top: wrapperRect.height > boardRect.height ? '0' : undefined,
+          width: wrapperRect.width,
+          height: wrapperRect.height,
         }}
       >
-        <BoardDragPlaceholder
-          visible={drag?.dragging}
-          id="start"
-          edge={board.edges.start}
-          dominoRect={dominoRect}
-        />
-      </div>
-      {board.boardDominos?.map(({ rotation, domino }, index) => {
-        const tile = tiles[index + 1];
+        <div
+          className="absolute flex justify-end bg-green-500/50"
+          style={{
+            height: firstTile?.height,
+            width: firstTile?.height,
+            top: firstTile?.y,
+            left: firstTile?.x,
+          }}
+        >
+          <BoardDragPlaceholder
+            visible={drag?.dragging}
+            id="start"
+            edge={board.edges.start}
+            dominoRect={dominoRect}
+          />
+        </div>
+        {board.boardDominos?.map(({ rotation, domino }, index) => {
+          const tile = tiles[index + 1];
 
-        return (
-          <motion.div
-            key={`${domino[0]}-${domino[1]}`}
-            className="absolute flex flex-shrink-0 items-center justify-center border border-red-500"
-            style={{
-              height: tile.height,
-              width: tile.width,
-              top: tile.y,
-              left: tile.x,
-            }}
-          >
-            <BoardDomino
-              height={dominoRect.height}
-              width={dominoRect.width}
-              domino={domino}
-              rotation={rotation + (tile?.rotation ?? 0)}
-            />
-          </motion.div>
-        );
-      })}
-      <div
-        className="absolute  bg-blue-500/50"
-        style={{
-          height: lastTile?.height,
-          width: lastTile?.width,
-          top: lastTile?.y,
-          left: lastTile?.x,
-        }}
-      >
-        <BoardDragPlaceholder
-          visible={board.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging}
-          id="end"
-          edge={board.edges.end}
-          dominoRect={dominoRect}
-        />
+          return (
+            <motion.div
+              key={`${domino[0]}-${domino[1]}`}
+              className="absolute flex flex-shrink-0 items-center justify-center border border-red-500"
+              style={{
+                height: tile.height,
+                width: tile.width,
+                top: tile.y,
+                left: tile.x,
+              }}
+            >
+              <BoardDomino
+                height={dominoRect.height}
+                width={dominoRect.width}
+                domino={domino}
+                rotation={rotation + (tile?.rotation ?? 0)}
+              />
+            </motion.div>
+          );
+        })}
+        <div
+          className="absolute  bg-blue-500/50"
+          style={{
+            height: lastTile?.height,
+            width: lastTile?.width,
+            top: lastTile?.y,
+            left: lastTile?.x,
+            rotate: `${lastTile?.rotation}deg`,
+          }}
+        >
+          <BoardDragPlaceholder
+            visible={
+              board.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging
+            }
+            id="end"
+            edge={board.edges.end}
+            dominoRect={dominoRect}
+          />
+        </div>
       </div>
-      {/* </div> */}
     </div>
   );
 };
