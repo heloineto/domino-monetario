@@ -37,7 +37,9 @@ const PlayerInfo = ({ player, className, ...restProps }: Props) => {
         className
       )}
       animate={{
-        boxShadow: isPlayerTurn ? `0px 0px 10px 5px ${color[500]}` : undefined,
+        boxShadow: isPlayerTurn
+          ? `0px 0px 10px 5px ${color[500]}`
+          : `0px 0px 0px 0px rgba(0,0,0,0)`,
         border: isPlayerTurn ? '2px solid white' : '2px solid transparent',
       }}
       {...restProps}

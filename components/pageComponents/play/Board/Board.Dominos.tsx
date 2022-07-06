@@ -25,22 +25,16 @@ const BoardDominos = ({}: Props) => {
     return { height, width };
   }, [boardRect.width]);
 
-  const tiles = useTiles(dominoRect, boardRect);
-
-  const width =
-    Math.max(...tiles.map(({ x }) => x)) -
-    Math.min(...tiles.map(({ x }) => x)) +
-    dominoRect.height;
-  const height =
-    Math.max(...tiles.map(({ y }) => y)) -
-    Math.min(...tiles.map(({ y }) => y)) +
-    dominoRect.height * 0.75;
+  const { tiles, wrapperRect } = useTiles(dominoRect, boardRect);
 
   if (!board) return null;
 
   return (
     <div className="flex flex-grow items-center justify-center" ref={setBoardRef}>
-      <div className="absolute bg-red-500/50" style={{ width, height }}>
+      <div
+        className="absolute bg-red-500/50"
+        style={{ width: wrapperRect.width, height: wrapperRect.height }}
+      >
         <BoardDragPlaceholder
           className="flex-shrink-0"
           visible={drag?.dragging}
@@ -72,13 +66,26 @@ const BoardDominos = ({}: Props) => {
             </motion.div>
           );
         })}
-        <BoardDragPlaceholder
-          className="flex-shrink-0 bg-blue-500/50"
-          visible={board.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging}
-          id="end"
-          edge={board.edges.end}
-          dominoRect={dominoRect}
-        />
+        <div
+          className="absolute"
+          style={{
+            height: tiles.at(-1)?.height,
+            width: tiles.at(-1)?.width,
+            top: tiles.at(-1)?.y,
+            left: tiles.at(-1)?.x,
+            transformOrigin: 'top left',
+          }}
+        >
+          <BoardDragPlaceholder
+            className="flex-shrink-0 bg-blue-500/50"
+            visible={
+              board.boardDominos && !isEmpty(board?.boardDominos) && drag?.dragging
+            }
+            id="end"
+            edge={board.edges.end}
+            dominoRect={dominoRect}
+          />
+        </div>
       </div>
     </div>
   );

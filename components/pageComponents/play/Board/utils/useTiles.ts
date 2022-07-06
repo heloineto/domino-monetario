@@ -1,26 +1,58 @@
 import { GameContext } from '@lib/context';
 import { useContext, useMemo } from 'react';
 
+const getTileRect = (double: boolean, dominoRect: Rect) => {
+  if (double) {
+    const height = dominoRect.height;
+    const width = dominoRect.width;
+
+    return { height, width };
+  }
+
+  const height = dominoRect.width;
+  const width = dominoRect.height;
+
+  return { height, width };
+};
+
+const getWrapperRect = (rect: Rect, tile: Tile): Rect => {
+  console.log(tile);
+
+  const newRect = {
+    width: Math.max(rect.width, tile.x + tile.width),
+    height: Math.max(rect.height, tile.y + tile.height),
+  };
+
+  console.log(newRect);
+
+  return newRect;
+};
+
 const useTiles = (dominoRect: Rect, boardRect: Rect) => {
   const { game } = useContext(GameContext);
   const board = game?.board;
 
-  const tiles = useMemo(() => {
+  const { tiles, wrapperRect } = useMemo(() => {
     const tiles: Tile[] = [];
 
-    if (!board) return tiles;
+    let wrapperRect: Rect = { width: 0, height: 0 };
+
+    if (!board) return { tiles, wrapperRect };
 
     const { boardDominos } = board;
 
-    if (boardDominos.length === 0) return tiles;
+    if (boardDominos.length === 0) return { tiles, wrapperRect };
 
-    tiles.push({
+    const firstTile = {
       double: false,
       height: dominoRect.height,
       width: dominoRect.height,
       x: 0,
       y: dominoRect.width / 2,
-    });
+    };
+
+    tiles.push(firstTile);
+    wrapperRect = getWrapperRect(wrapperRect, firstTile);
 
     let direction = true;
 
@@ -32,14 +64,9 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
       curr.double = domino.rotation === 0;
 
-      // TOKEN 1
-      if (curr.double) {
-        curr.height = dominoRect.height;
-        curr.width = dominoRect.width;
-      } else {
-        curr.height = dominoRect.width;
-        curr.width = dominoRect.height;
-      }
+      const { height, width } = getTileRect(curr.double, dominoRect);
+      curr.height = height;
+      curr.width = width;
 
       if (direction) {
         if (prev?.fakeDouble) curr.x = prev.x;
@@ -66,6 +93,8 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
             : prev.height;
 
           tiles.push(curr as Tile);
+          wrapperRect = getWrapperRect(wrapperRect, curr as Tile);
+
           index += 1;
 
           if (index >= boardDominos.length) break;
@@ -74,23 +103,22 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
           next.double = boardDominos[index].rotation === 0;
 
-          // TOKEN 1
-          if (next.double) {
-            next.height = dominoRect.height;
-            next.width = dominoRect.width;
-          } else {
-            next.height = dominoRect.width;
-            next.width = dominoRect.height;
-          }
+          const { height, width } = getTileRect(next.double, dominoRect);
+          next.height = height;
+          next.width = width;
 
-          tiles.push({
+          const tile: Tile = {
             ...next,
             double: false,
             fakeDouble: next.double,
             rotation: next.double ? 90 : 180,
             y: curr.y + (next.double ? dominoRect.width : dominoRect.height),
             x: curr.x + (curr.double ? 0 : -dominoRect.width),
-          } as Tile);
+          } as Tile;
+
+          tiles.push(tile);
+
+          wrapperRect = getWrapperRect(wrapperRect, tile);
 
           direction = false;
 
@@ -123,6 +151,8 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
             : 0;
 
           tiles.push(curr as Tile);
+          wrapperRect = getWrapperRect(wrapperRect, curr as Tile);
+
           index += 1;
 
           if (index >= boardDominos.length) break;
@@ -131,16 +161,11 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
 
           next.double = boardDominos[index].rotation === 0;
 
-          // TOKEN 1
-          if (next.double) {
-            next.height = dominoRect.height;
-            next.width = dominoRect.width;
-          } else {
-            next.height = dominoRect.width;
-            next.width = dominoRect.height;
-          }
+          const { height, width } = getTileRect(next.double, dominoRect);
+          next.height = height;
+          next.width = width;
 
-          tiles.push({
+          const tile = {
             ...next,
             double: false,
             fakeDouble: next.double,
@@ -149,7 +174,10 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
             x:
               curr.x +
               (curr.double ? dominoRect.width : next.double ? dominoRect.height : 0),
-          } as Tile);
+          } as Tile;
+
+          tiles.push(tile);
+          wrapperRect = getWrapperRect(wrapperRect, tile);
 
           direction = true;
 
@@ -158,12 +186,25 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
       }
 
       tiles.push(curr as Tile);
+      wrapperRect = getWrapperRect(wrapperRect, curr as Tile);
     }
 
-    return tiles;
-  }, [board, boardRect.width, dominoRect.height, dominoRect.width]);
+    const prev = tiles.at(-1) as Tile;
+    const lastTile: Partial<Tile> = {};
 
-  return tiles;
+    lastTile.double = false;
+    lastTile.height = dominoRect.height;
+    lastTile.width = dominoRect.height;
+    lastTile.x = prev.x;
+    lastTile.y = prev.y;
+
+    tiles.push(lastTile as Tile);
+    wrapperRect = getWrapperRect(wrapperRect, lastTile as Tile);
+
+    return { tiles, wrapperRect };
+  }, [board, boardRect.width, dominoRect]);
+
+  return { tiles, wrapperRect };
 };
 
 export default useTiles;
