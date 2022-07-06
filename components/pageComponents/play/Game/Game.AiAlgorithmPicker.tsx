@@ -3,6 +3,7 @@ import { GameContext } from '@lib/context';
 import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
 import { ButtonGroup } from '@mui/material';
 import { useContext } from 'react';
+import classNames from 'clsx';
 
 interface Props {}
 
@@ -13,7 +14,10 @@ const GameAiAlgorithmPicker = (props: Props) => {
     <ButtonGroup>
       <PrimaryButton
         colorName="emerald"
-        className="w-48"
+        className={classNames(
+          'w-48 !border-r-2 !border-emerald-500',
+          game?.aiAlgorithm === 'GREEDY_SEARCH' ? 'z-10' : null
+        )}
         variant={game?.aiAlgorithm === 'GREEDY_SEARCH' ? 'contained' : 'outlined'}
         onClick={() =>
           dispatch?.({

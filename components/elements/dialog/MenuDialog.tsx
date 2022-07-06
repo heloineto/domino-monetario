@@ -23,8 +23,8 @@ const MenuDialog = ({ onClose, children, ...muiDialogProps }: Props) => {
           <X className="h-7 w-7" />
         </SecondaryIconButton>
       )}
-      <div className="grid h-full place-items-center">
-        <div className="rounded-2xl border-2 border-white bg-white/50 py-10 px-20">
+      <div className="flex h-full items-center justify-center">
+        <div className="rounded-2xl border-2 border-white bg-white/50 px-5 py-10 sm:px-10 md:px-14 lg:px-16 xl:px-20">
           {children}
         </div>
       </div>
