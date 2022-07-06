@@ -7,6 +7,9 @@ import BoardDomino from './Board.Domino';
 import BoardDragPlaceholder from './Board.DragPlaceholder';
 import { motion } from 'framer-motion';
 import useTiles from './utils/useTiles';
+import classNames from 'clsx';
+
+const DEBUG = false;
 
 interface Props {}
 
@@ -30,7 +33,7 @@ const BoardDominos = ({}: Props) => {
   const firstTile = tiles.at(0);
   const lastTile = tiles.at(-1);
 
-  console.log({ lastTile });
+  console.log('lastTile', lastTile);
 
   if (!board) return null;
 
@@ -40,7 +43,7 @@ const BoardDominos = ({}: Props) => {
       ref={setBoardRef}
     >
       <div
-        className="absolute bg-red-500/50"
+        className={classNames(DEBUG ? 'bg-red-500/50' : null, 'absolute')}
         style={{
           top: wrapperRect.height > boardRect.height ? '0' : undefined,
           width: wrapperRect.width,
@@ -48,7 +51,10 @@ const BoardDominos = ({}: Props) => {
         }}
       >
         <div
-          className="absolute flex justify-end bg-green-500/50"
+          className={classNames(
+            'absolute flex justify-end',
+            DEBUG ? 'bg-green-500/50' : null
+          )}
           style={{
             height: firstTile?.height,
             width: firstTile?.height,
@@ -69,7 +75,10 @@ const BoardDominos = ({}: Props) => {
           return (
             <motion.div
               key={`${domino[0]}-${domino[1]}`}
-              className="absolute flex flex-shrink-0 items-center justify-center border border-red-500"
+              className={classNames(
+                'absolute flex flex-shrink-0 items-center justify-center',
+                DEBUG ? 'border border-red-500' : null
+              )}
               style={{
                 height: tile.height,
                 width: tile.width,
@@ -87,13 +96,12 @@ const BoardDominos = ({}: Props) => {
           );
         })}
         <div
-          className="absolute  bg-blue-500/50"
+          className={classNames('absolute', DEBUG ? 'border-blue-500/50' : null)}
           style={{
             height: lastTile?.height,
             width: lastTile?.width,
             top: lastTile?.y,
             left: lastTile?.x,
-            rotate: `${lastTile?.rotation}deg`,
           }}
         >
           <BoardDragPlaceholder
@@ -103,6 +111,15 @@ const BoardDominos = ({}: Props) => {
             id="end"
             edge={board.edges.end}
             dominoRect={dominoRect}
+            tileRotation={lastTile?.rotation}
+            style={
+              lastTile?.corner
+                ? {
+                    height: lastTile?.height,
+                    width: lastTile?.width,
+                  }
+                : undefined
+            }
           />
         </div>
       </div>

@@ -9,9 +9,17 @@ interface Props extends ComponentProps<'div'> {
   id: string;
   edge: Edge | null;
   dominoRect: Rect;
+  tileRotation?: number;
 }
 
-const BoardDragPlaceholderBase = ({ dominoRect, className, id, edge, style }: Props) => {
+const BoardDragPlaceholderBase = ({
+  dominoRect,
+  className,
+  id,
+  edge,
+  style,
+  tileRotation = 0,
+}: Props) => {
   const drag = useContext(DragContext);
 
   const connection = useMemo(
@@ -27,12 +35,12 @@ const BoardDragPlaceholderBase = ({ dominoRect, className, id, edge, style }: Pr
     const isTarget = drag?.target?.id === id;
 
     if (hover && connection) {
-      if (!isTarget) drag.setTarget?.({ id, connection });
+      if (!isTarget) drag.setTarget?.({ id, connection, tileRotation });
       return;
     }
 
     if (isTarget) drag.setTarget?.(null);
-  }, [hover, connection, edge, drag, id]);
+  }, [hover, connection, edge, drag, id, tileRotation]);
 
   useEffect(() => {
     const divElem = divRef.current;
@@ -72,6 +80,7 @@ const BoardDragPlaceholderBase = ({ dominoRect, className, id, edge, style }: Pr
       style={{
         height: dominoRect.height,
         width: connection?.rotation === 0 ? dominoRect.width : dominoRect.height,
+        ...style,
       }}
       ref={divRef}
     >
@@ -80,7 +89,7 @@ const BoardDragPlaceholderBase = ({ dominoRect, className, id, edge, style }: Pr
         style={{
           height: dominoRect.height,
           width: dominoRect.width,
-          rotate: connection?.rotation,
+          rotate: tileRotation + (connection?.rotation ?? 0),
           borderColor: color[500],
           background: hover
             ? `repeating-linear-gradient(45deg, ${color[200]}, ${color[200]} 0.25rem, ${color[300]} 0.25rem, ${color[300]} 0.5rem)`
@@ -101,8 +110,6 @@ const BoardDragPlaceholder = ({
       <div
         className={props.className}
         style={{
-          height: props.dominoRect.height,
-          width: props.dominoRect.height,
           ...props.style,
         }}
       />

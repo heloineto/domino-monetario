@@ -15,8 +15,6 @@ const getWrapperRect = (rect: Rect, tile: Tile): Rect => {
     height: Math.max(rect.height, tile.y + tile.height),
   };
 
-  console.log(newRect);
-
   return newRect;
 };
 
@@ -78,6 +76,7 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
           continue;
         }
 
+        curr.corner = true;
         curr.height = dominoRect.height;
         curr.width = dominoRect.width;
 
@@ -140,7 +139,7 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
         continue;
       }
 
-      curr.rotation = 180;
+      curr.rotation = curr.double ? 0 : 180;
       // Token 3
       curr.x = prev.x - curr.width;
       curr.y = prev.y;
@@ -151,6 +150,7 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
         continue;
       }
 
+      curr.corner = true;
       curr.height = dominoRect.height;
       curr.width = dominoRect.width;
 
@@ -209,20 +209,8 @@ const useTiles = (dominoRect: Rect, boardRect: Rect) => {
       continue;
     }
 
-    // const prev = tiles.at(-1) as Tile;
-    // const lastTile: Partial<Tile> = {};
-
-    // lastTile.double = false;
-    // lastTile.height = dominoRect.height;
-    // lastTile.width = dominoRect.height;
-    // lastTile.x = prev.x;
-    // lastTile.y = prev.y;
-
-    // tiles.push(lastTile as Tile);
-
     return { tiles, wrapperRect };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [board?.boardDominos, boardRect.width, dominoRect]);
+  }, [board?.boardDominos, boardRect.width, dominoRect, drag.domino]);
 
   return { tiles, wrapperRect };
 };

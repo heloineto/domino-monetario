@@ -11,6 +11,7 @@ const PlayerDomino = ({ domino, index, ...motionDivProps }: Props) => {
 
   const selected = drag?.dominoIndex === index;
   const connection = drag?.target?.connection;
+  const tileRotation = drag?.target?.tileRotation;
 
   const whileDrag: TargetAndTransition | undefined = useMemo(() => {
     if (!selected) return;
@@ -20,12 +21,19 @@ const PlayerDomino = ({ domino, index, ...motionDivProps }: Props) => {
     if (!connection.connects)
       return { boxShadow: '0px 0px 10px 2px rgba(239,68,68,0.75)' };
 
+    let rotate = connection.rotation + (tileRotation ?? 0);
+    if (rotate < -180) {
+      rotate = rotate + 2 * 180;
+    } else if (rotate > 180) {
+      rotate = rotate - 2 * 180;
+    }
+
     return {
-      rotate: connection.rotation,
+      rotate,
       scale: 0.9,
       boxShadow: '0px 0px 10px 2px rgba(34,197,94,0.75)',
     };
-  }, [connection, selected]);
+  }, [connection, selected, tileRotation]);
 
   return (
     <HandBaseDomino

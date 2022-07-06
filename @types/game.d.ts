@@ -52,6 +52,7 @@ type Turn = PlayerId;
 type DragTarget = {
   id: string;
   connection: Connection;
+  tileRotation?: number;
 };
 
 type AIAlgorithm = 'GREEDY_SEARCH' | 'A_START';
@@ -92,7 +93,7 @@ type Tile = {
   width: number;
   double: boolean;
   rotation?: number;
-  fakeDouble?: boolean;
+  corner?: boolean;
 };
 
 type Rect = {
