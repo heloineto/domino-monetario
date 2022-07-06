@@ -1,13 +1,14 @@
 import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
+import GameAiAlgorithmPicker from '@components/pageComponents/play/Game/Game.AiAlgorithmPicker';
 import { GameContext } from '@lib/context';
 import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
 import { useContext } from 'react';
-import GameAiAlgorithmPicker from './Game.AiAlgorithmPicker';
+import StartMenuAdvanced from './StartMenu.Advanced';
 
 interface Props {}
 
-const GameStartMenu = (props: Props) => {
+const StartMenu = (props: Props) => {
   const { game, dispatch } = useContext(GameContext);
 
   return (
@@ -20,9 +21,11 @@ const GameStartMenu = (props: Props) => {
           Jogar
         </PrimaryButton>
         <GameAiAlgorithmPicker />
+
+        <StartMenuAdvanced />
       </div>
     </MenuDialog>
   );
 };
 
-export default GameStartMenu;
+export default StartMenu;

@@ -1,3 +1,4 @@
+import StartMenu from '@components/elements/game/StartMenu';
 import { DragContext, GameContext } from '@lib/context';
 import { useDrag, useGame } from '@lib/hooks';
 import Board from '../Board';
@@ -6,7 +7,6 @@ import Sidebar from '../Sidebar';
 import GameGameOverMenu from './Game.GameOverMenu';
 import GameRoundOverMenu from './Game.RoundOverMenu';
 import GameSettingsMenu from './Game.SettingsMenu';
-import GameStartMenu from './Game.StartMenu';
 
 interface Props {}
 
@@ -27,7 +27,7 @@ const Game = (props: Props) => {
         </main>
 
         <GameSettingsMenu />
-        <GameStartMenu />
+        <StartMenu />
         <GameRoundOverMenu />
         <GameGameOverMenu />
       </DragContext.Provider>

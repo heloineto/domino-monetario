@@ -20,7 +20,9 @@ const PrimaryButton = ({
   const StyledButton = useMemo(
     () =>
       styled(Button)(() => ({
-        backgroundColor: isContained ? `${color[100]} !important` : undefined,
+        backgroundColor: isContained
+          ? `${color[100]} !important`
+          : `${color[50]}50 !important`,
         color: color[isContained ? 500 : 600],
         borderColor: color[400],
         '&:hover': {
@@ -34,7 +36,6 @@ const PrimaryButton = ({
   );
 
   return (
-    // <motion.div className="" whileHover={{ scale: 1.1 }} whileTap={{ scale: 1 }}>
     <StyledButton
       className={classNames(
         className,
@@ -43,7 +44,6 @@ const PrimaryButton = ({
       variant={variant}
       {...muiButtonProps}
     />
-    // </motion.div>
   );
 };
 

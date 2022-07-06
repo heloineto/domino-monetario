@@ -12,25 +12,25 @@ const CustomSnackbarProvider = ({ children }: Props) => {
       iconVariant={{
         success: (
           <CheckCircle
-            className="h-6 w-auto text-emerald-500 dark:text-emerald-300 mr-2"
+            className="mr-2 h-6 w-auto text-emerald-500 dark:text-emerald-300"
             weight="fill"
           />
         ),
         error: (
           <XCircle
-            className="h-6 w-auto text-red-500 dark:text-red-300 mr-2"
+            className="mr-2 h-6 w-auto text-red-500 dark:text-red-300"
             weight="fill"
           />
         ),
         warning: (
           <WarningCircle
-            className="h-6 w-auto text-orange-500 dark:text-orange-300 mr-2"
+            className="mr-2 h-6 w-auto text-orange-500 dark:text-orange-300"
             weight="fill"
           />
         ),
         info: (
           <Info
-            className="h-6 w-auto text-sky-500 dark:text-sky-300 mr-2"
+            className="mr-2 h-6 w-auto text-sky-500 dark:text-sky-300"
             weight="fill"
           />
         ),

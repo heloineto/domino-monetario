@@ -12,7 +12,7 @@ const GameAiAlgorithmPicker = (props: Props) => {
   return (
     <ButtonGroup>
       <PrimaryButton
-        colorName="purple"
+        colorName="emerald"
         className="w-48"
         variant={game?.aiAlgorithm === 'GREEDY_SEARCH' ? 'contained' : 'outlined'}
         onClick={() =>
@@ -22,11 +22,11 @@ const GameAiAlgorithmPicker = (props: Props) => {
           })
         }
       >
-        Busca Gulosa
+        Fácil
       </PrimaryButton>
       <PrimaryButton
         className="w-48"
-        colorName="purple"
+        colorName="red"
         variant={game?.aiAlgorithm === 'A_START' ? 'contained' : 'outlined'}
         onClick={() =>
           dispatch?.({
@@ -35,7 +35,7 @@ const GameAiAlgorithmPicker = (props: Props) => {
           })
         }
       >
-        A* (A Star)
+        Difícil
       </PrimaryButton>
     </ButtonGroup>
   );

@@ -109,6 +109,18 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgb(255 255 255 / 0.5)',
+          borderWidth: '2px',
+          borderRadius: '1rem',
+          borderColor: 'white',
+          boxShadow:
+            '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+        },
+      },
+    },
     MuiTextField: {
       defaultProps: {
         size: 'small',
