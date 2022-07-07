@@ -16,7 +16,7 @@ const StartMenuRounds = (props: Props) => {
         Rodadas
       </FormLabel>
       <div className="mt-2.5 flex w-full items-center justify-center">
-        <ButtonGroup className="w-full" size="large">
+        <ButtonGroup className="w-full">
           <PrimaryButton
             className="w-1/3"
             colorName="emerald"

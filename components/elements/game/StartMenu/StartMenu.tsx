@@ -2,6 +2,8 @@ import PrimaryButton from '@components/elements/buttons/PrimaryButton';
 import MenuDialog from '@components/elements/dialog/MenuDialog';
 import GameAiAlgorithmPicker from '@components/pageComponents/play/Game/Game.AiAlgorithmPicker';
 import { GameContext } from '@lib/context';
+import billMoneyValues from '@lib/game/constants/billMoneyValues';
+import coinMoneyValues from '@lib/game/constants/coinMoneyValues';
 import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
 import { useContext, useState } from 'react';
 import { StartMenuProvider } from './context/StartMenuContext';
@@ -14,6 +16,7 @@ const StartMenu = (props: Props) => {
   const [coins, setCoins] = useState(true);
   const [bills, setBills] = useState(true);
   const [rounds, setRounds] = useState(1);
+  const [initialHandSize, setInitialHandSize] = useState('13');
 
   return (
     <MenuDialog open={!game?.playing}>
@@ -25,12 +28,29 @@ const StartMenu = (props: Props) => {
           setBills,
           rounds,
           setRounds,
+          initialHandSize,
+          setInitialHandSize,
         }}
       >
         <div className="flex h-full flex-col items-center justify-center gap-y-5">
           <PrimaryButton
             variant="contained"
-            onClick={() => dispatch?.({ type: GAME_ACTIONS_TYPES.START })}
+            onClick={() => {
+              let moneyValues: MoneyValue[] = ['0'];
+
+              if (coins) moneyValues = moneyValues.concat(coinMoneyValues);
+              if (bills) moneyValues = moneyValues.concat(billMoneyValues);
+
+              console.log({ coins, bills }, { moneyValues });
+
+              dispatch?.({
+                type: GAME_ACTIONS_TYPES.START,
+                payload: {
+                  moneyValues,
+                  roundQuantity: rounds,
+                },
+              });
+            }}
           >
             Jogar
           </PrimaryButton>

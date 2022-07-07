@@ -8,6 +8,8 @@ const StartMenuContext = createContext<
       setBills: Dispatch<SetStateAction<boolean>>;
       rounds: number;
       setRounds: Dispatch<SetStateAction<number>>;
+      initialHandSize: string;
+      setInitialHandSize: Dispatch<SetStateAction<string>>;
     }
   | undefined
 >(undefined);

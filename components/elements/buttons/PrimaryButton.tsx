@@ -23,8 +23,8 @@ const PrimaryButton = ({
         backgroundColor: isContained
           ? `${color[100]} !important`
           : `${color[50]}50 !important`,
-        color: color[isContained ? 500 : 600],
-        borderColor: color[400],
+        color: color[isContained ? 500 : 400],
+        borderColor: color[isContained ? 400 : 300],
         '&:hover': {
           backgroundColor: `${color[200]} !important`,
           borderColor: color[500],

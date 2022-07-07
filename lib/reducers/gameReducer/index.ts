@@ -6,6 +6,7 @@ import startRound from './startRound';
 import resetGame from './resetGame';
 import { GAME_ACTIONS_TYPES, GameAction } from './@types';
 import toggleTurn from './toggleTurn';
+import generateDominos from '@lib/game/generateDominos';
 
 const gameReducer = (state: Game, action: GameAction) => {
   let updates: Partial<Game> | undefined;
@@ -14,10 +15,19 @@ const gameReducer = (state: Game, action: GameAction) => {
     case GAME_ACTIONS_TYPES.START: {
       if (state.playing) return state;
 
-      updates = startGame(state.board, state.player, state.enemy, state.deck);
+      const { moneyValues, roundQuantity } = action.payload;
 
-      if (!updates) return state;
-      return { ...state, ...updates };
+      const newGame = resetGame();
+
+      newGame.round.quantity = roundQuantity;
+      newGame.deck = generateDominos(moneyValues);
+
+      console.log(newGame);
+
+      updates = startGame(newGame.board, newGame.player, newGame.enemy, newGame.deck);
+
+      if (!updates) return newGame;
+      return { ...newGame, ...updates };
     }
 
     case GAME_ACTIONS_TYPES.RESET: {
@@ -62,7 +72,7 @@ const gameReducer = (state: Game, action: GameAction) => {
     }
 
     case GAME_ACTIONS_TYPES.START_ROUND: {
-      updates = startRound(state.player, state.enemy);
+      updates = startRound(state.player, state.enemy, state.round);
 
       return { ...state, ...updates };
     }

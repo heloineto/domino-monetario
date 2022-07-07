@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { CaretDown, GearSix } from 'phosphor-react';
 import StartMenuDominos from './StartMenu.Dominos';
 import StartMenuRounds from './StartMenu.Rounds';
+import StartMenuStartingHandSize from './StartMenu.StartingHandSize';
 
 interface Props {}
 
@@ -21,6 +22,7 @@ const StartMenuAdvanced = (props: Props) => {
         </AccordionSummary>
         <AccordionDetails className="flex flex-col gap-5">
           <StartMenuDominos />
+          <StartMenuStartingHandSize />
           <StartMenuRounds />
         </AccordionDetails>
       </Accordion>

@@ -33,7 +33,7 @@ const BoardDominos = ({}: Props) => {
   const firstTile = tiles.at(0);
   const lastTile = tiles.at(-1);
 
-  console.log('lastTile', lastTile);
+  // console.log('lastTile', lastTile);
 
   if (!board) return null;
 

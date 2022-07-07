@@ -1,11 +1,10 @@
 import Money from '@components/pageComponents/play/Money';
+import billMoneyValues from '@lib/game/constants/billMoneyValues';
+import coinMoneyValues from '@lib/game/constants/coinMoneyValues';
 import { FormControl, FormGroup, FormLabel } from '@mui/material';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useStartMenu } from './context/StartMenuContext';
 import StartMenuCheckbox from './StartMenu.Checkbox';
-
-const coinMoneyValues: MoneyValue[] = ['0.05', '0.1', '0.25', '0.5', '1'];
-const billMoneyValues: MoneyValue[] = ['2', '5', '10', '20', '50', '100', '200'];
 
 interface Props {}
 

@@ -16,15 +16,20 @@ export type GameAction =
   | GAHandToBoard
   | GADrawUntilFindPlay
   | GASetAiAlgorithm
-  | GADraw;
+  | GADraw
+  | GAStart;
 
 type GAWithoutPayload = {
   type:
-    | GAME_ACTIONS_TYPES.START
     | GAME_ACTIONS_TYPES.RESET
     | GAME_ACTIONS_TYPES.MAKE_ENEMY_PLAY
     | GAME_ACTIONS_TYPES.START_ROUND
     | GAME_ACTIONS_TYPES.TOGGLE_TURN;
+};
+
+type GAStart = {
+  type: GAME_ACTIONS_TYPES.START;
+  payload: { moneyValues: MoneyValue[]; roundQuantity: number };
 };
 
 type GAHandToBoard = {

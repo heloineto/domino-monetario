@@ -72,12 +72,12 @@ type Board = {
 };
 
 type Game = {
+  dominos: Domino[];
   playing: boolean;
   turn: PlayerId;
   deck: Domino[];
-  roundOver: boolean;
   aiAlgorithm: AIAlgorithm;
-  roundResults: RoundResult[];
+  round: RoundObject;
   winner: Player | 'DRAW' | undefined | null;
   player: Player;
   enemy: Player;
@@ -99,4 +99,10 @@ type Tile = {
 type Rect = {
   width: number;
   height: number;
+};
+
+type RoundObject = {
+  quantity: number;
+  over: boolean;
+  results: RoundResult[];
 };

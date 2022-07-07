@@ -3,8 +3,11 @@ import sumDominos from '@lib/game/player/sumDominos';
 const endRound = (result: RoundResult, game: Game) => {
   const updates: Partial<Game> = {};
 
-  updates.roundOver = true;
-  updates.roundResults = [...game.roundResults, result];
+  updates.round = {
+    ...game.round,
+    over: true,
+    results: [...game.round.results, result],
+  };
 
   if (result === 'DRAW') {
     updates.player = {
@@ -29,7 +32,7 @@ const endRound = (result: RoundResult, game: Game) => {
 
   const newGame = { ...game, ...updates };
 
-  if (newGame.roundResults.length >= 3) {
+  if (newGame.round.results.length >= newGame.round.quantity) {
     let winner: Player | 'DRAW' | undefined;
 
     if (newGame.player.money > newGame.enemy.money) {

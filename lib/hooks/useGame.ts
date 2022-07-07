@@ -15,7 +15,7 @@ const useGame = () => {
 
   useEffect(() => {
     if (!game.playing) return;
-    if (game.roundOver) return;
+    if (game.round.over) return;
 
     if (!hasPlays(game.board, game[game.turn])) {
       if (drawAttempts.current > MAX_DRAW_ATTEMPTS) {

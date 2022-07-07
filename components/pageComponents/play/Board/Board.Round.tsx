@@ -9,7 +9,7 @@ const BoardRound = ({ className, ...restProps }: Props) => {
 
   if (!game) return null;
 
-  if (game.roundOver) return null;
+  if (game.round.over) return null;
 
   return (
     <div
@@ -18,7 +18,7 @@ const BoardRound = ({ className, ...restProps }: Props) => {
         className
       )}
     >
-      <div>{game.roundResults.length + 1}ª Rodada</div>
+      <div>{game.round.results.length + 1}ª Rodada</div>
     </div>
   );
 };

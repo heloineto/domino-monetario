@@ -6,8 +6,8 @@ import findMaxDomino from '@lib/game/player/findMaxDomino';
 import { shuffle } from 'lodash';
 import makePlay from './makePlay';
 
-const startRound = (player: Player, enemy: Player) => {
-  const updates: Partial<Game> = { roundOver: false };
+const startRound = (player: Player, enemy: Player, round: RoundObject) => {
+  const updates: Partial<Game> = { round: { ...round, over: false } };
 
   updates.turn = 'player';
   updates.board = INITIAL_STATE.board;

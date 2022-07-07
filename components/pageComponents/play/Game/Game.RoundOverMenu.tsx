@@ -12,16 +12,16 @@ interface Props {}
 const GameRoundOverMenu = (props: Props) => {
   const { game, dispatch } = useContext(GameContext);
 
-  const roundResults = game?.roundResults;
+  const results = game?.round.results;
 
-  if (!roundResults || isEmpty(roundResults)) return null;
+  if (!results || isEmpty(results)) return null;
 
-  const { message, colorName } = getRoundInfo(roundResults[roundResults.length - 1]);
+  const { message, colorName } = getRoundInfo(results[results.length - 1]);
 
   const color = twColors[colorName];
 
   return (
-    <MenuDialog open={game.roundOver && !game.winner}>
+    <MenuDialog open={game.round.over && !game.winner}>
       <div className="flex h-full flex-col items-center justify-center gap-y-5">
         <div className="font-display text-2xl">Fim do round! Resutado:</div>
         <div className="mb-5 font-display text-6xl" style={{ color: color[700] }}>

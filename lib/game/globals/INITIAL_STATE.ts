@@ -3,6 +3,7 @@ import DOMINOS from '@lib/game/globals/DOMINOS';
 const INITIAL_STATE: Game = {
   playing: false,
   turn: 'player',
+  dominos: DOMINOS,
   deck: DOMINOS,
   player: {
     hand: [],
@@ -21,9 +22,12 @@ const INITIAL_STATE: Game = {
       end: null,
     },
   },
-  roundOver: false,
   aiAlgorithm: 'GREEDY_SEARCH',
-  roundResults: [],
+  round: {
+    quantity: 1,
+    over: false,
+    results: [],
+  },
   winner: null,
 };
 
