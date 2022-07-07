@@ -73,6 +73,7 @@ type Board = {
 
 type Game = {
   dominos: Domino[];
+  initialHandSize: number;
   playing: boolean;
   turn: PlayerId;
   deck: Domino[];

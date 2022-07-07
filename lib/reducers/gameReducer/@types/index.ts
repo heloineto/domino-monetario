@@ -29,7 +29,7 @@ type GAWithoutPayload = {
 
 type GAStart = {
   type: GAME_ACTIONS_TYPES.START;
-  payload: { moneyValues: MoneyValue[]; roundQuantity: number };
+  payload: { moneyValues: MoneyValue[]; roundQuantity: number; initialHandSize: number };
 };
 
 type GAHandToBoard = {

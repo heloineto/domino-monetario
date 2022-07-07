@@ -11,8 +11,6 @@ import { useStartMenu } from './context/StartMenuContext';
 interface Props {}
 
 const formatInitialHandSize = (value: number, dominosCount: number) => {
-  console.log(value, 0, dominosCount / 2);
-
   const formattedValue = Math.floor(clamp(value, 0, dominosCount / 2));
 
   return formattedValue;
@@ -45,7 +43,7 @@ const StartMenuStartingHandSize = (props: Props) => {
       >
         Peças na Mão Inicial
       </FormLabel>
-      <div className="mx-auto mt-1 flex w-60 items-center gap-2.5">
+      <div className="mx-auto mt-1 flex w-48 items-center gap-2.5">
         <SecondaryIconButton
           className="h-9 w-9"
           colorName="orange"
@@ -73,9 +71,8 @@ const StartMenuStartingHandSize = (props: Props) => {
 
             setInitialHandSize(String(valueAsNumber));
           }}
-          InputProps={{
-            className: 'bg-white font-display text-xl',
-          }}
+          InputProps={{ className: 'bg-white font-display text-xl' }}
+          inputProps={{ className: 'text-center' }}
           variant="outlined"
         />
 

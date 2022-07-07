@@ -41,13 +41,18 @@ const StartMenu = (props: Props) => {
               if (coins) moneyValues = moneyValues.concat(coinMoneyValues);
               if (bills) moneyValues = moneyValues.concat(billMoneyValues);
 
-              console.log({ coins, bills }, { moneyValues });
+              let initialHandSizeNumber = Number(initialHandSize);
+
+              if (isNaN(initialHandSizeNumber)) {
+                initialHandSizeNumber = 10;
+              }
 
               dispatch?.({
                 type: GAME_ACTIONS_TYPES.START,
                 payload: {
                   moneyValues,
                   roundQuantity: rounds,
+                  initialHandSize: initialHandSizeNumber,
                 },
               });
             }}

@@ -1,20 +1,25 @@
 import isDouble from '@lib/game/domino/isDouble';
-import { STARTING_HAND_SIZE } from '@lib/game/globals/SETTINGS';
 import draw from '@lib/game/player/draw';
 import findMaxDomino from '@lib/game/player/findMaxDomino';
 import { shuffle } from 'lodash';
 import makePlay from './makePlay';
 
-const startGame = (board: Board, player: Player, enemy: Player, deck: Domino[]) => {
+const startGame = (
+  board: Board,
+  player: Player,
+  enemy: Player,
+  deck: Domino[],
+  initialHandSize: number
+) => {
   const updates: Partial<Game> = { playing: true };
 
   updates.deck = shuffle(deck);
 
-  const firstDraw = draw(player, updates.deck, STARTING_HAND_SIZE);
+  const firstDraw = draw(player, updates.deck, initialHandSize);
   updates.player = firstDraw.player;
   updates.deck = firstDraw.deck;
 
-  const secondDraw = draw(enemy, updates.deck, STARTING_HAND_SIZE);
+  const secondDraw = draw(enemy, updates.deck, initialHandSize);
   updates.enemy = secondDraw.player;
   updates.deck = secondDraw.deck;
 

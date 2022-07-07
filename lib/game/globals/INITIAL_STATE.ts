@@ -1,6 +1,7 @@
 import DOMINOS from '@lib/game/globals/DOMINOS';
 
 const INITIAL_STATE: Game = {
+  initialHandSize: 13,
   playing: false,
   turn: 'player',
   dominos: DOMINOS,
