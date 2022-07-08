@@ -36,10 +36,12 @@ const StartMenu = (props: Props) => {
           <PrimaryButton
             variant="contained"
             onClick={() => {
-              let moneyValues: MoneyValue[] = ['0'];
+              let moneyValues: MoneyValue[] = [];
 
-              if (coins) moneyValues = moneyValues.concat(coinMoneyValues);
               if (bills) moneyValues = moneyValues.concat(billMoneyValues);
+              if (coins) moneyValues = moneyValues.concat(coinMoneyValues);
+
+              moneyValues.push('0');
 
               let initialHandSizeNumber = Number(initialHandSize);
 

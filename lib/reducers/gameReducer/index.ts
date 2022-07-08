@@ -17,8 +17,6 @@ const gameReducer = (state: Game, action: GameAction) => {
 
       const { moneyValues, roundQuantity, initialHandSize } = action.payload;
 
-      console.log('START', action.payload);
-
       const dominos = generateDominos(moneyValues);
 
       const newGame = resetGame(dominos, roundQuantity, initialHandSize);
