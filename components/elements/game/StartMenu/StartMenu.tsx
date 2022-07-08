@@ -5,9 +5,16 @@ import { GameContext } from '@lib/context';
 import billMoneyValues from '@lib/game/constants/billMoneyValues';
 import coinMoneyValues from '@lib/game/constants/coinMoneyValues';
 import { GAME_ACTIONS_TYPES } from '@lib/reducers/gameReducer/@types';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StartMenuProvider } from './context/StartMenuContext';
 import StartMenuAdvanced from './StartMenu.Advanced';
+
+const playAudio = (audio: HTMLAudioElement | null) => {
+  if (!audio) return;
+
+  audio.currentTime = 0;
+  audio.play();
+};
 
 interface Props {}
 
@@ -17,6 +24,21 @@ const StartMenu = (props: Props) => {
   const [bills, setBills] = useState(true);
   const [rounds, setRounds] = useState(1);
   const [initialHandSize, setInitialHandSize] = useState('13');
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const newAudio = new Audio('/bg-music.mp3');
+
+    setAudio(newAudio);
+
+    const play = () => playAudio(newAudio);
+
+    newAudio.addEventListener('ended', play);
+
+    return () => {
+      newAudio.removeEventListener('ended', play);
+    };
+  }, []);
 
   return (
     <MenuDialog open={!game?.playing}>
@@ -36,6 +58,8 @@ const StartMenu = (props: Props) => {
           <PrimaryButton
             variant="contained"
             onClick={() => {
+              playAudio(audio);
+
               let moneyValues: MoneyValue[] = [];
 
               if (bills) moneyValues = moneyValues.concat(billMoneyValues);
