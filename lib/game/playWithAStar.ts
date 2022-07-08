@@ -26,7 +26,7 @@ const playWithAStar = (game: Game, dispatch: Dispatch<GameAction>) => {
       console.log('python response: ', response);
 
       if (Array.isArray(response)) {
-        console.log('RESPOSE IS AN ARRAY, WEIRD');
+        console.log('RESPONSE IS AN ARRAY, WEIRD');
       }
 
       let { piece } = response;

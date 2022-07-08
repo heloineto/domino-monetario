@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import useTiles from './utils/useTiles';
 import classNames from 'clsx';
 
-const DEBUG = false;
+const DEBUG = true;
 
 interface Props {}
 
@@ -32,8 +32,6 @@ const BoardDominos = ({}: Props) => {
 
   const firstTile = tiles[0];
   const lastTile = tiles[tiles.length - 1];
-
-  // console.log('lastTile', lastTile);
 
   if (!board) return null;
 
@@ -96,7 +94,10 @@ const BoardDominos = ({}: Props) => {
           );
         })}
         <div
-          className={classNames('absolute', DEBUG ? 'border-blue-500/50' : null)}
+          className={classNames(
+            'absolute flex items-center justify-center',
+            DEBUG ? 'bg-blue-500/50' : null
+          )}
           style={{
             height: lastTile?.height,
             width: lastTile?.width,

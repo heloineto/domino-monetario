@@ -21,8 +21,6 @@ const gameReducer = (state: Game, action: GameAction) => {
 
       const newGame = resetGame(dominos, roundQuantity, initialHandSize);
 
-      console.log({ newGame, initialHandSize });
-
       updates = startGame(
         newGame.board,
         newGame.player,
@@ -36,8 +34,6 @@ const gameReducer = (state: Game, action: GameAction) => {
     }
 
     case GAME_ACTIONS_TYPES.RESET: {
-      console.log('RESET', state);
-
       return resetGame(state.dominos, state.round.quantity, state.initialHandSize);
     }
 
@@ -79,8 +75,6 @@ const gameReducer = (state: Game, action: GameAction) => {
     }
 
     case GAME_ACTIONS_TYPES.START_ROUND: {
-      console.log('START_ROUND');
-
       updates = startRound(
         state.player,
         state.enemy,

@@ -10,6 +10,16 @@ import { round } from 'lodash';
 import AnimatedCounter from '@components/elements/other/AnimatedCounter';
 import { Tooltip } from '@mui/material';
 
+const getWinCount = (roundResults: RoundResult[], isEnemy: boolean) => {
+  let winCount = 0;
+  const winningResult: RoundResult = isEnemy ? 'ENEMY_WINS' : 'PLAYER_WINS';
+
+  for (const result of roundResults) {
+    if (result === winningResult) winCount += 1;
+  }
+
+  return winCount;
+};
 interface Props extends ComponentProps<typeof motion.div> {
   player: Player;
 }
@@ -28,6 +38,8 @@ const PlayerInfo = ({ player, className, ...restProps }: Props) => {
     style: 'currency',
     currency: 'BRL',
   });
+
+  const winCount = game ? getWinCount(game.round.results, isEnemy) : 0;
 
   return (
     <motion.div
@@ -76,13 +88,13 @@ const PlayerInfo = ({ player, className, ...restProps }: Props) => {
           <div className="mx-2.5 w-px flex-grow bg-slate-900/50" />
 
           <Tooltip
-            title={`${isEnemy ? 'O robô' : 'Você'} venceu ${player.hand.length} rodadas`}
+            title={`${isEnemy ? 'O robô' : 'Você'} venceu ${winCount} rodadas`}
             arrow
             placement="right"
           >
             <div className="flex items-center gap-x-1.5 font-display">
               <Trophy className="h-3 w-3 text-slate-900 xl:h-4 xl:w-4" weight="bold" />
-              {player.hand.length}
+              {winCount}
             </div>
           </Tooltip>
         </div>
