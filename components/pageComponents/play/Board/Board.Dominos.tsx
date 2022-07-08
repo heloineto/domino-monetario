@@ -30,8 +30,8 @@ const BoardDominos = ({}: Props) => {
 
   const { tiles, wrapperRect } = useTiles(dominoRect, boardRect);
 
-  const firstTile = tiles.at(0);
-  const lastTile = tiles.at(-1);
+  const firstTile = tiles[0];
+  const lastTile = tiles[tiles.length - 1];
 
   // console.log('lastTile', lastTile);
 
