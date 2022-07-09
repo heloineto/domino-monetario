@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import useTiles from './utils/useTiles';
 import classNames from 'clsx';
 
-const DEBUG = true;
+const DEBUG = false;
 
 interface Props {}
 
