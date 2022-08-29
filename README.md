@@ -6,6 +6,12 @@
 
 Variação do jogo de dominó utilizando o sistema monetário brasileiro. Esse é um projeto desenvolvido para a matéria de Inteligência Artificial da UTFPR
 
+## Preview
+
+<p align="center">
+  <img  src="https://i.imgur.com/Fe7XpEV.png" alt="game play preview"/>
+</p>
+
 Para rodar o programa no navegador:
 
 1. No navegador, acesse http://domino-monetario.vercel.app/
@@ -16,4 +22,4 @@ Para rodar o programa localmente:
 3. Abra a pasta domino-monetario
 4. Abra o CLI (Terminal) rode o comando `npm install`.
 5. Rode o comando `npm run dev`.
-6. No navegador, acesse http://localhost:3000/ 
+6. No navegador, acesse http://localhost:3000/
