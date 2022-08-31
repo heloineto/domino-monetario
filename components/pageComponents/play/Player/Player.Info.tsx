@@ -9,6 +9,7 @@ import sumDominos from '@lib/game/player/sumDominos';
 import { round } from 'lodash';
 import AnimatedCounter from '@components/elements/other/AnimatedCounter';
 import { Tooltip } from '@mui/material';
+import { useRouter } from 'next/router';
 
 const getWinCount = (roundResults: RoundResult[], isEnemy: boolean) => {
   let winCount = 0;
@@ -28,6 +29,8 @@ const PlayerInfo = ({ player, className, ...restProps }: Props) => {
   const { game } = useContext(GameContext);
   const isEnemy = player.type === 'enemy';
   const isPlayerTurn = game?.turn === player.type;
+
+  const { basePath } = useRouter();
 
   const dominosSum = useMemo(() => sumDominos(player.hand), [player.hand]);
 
@@ -106,7 +109,7 @@ const PlayerInfo = ({ player, className, ...restProps }: Props) => {
         <Tooltip title={isEnemy ? 'Robô' : 'Você'} arrow placement="right">
           {isEnemy ? (
             <div className="absolute -bottom-2 h-12 w-12 rounded-b-2xl xl:-bottom-1.5 xl:left-px xl:h-[3.25rem] xl:w-[3.25rem]">
-              <Image src="/robot/normal.svg" alt="robô" layout="fill" />
+              <Image src={`${basePath}/robot/normal.svg`} alt="robô" layout="fill" />
             </div>
           ) : (
             <div className="flex h-full w-full items-center justify-center font-display text-xl text-orange-900 xl:text-2xl">

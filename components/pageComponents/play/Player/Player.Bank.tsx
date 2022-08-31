@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import classNames from 'clsx';
+import { useRouter } from 'next/router';
 
 interface Props extends ComponentProps<typeof motion.div> {
   player: Player;
 }
 
 const PlayerBank = ({ player, className, ...restProps }: Props) => {
+  const { basePath } = useRouter();
+
   return (
     <motion.div
       className={classNames('relative flex h-20 w-24 lg:h-24 lg:w-28', className)}
@@ -22,7 +25,7 @@ const PlayerBank = ({ player, className, ...restProps }: Props) => {
         </div>
       </div>
       <Image
-        src="/piggy-bank.svg"
+        src={`${basePath}/piggy-bank.svg`}
         layout="fill"
         alt="cofrinho"
         priority
